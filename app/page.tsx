@@ -205,38 +205,37 @@ const standardSurcharge =
 return (
   <main style={{ maxWidth: 1020, margin: "0 auto", padding: 24, fontFamily: "system-ui, sans-serif" }}>
     <header style={{ marginBottom: 22 }}>
-      <h1 style={{ margin: "0 0 6px 0", fontSize: 32 }}>
-        Oštrenje noževa Zagreb
-      </h1>
+  <h1 style={{ margin: "0 0 6px 0", fontSize: 32 }}>
+    Oštrenje noževa Zagreb
+  </h1>
 
-      <p style={{ margin: "0 0 10px 0", opacity: 0.85 }}>
-        Brza obrada (24–48 h). Slanje i povrat putem BOX NOW paketomata.
-      </p>
+  <p style={{ margin: "0 0 10px 0", opacity: 0.85 }}>
+    Brza obrada (24–48 h). Slanje i povrat putem BOX NOW paketomata.
+  </p>
 
-      <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-        <span style={{ border: "1px solid #e6e6e6", borderRadius: 999, padding: "6px 10px", fontSize: 13 }}>
-          4+ kom oštrenja = besplatan povrat
-        </span>
-        <span style={{ border: "1px solid #e6e6e6", borderRadius: 999, padding: "6px 10px", fontSize: 13 }}>
-          8+ kom oštrenja = 10% popusta
-        </span>
-        <span style={{ border: "1px solid #e6e6e6", borderRadius: 999, padding: "6px 10px", fontSize: 13 }}>
-          Preferirani kontakt: e-mail
-        </span>
-      </div>
-    </header>
+  <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+    <span style={{ border: "1px solid #e6e6e6", borderRadius: 999, padding: "6px 10px", fontSize: 13 }}>
+      4+ kom oštrenja = besplatan povrat
+    </span>
+    <span style={{ border: "1px solid #e6e6e6", borderRadius: 999, padding: "6px 10px", fontSize: 13 }}>
+      8+ kom oštrenja = 10% popusta
+    </span>
+    <span style={{ border: "1px solid #e6e6e6", borderRadius: 999, padding: "6px 10px", fontSize: 13 }}>
+      Preferirani kontakt: e-mail
+    </span>
+  </div>
+
+  <div style={{ marginTop: 10, padding: 10, border: "1px solid #ddd", borderRadius: 10 }}>
+    <strong>🎯 Akcije:</strong> 4+ kom oštrenja = besplatan povrat • 8+ kom oštrenja = 10% popusta
+  </div>
+</header>
+
 
     {/* Ovdje dalje ide tvoj sadržaj: section cjenik, sažetak, faq, kontakt... */}
   </main>
 );
 
-
-        <div style={{ marginTop: 10, padding: 10, border: "1px solid #ddd", borderRadius: 10 }}>
-          <strong>🎯 Akcije:</strong> 4+ kom oštrenja = besplatan povrat • 8+ kom oštrenja = 10% popusta
-        </div>
-      </header>
-
-    {/*<section style={{ display: "grid", gridTemplateColumns: "1.2fr 0.8fr", gap: 18 }}>
+    <section style={{ display: "grid", gridTemplateColumns: "1.2fr 0.8fr", gap: 18 }}>
         Cjenik 
         <div style={{ border: "1px solid #ddd", borderRadius: 10, padding: 16 }}>
           <h2 style={{ marginTop: 0 }}>Cjenik</h2>
@@ -441,7 +440,7 @@ return (
           </div>
         </aside>
       </section>
-      */}
+      
 
       {/* FAQ */}
       <section style={{ marginTop: 28, borderTop: "1px solid #eee", paddingTop: 18 }}>
