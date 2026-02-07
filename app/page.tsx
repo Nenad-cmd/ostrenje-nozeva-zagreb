@@ -232,11 +232,10 @@ return (
 
 
     {/* Ovdje dalje ide tvoj sadržaj: section cjenik, sažetak, faq, kontakt... */}
-  </main>
-);
+  
 
     <section style={{ display: "grid", gridTemplateColumns: "1.2fr 0.8fr", gap: 18 }}>
-        Cjenik 
+        
         <div style={{ border: "1px solid #ddd", borderRadius: 10, padding: 16 }}>
           <h2 style={{ marginTop: 0 }}>Cjenik</h2>
 
@@ -328,7 +327,7 @@ return (
           </div>
         </div>
 
-         Sažetak + CTA 
+      {/*Sažetak + CTA */}
         <aside style={{ border: "1px solid #ddd", borderRadius: 10, padding: 16 }}>
           <h2 style={{ marginTop: 0 }}>Sažetak</h2>
 
@@ -439,6 +438,7 @@ return (
             </div>
           </div>
         </aside>
+    </section>
       
       
 
