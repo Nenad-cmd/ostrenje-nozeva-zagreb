@@ -233,7 +233,7 @@ const standardSurcharge =
         </div>
       </header>
 
-      <section style={{ display: "grid", gridTemplateColumns: "1.2fr 0.8fr", gap: 18 }}>
+    {/*<section style={{ display: "grid", gridTemplateColumns: "1.2fr 0.8fr", gap: 18 }}>
         {/* Cjenik */}
         <div style={{ border: "1px solid #ddd", borderRadius: 10, padding: 16 }}>
           <h2 style={{ marginTop: 0 }}>Cjenik</h2>
@@ -438,6 +438,7 @@ const standardSurcharge =
           </div>
         </aside>
       </section>
+      */}
 
       {/* FAQ */}
       <section style={{ marginTop: 28, borderTop: "1px solid #eee", paddingTop: 18 }}>
