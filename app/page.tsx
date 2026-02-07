@@ -1,5 +1,92 @@
 "use client";
 
+const styles = {
+  page: {
+    maxWidth: 1100,
+    margin: "0 auto",
+    padding: 20,
+    fontFamily: "system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif",
+    lineHeight: 1.4 as const,
+  },
+  topbar: {
+    display: "flex",
+    justifyContent: "space-between",
+    gap: 12,
+    alignItems: "flex-start",
+    flexWrap: "wrap" as const,
+    marginBottom: 18,
+  },
+  brand: { margin: 0, fontSize: 30, letterSpacing: -0.5 },
+  sub: { margin: "6px 0 0 0", opacity: 0.85 },
+  badgeRow: { display: "flex", gap: 8, flexWrap: "wrap" as const, marginTop: 10 },
+  badge: {
+    border: "1px solid #e6e6e6",
+    borderRadius: 999,
+    padding: "6px 10px",
+    fontSize: 13,
+    background: "#fafafa",
+  },
+  layout: {
+    display: "grid",
+    gridTemplateColumns: "1.25fr 0.75fr",
+    gap: 16,
+  },
+  card: {
+    border: "1px solid #eaeaea",
+    borderRadius: 14,
+    padding: 16,
+    background: "#fff",
+    boxShadow: "0 1px 10px rgba(0,0,0,0.04)",
+  },
+  cardTitle: { margin: "0 0 12px 0", fontSize: 20 },
+  sectionTitle: { margin: "18px 0 10px 0", fontSize: 16, opacity: 0.9 },
+  row: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    gap: 10,
+    border: "1px solid #f0f0f0",
+    borderRadius: 12,
+    padding: 12,
+  },
+  price: { opacity: 0.75, fontSize: 13, marginTop: 3 },
+  qtyWrap: { display: "flex", alignItems: "center", gap: 8 },
+  qtyInput: {
+    width: 84,
+    padding: 10,
+    borderRadius: 10,
+    border: "1px solid #d9d9d9",
+    textAlign: "center" as const,
+  },
+  select: { width: "100%", padding: 10, borderRadius: 10, border: "1px solid #d9d9d9" },
+  divider: { borderTop: "1px solid #f0f0f0", margin: "12px 0" },
+  totalRow: { display: "flex", justifyContent: "space-between", fontSize: 18, marginTop: 6 },
+  btnPrimary: {
+    textAlign: "center" as const,
+    padding: "12px 12px",
+    borderRadius: 12,
+    background: "#111",
+    color: "#fff",
+    textDecoration: "none",
+    border: "1px solid #111",
+    cursor: "pointer",
+  },
+  btnGhost: {
+    textAlign: "center" as const,
+    padding: "12px 12px",
+    borderRadius: 12,
+    background: "#fff",
+    color: "#111",
+    textDecoration: "none",
+    border: "1px solid #d9d9d9",
+    cursor: "pointer",
+  },
+  small: { fontSize: 12, opacity: 0.8, lineHeight: 1.45 },
+  footerSection: { marginTop: 18, borderTop: "1px solid #f0f0f0", paddingTop: 16 },
+  // responsive fallback (simple)
+  mobileHint: { fontSize: 12, opacity: 0.65, marginTop: 6 },
+};
+
 import { useMemo, useState } from "react";
 
 type Line = { id: string; name: string; price: number; kind: "base" | "addon" };
@@ -118,11 +205,28 @@ const standardSurcharge =
 
   return (
     <main style={{ maxWidth: 1020, margin: "0 auto", padding: 24, fontFamily: "system-ui, sans-serif" }}>
-      <header style={{ marginBottom: 18 }}>
-        <h1 style={{ margin: "0 0 8px 0" }}>Oštrenje noževa Zagreb</h1>
-        <p style={{ margin: 0 }}>
-          Brza obrada (24–48 h). Slanje i povrat putem BOX NOW paketomata.
-        </p>
+       <header style={{ marginBottom: 22 }}>
+  <h1 style={{ margin: "0 0 6px 0", fontSize: 32 }}>
+    Oštrenje noževa Zagreb
+  </h1>
+
+  <p style={{ margin: "0 0 10px 0", opacity: 0.85 }}>
+    Brza obrada (24–48 h). Slanje i povrat putem BOX NOW paketomata.
+  </p>
+
+  <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+    <span style={{ border: "1px solid #e6e6e6", borderRadius: 999, padding: "6px 10px", fontSize: 13 }}>
+      4+ kom oštrenja = besplatan povrat
+    </span>
+    <span style={{ border: "1px solid #e6e6e6", borderRadius: 999, padding: "6px 10px", fontSize: 13 }}>
+      8+ kom oštrenja = 10% popusta
+    </span>
+    <span style={{ border: "1px solid #e6e6e6", borderRadius: 999, padding: "6px 10px", fontSize: 13 }}>
+      Preferirani kontakt: e-mail
+    </span>
+  </div>
+</header>
+
 
         <div style={{ marginTop: 10, padding: 10, border: "1px solid #ddd", borderRadius: 10 }}>
           <strong>🎯 Akcije:</strong> 4+ kom oštrenja = besplatan povrat • 8+ kom oštrenja = 10% popusta
