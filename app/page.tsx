@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 type Line = { id: string; name: string; price: number; kind: "base" | "addon" };
 
 const baseLines: Line[] = [
+  { id: "knife_standard", name: "Oštrenje noža (standard)", price: 3, kind: "base" }
   { id: "knife_58plus", name: "Oštrenje noža (58+ HRC)", price: 5, kind: "base" },
   { id: "serrated", name: "Oštrenje nazubljenog noža", price: 6, kind: "base" },
   { id: "scissors", name: "Oštrenje škara", price: 5, kind: "base" },
@@ -45,6 +46,11 @@ export default function Page() {
     () => baseLines.reduce((sum, l) => sum + (qty[l.id] || 0), 0),
     [qty]
   );
+  const standardCount = qty["knife_standard"] || 0;
+
+const standardSurcharge =
+  standardCount > 0 && standardCount < 4 ? 2 : 0;
+
   const addonCount = useMemo(
     () => addonLines.reduce((sum, l) => sum + (qty[l.id] || 0), 0),
     [qty]
