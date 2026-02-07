@@ -5,7 +5,7 @@ import { useMemo, useState } from "react";
 type Line = { id: string; name: string; price: number; kind: "base" | "addon" };
 
 const baseLines: Line[] = [
-  { id: "knife_standard", name: "Oštrenje noža (standard)", price: 3, kind: "base" }
+  { id: "knife_standard", name: "Oštrenje noža (standard)", price: 3, kind: "base" },
   { id: "knife_58plus", name: "Oštrenje noža (58+ HRC)", price: 5, kind: "base" },
   { id: "serrated", name: "Oštrenje nazubljenog noža", price: 6, kind: "base" },
   { id: "scissors", name: "Oštrenje škara", price: 5, kind: "base" },
@@ -20,6 +20,7 @@ const RETURN_OPTIONS = [
   { id: "S", label: "Povrat BOX NOW S (≈ 1,80 €)", price: 1.8 },
   { id: "M", label: "Povrat BOX NOW M (≈ 4,00 €)", price: 4.0 },
 ];
+
 
 function eur(n: number) {
   return new Intl.NumberFormat("hr-HR", { style: "currency", currency: "EUR" }).format(n);
@@ -72,7 +73,7 @@ const standardSurcharge =
   // Povrat besplatan kad je 4+ kom oštrenja
   const returnShipping = baseCount >= 4 ? 0 : returnOpt.price;
 
-  const total = Math.max(0, subtotalBase - discount) + subtotalAddons + returnShipping;
+  const total = Math.max(0, subtotalBase - discount) + subtotalAddons + returnShipping + standardSurcharge;
 
   const baseSummary = baseLines
     .filter((l) => (qty[l.id] || 0) > 0)
