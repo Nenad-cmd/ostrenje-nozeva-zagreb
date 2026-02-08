@@ -191,10 +191,9 @@ const standardSurcharge =
     const val = Math.max(0, Math.min(99, Number.isFinite(v) ? v : 0));
     setQty((prev) => ({ ...prev, [id]: val }));
   };
+      const reset = () => setQty(Object.fromEntries(lines.map((l) => [l.id, 0])));
 
-  const reset = () => setQty(Object.fromEntries(lines.map((l) => [l.id, 0])));
-
-  const mailSubject = encodeURIComponent(`Upit za oštrenje noževa – ${code}`);
+  const mailSubject = encodeURIComponent(`Narudžba za oštrenje noževa – ${code}`);
   const mailBody = encodeURIComponent(
     `Šifra narudžbe: ${code}\n\n` +
       `Oštrenje (komada: ${baseCount}):\n${baseSummary || "-"}\n\n` +
@@ -203,36 +202,42 @@ const standardSurcharge =
       `Paketomat za povrat (grad + lokacija):\n` +
       `Napomena:\n`
   );
-return (
-  <>
-  {/* HERO SEKCIJA */}
-<section
-  style={{
-    maxWidth: 1100,
-    margin: "0 auto",
-    padding: "20px",
-  }}
->
-  <div
-    style={{
-      borderRadius: 18,
-      overflow: "hidden",
-      border: "1px solid #eaeaea",
-      height: 360,
-    }}
-  >
-    <img
-      src="/hero.webp"
-      alt="Oštrenje noževa Zagreb – Byway"
-      style={{
-        width: "100%",
-        height: "100%",
-        objectFit: "cover",
-        display: "block",
-      }}
-    />
-  </div>
-</section>
+
+  return (
+    <>
+      {/* HERO SEKCIJA */}
+      <section
+        style={{
+          maxWidth: 1100,
+          margin: "0 auto",
+          padding: "20px",
+        }}
+      >
+        <div
+          style={{
+            borderRadius: 18,
+            overflow: "hidden",
+            border: "1px solid #eaeaea",
+            height: 360,
+          }}
+        >
+          <img
+            src="/hero.webp"
+            alt="Oštrenje noževa Zagreb – Byway"
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              display: "block",
+            }}
+          />
+        </div>
+      </section>
+    </>
+  );
+
+
+
 
   <main style={{ maxWidth: 1020, margin: "0 auto", padding: 24, fontFamily: "system-ui, sans-serif" }}>
     <header style={{ marginBottom: 22 }}>
