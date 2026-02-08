@@ -450,25 +450,37 @@ return (
                 textDecoration: "none",
               }}
             >
-              Pošalji narudžbu na WhatsApp
-            </a>
+             <a
+  href={`mailto:bruslab3@gmail.com?subject=${mailSubject}&body=${mailBody}`}
+  style={{
+    textAlign: "center",
+    padding: "12px 12px",
+    borderRadius: 10,
+    border: "1px solid #111",
+    background: "#fff",
+    color: "#111",
+    textDecoration: "none",
+  }}
+>
+  Pošalji narudžbu e-mailom (preferirano)
+</a>
 
-            <a
-              href={`mailto:bruslab3@gmail.com?subject=${mailSubject}&body=${mailBody}`}
-              style={{
-                textAlign: "center",
-                padding: "12px 12px",
-                borderRadius: 10,
-                border: "1px solid #111",
-                background: "#fff",
-                color: "#111",
-                textDecoration: "none",
-              }}
-            >
-              Pošalji upit e-mailom (preferirano)
-            </a>
+<a
+  href={`https://wa.me/385959105056?text=${messageWA}`}
+  style={{
+    textAlign: "center",
+    padding: "12px 12px",
+    borderRadius: 10,
+    background: "#111",
+    color: "#fff",
+    textDecoration: "none",
+  }}
+>
+  Pošalji narudžbu na WhatsApp
+</a>
 
-            <button
+
+             <button
               onClick={reset}
               style={{
                 padding: "10px 12px",
