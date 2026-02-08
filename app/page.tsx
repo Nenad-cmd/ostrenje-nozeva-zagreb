@@ -227,7 +227,24 @@ return (
 
   <div style={{ marginTop: 10, padding: 10, border: "1px solid #ddd", borderRadius: 10 }}>
     <strong>🎯 Akcije:</strong> 4+ kom oštrenja = besplatan povrat • 8+ kom oštrenja = 10% popusta
+  </div>  <div style={{ marginTop: 14 }}>
+    <a
+      href="/box-now"
+      style={{
+        display: "inline-block",
+        padding: "8px 12px",
+        borderRadius: 8,
+        border: "1px solid #111",
+        textDecoration: "none",
+        color: "#111",
+        fontWeight: 600,
+        fontSize: 14,
+      }}
+    >
+      📦 Kako poslati noževe (BOX NOW upute)
+    </a>
   </div>
+
 </header>
 
 
