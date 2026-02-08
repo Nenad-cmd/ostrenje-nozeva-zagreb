@@ -187,11 +187,12 @@ const standardSurcharge =
       `Ime i prezime:\nMobitel:\nPaketomat za povrat (grad + lokacija):\n`
   );
 
-  const setLineQty = (id: string, v: number) => {
+    const setLineQty = (id: string, v: number) => {
     const val = Math.max(0, Math.min(99, Number.isFinite(v) ? v : 0));
     setQty((prev) => ({ ...prev, [id]: val }));
   };
-      const reset = () => setQty(Object.fromEntries(lines.map((l) => [l.id, 0])));
+
+  const reset = () => setQty(Object.fromEntries(lines.map((l) => [l.id, 0])));
 
   const mailSubject = encodeURIComponent(`Narudžba za oštrenje noževa – ${code}`);
   const mailBody = encodeURIComponent(
@@ -202,6 +203,7 @@ const standardSurcharge =
       `Paketomat za povrat (grad + lokacija):\n` +
       `Napomena:\n`
   );
+
 
   return (
     <>
