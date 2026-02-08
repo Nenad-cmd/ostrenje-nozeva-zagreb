@@ -1,3 +1,5 @@
+"use client";
+
 export default function BoxNowPage() {
   return (
     <main
@@ -17,6 +19,18 @@ export default function BoxNowPage() {
 
       <section style={{ marginTop: 24 }}>
         <h2>Koraci slanja</h2>
+        const copyRecipient = async () => {
+  const text = `Primatelj: Byway
+E-mail: bruslab3@gmail.com
+Paketomat: Dubrava 222, Zagreb`;
+
+  try {
+    await navigator.clipboard.writeText(text);
+    alert("Podaci za primatelja su kopirani ✔️");
+  } catch {
+    alert("Kopiranje nije uspjelo. Kopiraj ručno.");
+  }
+};
 
         <ol style={{ paddingLeft: 18 }}>
           <li>
@@ -35,16 +49,46 @@ export default function BoxNowPage() {
             </ul>
           </li>
 
-          <li>
-            <strong>Unesi podatke za slanje</strong>
-            <ul>
-              <li>Primatelj: <strong>BrusLab</strong></li>
-              <li>Kontakt: e-mail ili mobitel (tvoj)</li>
-              <li>
-                U napomenu upiši: <em>ime, prezime + šifru narudžbe</em>
-              </li>
-            </ul>
-          </li>
+         <li>
+  <strong>Unesi podatke za slanje</strong>
+  <ul>
+    <li>
+      <strong>Primatelj (kome šalješ paket):</strong><br />
+      Byway<br />
+      E-mail: bruslab3@gmail.com<br />
+      Paketomat: <strong>Dubrava 222, Zagreb</strong>
+      <div style={{ marginTop: 10 }}>
+  <button
+    onClick={copyRecipient}
+    style={{
+      padding: "8px 12px",
+      borderRadius: 8,
+      border: "1px solid #111",
+      background: "#fff",
+      cursor: "pointer",
+      fontWeight: 600,
+    }}
+  >
+    📋 Kopiraj podatke za primatelja
+  </button>
+</div>
+
+    </li>
+    <li style={{ marginTop: 8 }}>
+      <strong>Pošiljatelj (ti):</strong><br />
+      Upiši svoje ime i svoj mobitel ili e-mail
+    </li>
+    <li style={{ marginTop: 8 }}>
+      <strong>Paketomat za povrat:</strong><br />
+      Odaberi <strong>svoj</strong> najbliži BOX NOW paketomat (gdje želiš preuzeti paket natrag)
+    </li>
+    <li style={{ marginTop: 8 }}>
+      <strong>Napomena:</strong><br />
+      Upiši svoje ime i šifru narudžbe
+    </li>
+  </ul>
+</li>
+
 
           <li>
             <strong>Pošalji paket</strong>
