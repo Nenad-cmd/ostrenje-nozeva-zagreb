@@ -203,6 +203,7 @@ const standardSurcharge =
       `Napomena:\n`
   );
 return (
+  <>
   {/* HERO SEKCIJA */}
 <section
   style={{
@@ -557,5 +558,6 @@ return (
         </p>
       </section>
     </main>
+  </>
   );
 }
