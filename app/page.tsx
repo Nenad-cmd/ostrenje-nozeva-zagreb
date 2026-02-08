@@ -173,7 +173,7 @@ const standardSurcharge =
     .map((l) => `- ${l.name} x ${qty[l.id]} = ${eur(qty[l.id] * l.price)}`)
     .join("\n");
 
-  const messageWA = encodeURIComponent(
+   const messageWA = encodeURIComponent(
     `Pozdrav! Želim naručiti oštrenje.\n\n` +
       `Šifra narudžbe: ${code}\n\n` +
       `Oštrenje (komada: ${baseCount}):\n${baseSummary || "- (nije odabrano)"}\n\n` +
@@ -187,7 +187,7 @@ const standardSurcharge =
       `Ime i prezime:\nMobitel:\nPaketomat za povrat (grad + lokacija):\n`
   );
 
-    const setLineQty = (id: string, v: number) => {
+  const setLineQty = (id: string, v: number) => {
     const val = Math.max(0, Math.min(99, Number.isFinite(v) ? v : 0));
     setQty((prev) => ({ ...prev, [id]: val }));
   };
@@ -203,8 +203,7 @@ const standardSurcharge =
       `Paketomat za povrat (grad + lokacija):\n` +
       `Napomena:\n`
   );
-
-
+  
   return (
     <>
       {/* HERO SEKCIJA */}
