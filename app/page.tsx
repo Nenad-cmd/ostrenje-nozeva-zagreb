@@ -570,39 +570,42 @@ const isCustomerOk =
               <strong>{eur(total)}</strong>
             </div>
           </div>
-        <div style={{ display: "grid", gap: 10, marginTop: 14 }}>
-  <a
-    href={`mailto:bruslab3@gmail.com?subject=${mailSubject}&body=${mailBody}`}
-    style={{
-      textAlign: "center",
-      padding: "12px 12px",
-      borderRadius: 10,
-      border: "1px solid #111",
-      background: "#fff",
-      color: "#111",
-      textDecoration: "none",
-      fontWeight: 600,
-    }}
-  >
-    Pošalji narudžbu e-mailom (preferirano)
-  </a>
-
-  <a
-    href={`https://wa.me/385959105056?text=${messageWA}`}
-    style={{
-      textAlign: "center",
-      padding: "12px 12px",
-      borderRadius: 10,
-      background: "#111",
-      color: "#fff",
-      textDecoration: "none",
-      fontWeight: 600,
-    }}
-  >
-    Pošalji narudžbu na WhatsApp
-  </a>
+     <div style={{ display: "grid", gap: 10, marginTop: 14 }}>
+       
+  <button onClick={submitOrder} ...>
+  Pošalji narudžbu
+</button>
 
   <button
+    type="button"
+    onClick={downloadPaymentPdf}
+    disabled={!isCustomerOk}
+    style={{
+      padding: "12px",
+      borderRadius: 10,
+      border: "1px solid #111",
+      background: isCustomerOk ? "#111" : "#999",
+      color: "#fff",
+      cursor: isCustomerOk ? "pointer" : "not-allowed",
+      fontWeight: 700,
+    }}
+  >
+    ⬇️ Preuzmi PDF uplatnicu
+  </button>
+
+  <img
+    src={pdf417Url}
+    alt="2D barkod za uplatu (HUB-3 PDF417)"
+    style={{
+      width: "100%",
+      height: "auto",
+      borderRadius: 12,
+      border: "1px solid #eee",
+    }}
+  />
+
+  <button
+    type="button"
     onClick={reset}
     style={{
       padding: "10px 12px",
@@ -612,39 +615,23 @@ const isCustomerOk =
       cursor: "pointer",
     }}
   >
-    <button
-  onClick={downloadPaymentPdf}
-  style={{
-    padding: "12px",
-    borderRadius: 10,
-    border: "1px solid #111",
-    background: "#111",
-    color: "#fff",
-    cursor: "pointer",
-    fontWeight: 700,
-  }}
->
-  ⬇️ Preuzmi PDF uplatnicu
-</button>
-    <img
-  src={pdf417Url}
-  alt="2D barkod za uplatu (HUB-3 PDF417)"
-  style={{
-    width: "100%",
-    height: "auto",
-    borderRadius: 12,
-    border: "1px solid #eee",
-  }}
-/>
-
-
     Reset
   </button>
 
   <div style={{ fontSize: 12, opacity: 0.8, lineHeight: 1.4 }}>
     Kupac plaća slanje prema meni (BOX NOW). Povrat je besplatan za <strong>4+</strong> kom oštrenja.
+    <div style={{ marginTop: 6 }}>
+      Račun šaljem e-mailom nakon evidentirane uplate.
+    </div>
   </div>
+
+  {!isCustomerOk && (
+    <div style={{ fontSize: 12, opacity: 0.7 }}>
+      Za slanje narudžbe i uplatnicu obavezno ispuni: ime, mobitel, e-mail i paketomat za povrat.
+    </div>
+  )}
 </div>
+
 </aside>
     </section>
       
