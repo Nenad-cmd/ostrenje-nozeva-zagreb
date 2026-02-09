@@ -135,13 +135,6 @@ const [customerPhone, setCustomerPhone] = useState("");
 const [customerEmail, setCustomerEmail] = useState("");
 const [returnLocker, setReturnLocker] = useState("");
 
-  
-  const [customerName, setCustomerName] = useState("");
-const [customerEmail, setCustomerEmail] = useState("");
-
-const isCustomerOk =
-  customerName.trim().length >= 2 && customerEmail.includes("@");
-
   const baseCount = useMemo(
     () => baseLines.reduce((sum, l) => sum + (qty[l.id] || 0), 0),
     [qty]
