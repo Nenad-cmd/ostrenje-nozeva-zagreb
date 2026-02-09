@@ -290,7 +290,7 @@ const pdf417Url =
   const downloadPaymentPdf = async () => {
   const { jsPDF } = await import("jspdf");
 
-  const res = await fetch(qrUrl);
+  const res = await fetch(pdf417Url);
   const blob = await res.blob();
 
   const dataUrl: string = await new Promise((resolve, reject) => {
@@ -318,7 +318,8 @@ const pdf417Url =
     75
   );
 
-  doc.text("QR za uplatu:", 140, 35);
+ doc.text("2D barkod za uplatu (HUB-3):", 140, 35);
+
   doc.addImage(dataUrl, "PNG", 140, 40, 50, 50);
 
   doc.save(`uplata_${paymentReference}.pdf`);
@@ -615,6 +616,17 @@ const pdf417Url =
 >
   ⬇️ Preuzmi PDF uplatnicu
 </button>
+    <img
+  src={pdf417Url}
+  alt="2D barkod za uplatu (HUB-3 PDF417)"
+  style={{
+    width: "100%",
+    height: "auto",
+    borderRadius: 12,
+    border: "1px solid #eee",
+  }}
+/>
+
 
     Reset
   </button>
