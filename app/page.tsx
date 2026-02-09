@@ -500,7 +500,7 @@ const standardSurcharge =
         </p>
 
         <p>
-          Takvi noževi dulje zadržavaju oštrinu, ali zahtijevaju preciznije oštrenje.
+          Takvi noževi dulje zadržavaju oštrinu, ali zahtijevaju više vremena prilikom oštrenje.
           Ako niste sigurni u tvrdoću, nož se može procijeniti nakon pregleda.
         </p>
       </section>
