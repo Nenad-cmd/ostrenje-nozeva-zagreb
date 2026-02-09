@@ -129,6 +129,12 @@ export default function Page() {
   );
   const [returnOpt, setReturnOpt] = useState(RETURN_OPTIONS[0]);
   const [code] = useState(orderCode);
+  
+  const [customerName, setCustomerName] = useState("");
+const [customerEmail, setCustomerEmail] = useState("");
+
+const isCustomerOk =
+  customerName.trim().length >= 2 && customerEmail.includes("@");
 
   const baseCount = useMemo(
     () => baseLines.reduce((sum, l) => sum + (qty[l.id] || 0), 0),
