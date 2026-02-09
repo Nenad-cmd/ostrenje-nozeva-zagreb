@@ -176,8 +176,15 @@ const standardSurcharge =
     .filter((l) => (qty[l.id] || 0) > 0)
     .map((l) => `- ${l.name} x ${qty[l.id]} = ${eur(qty[l.id] * l.price)}`)
     .join("\n");
+  const customerBlock =
+  `Kupac: ${customerName}\n` +
+  `Mobitel: ${customerPhone}\n` +
+  `E-mail (za račun): ${customerEmail}\n` +
+  `Paketomat za povrat: ${returnLocker}\n\n`;
+
 
   const messageWA = encodeURIComponent(
+    customerBlock +
     `Pozdrav! Želim naručiti oštrenje.\n\n` +
       `Šifra narudžbe: ${code}\n\n` +
       `Oštrenje (komada: ${baseCount}):\n${baseSummary || "- (nije odabrano)"}\n\n` +
@@ -240,22 +247,6 @@ const pdf417Url =
   const amountEur = total.toFixed(2);
   const paymentReference = code;
 
-  const epcQrText =
-    `BCD\n` +
-    `001\n` +
-    `1\n` +
-    `SCT\n` +
-    `\n` +
-    `${PAYEE_NAME}\n` +
-    `${PAYEE_IBAN}\n` +
-    `EUR${amountEur}\n` +
-    `\n` +
-    `\n` +
-    `Ostrenje nozeva\n` +
-    `${paymentReference}`;
-
-  const qrUrl =
-    `https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=${encodeURIComponent(epcQrText)}`;
 
   const copyPayment = async () => {
     const text =
@@ -283,13 +274,22 @@ const pdf417Url =
 
   const mailSubject = encodeURIComponent(`Narudžba za oštrenje noževa – ${code}`);
   const mailBody = encodeURIComponent(
-    `Šifra narudžbe: ${code}\n\n` +
-      `Oštrenje (komada: ${baseCount}):\n${baseSummary || "-"}\n\n` +
-      `Dodaci / popravci:\n${addonSummary || "-"}\n\n` +
-      `Ukupno: ${eur(total)}\n\n` +
-      `Paketomat za povrat (grad + lokacija):\n` +
-      `Napomena:\n`
-  );
+  customerBlock +
+  `Šifra narudžbe: ${code}\n\n` +
+  `Oštrenje (komada: ${baseCount}):\n${baseSummary || "-"}\n\n` +
+  `Dodaci / popravci:\n${addonSummary || "-"}\n\n` +
+  `Ukupno: ${eur(total)}\n\n` +
+  `Napomena:\n`
+);
+  const phoneOk = customerPhone.replace(/\D/g, "").length >= 8;
+
+const isCustomerOk =
+  baseCount > 0 &&
+  customerName.trim().length >= 2 &&
+  phoneOk &&
+  customerEmail.includes("@") &&
+  returnLocker.trim().length >= 3;
+
   const downloadPaymentPdf = async () => {
   const { jsPDF } = await import("jspdf");
 
