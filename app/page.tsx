@@ -173,7 +173,7 @@ const standardSurcharge =
     .map((l) => `- ${l.name} x ${qty[l.id]} = ${eur(qty[l.id] * l.price)}`)
     .join("\n");
 
-  const messageWA = encodeURIComponent(
+  {/*const messageWA = encodeURIComponent(
     `Pozdrav! Želim naručiti oštrenje.\n\n` +
       `Šifra narudžbe: ${code}\n\n` +
       `Oštrenje (komada: ${baseCount}):\n${baseSummary || "- (nije odabrano)"}\n\n` +
@@ -201,7 +201,7 @@ const standardSurcharge =
       `Dodaci / popravci:\n${addonSummary || "-"}\n\n` +
       `Ukupno: ${eur(total)}\n\n` +
       `Paketomat za povrat (grad + lokacija):\n` +
-      `Napomena:\n`
+      `Napomena:\n`*/)
   );
   
   return (
