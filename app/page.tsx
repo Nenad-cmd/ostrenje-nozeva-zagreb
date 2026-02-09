@@ -185,9 +185,7 @@ const standardSurcharge =
       `Napomena: Cijena popravka se dodaje na cijenu oštrenja.\n\n` +
       `Ime i prezime:\nMobitel:\nPaketomat za povrat (grad + lokacija):\n`
   );
-    // === PODACI ZA UPLATU (IBAN / QR) ===
-  const PAYEE_NAME = "Byway";
-  const PAYEE_IBAN = "HR0324840081135329520";
+  
   // === HUB-3 (HRVHUB30) za HR banke - PDF417 izduženi barkod ===
 const PAYEE_NAME = "Byway";
 const PAYEE_IBAN = "HR0324840081135329520";
