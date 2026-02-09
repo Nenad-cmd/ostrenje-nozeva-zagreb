@@ -188,6 +188,51 @@ const standardSurcharge =
     // === PODACI ZA UPLATU (IBAN / QR) ===
   const PAYEE_NAME = "Byway";
   const PAYEE_IBAN = "HR0324840081135329520";
+  // === HUB-3 (HRVHUB30) za HR banke - PDF417 izduženi barkod ===
+const PAYEE_NAME = "Byway";
+const PAYEE_IBAN = "HR0324840081135329520";
+const PAYEE_ADDR1 = "Golska 13";
+const PAYEE_CITY = "10040 Zagreb";
+
+const payerName = (customerName || "").toUpperCase().slice(0, 30);
+const payerAddr1 = ""; // kupac obično nema potrebe upisivati adresu
+const payerCity = "";  // može ostati prazno
+
+// Iznos u eurocentima, 15 znakova, vodeće nule (po HUB specifikaciji)
+const amountCents = String(Math.round(total * 100)).padStart(15, "0");
+
+// Poziv na broj: preporuka HR00 + tvoja šifra (skraćeno do 22 znaka)
+const model = "HR00";
+const reference = String(code).slice(0, 22);
+
+// Šifra namjene (4 slova) - može COST ili OTHR
+const purpose = "COST";
+
+// Opis max 35 znakova
+const description = `Ostrenje nozeva ${code}`.slice(0, 35);
+
+// HUB-3 payload (14 polja, odvojeno novim redom)
+const hub3Text = [
+  "HRVHUB30",
+  "EUR",
+  amountCents,
+  payerName,
+  payerAddr1,
+  payerCity,
+  PAYEE_NAME.toUpperCase().slice(0, 25),
+  PAYEE_ADDR1.toUpperCase().slice(0, 25),
+  PAYEE_CITY.toUpperCase().slice(0, 27),
+  PAYEE_IBAN.replace(/\s+/g, "").slice(0, 21),
+  model,
+  reference,
+  purpose,
+  description,
+].join("\n");
+
+// Izduženi PDF417 barkod preko bwipjs API (slika)
+const pdf417Url =
+  `https://bwipjs-api.metafloor.com/?bcid=pdf417&scale=2&eclevel=5&includetext=false&text=${encodeURIComponent(hub3Text)}`;
+
 
   const amountEur = total.toFixed(2);
   const paymentReference = code;
