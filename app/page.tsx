@@ -129,6 +129,12 @@ export default function Page() {
   );
   const [returnOpt, setReturnOpt] = useState(RETURN_OPTIONS[0]);
   const [code] = useState(orderCode);
+
+const [customerName, setCustomerName] = useState("");
+const [customerPhone, setCustomerPhone] = useState("");
+const [customerEmail, setCustomerEmail] = useState("");
+const [returnLocker, setReturnLocker] = useState("");
+
   
   const [customerName, setCustomerName] = useState("");
 const [customerEmail, setCustomerEmail] = useState("");
