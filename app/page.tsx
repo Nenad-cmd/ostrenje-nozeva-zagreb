@@ -95,6 +95,19 @@ export default function Page() {
     .filter((l) => (qty[l.id] || 0) > 0)
     .map((l) => `- ${l.name} x ${qty[l.id]} = ${eur((qty[l.id] || 0) * l.price)}`)
     .join("\n");
+  const messageWA = encodeURIComponent(
+  `Pozdrav! Želim naručiti oštrenje.\n\n` +
+    `Šifra narudžbe: ${code}\n\n` +
+    `Kupac:\n` +
+    `Ime i prezime: ${customerName}\n` +
+    `Mobitel: ${customerPhone}\n` +
+    `E-mail: ${customerEmail}\n` +
+    `Paketomat za povrat: ${returnLocker}\n\n` +
+    `Oštrenje (komada: ${baseCount}):\n${baseSummary || "-"}\n\n` +
+    `Dodaci / popravci (komada: ${addonCount}):\n${addonSummary || "-"}\n\n` +
+    `Ukupno: ${eur(total)}\n`
+);
+
 
   // validacija kupca
   const phoneOk = customerPhone.replace(/\D/g, "").length >= 8;
