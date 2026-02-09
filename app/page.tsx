@@ -201,8 +201,8 @@ const standardSurcharge =
       `Dodaci / popravci:\n${addonSummary || "-"}\n\n` +
       `Ukupno: ${eur(total)}\n\n` +
       `Paketomat za povrat (grad + lokacija):\n` +
-      `Napomena:\n`*/)
-  );
+      `Napomena:\n`
+  );*/}
   
   return (
     <>
