@@ -270,7 +270,14 @@ const pdf417Url =
     setQty((prev) => ({ ...prev, [id]: val }));
   };
 
-  const reset = () => setQty(Object.fromEntries(lines.map((l) => [l.id, 0])));
+const reset = () => {
+  setQty(Object.fromEntries(lines.map((l) => [l.id, 0])));
+  setCustomerName("");
+  setCustomerPhone("");
+  setCustomerEmail("");
+  setReturnLocker("");
+};
+
 
   const mailSubject = encodeURIComponent(`Narudžba za oštrenje noževa – ${code}`);
   const mailBody = encodeURIComponent(
