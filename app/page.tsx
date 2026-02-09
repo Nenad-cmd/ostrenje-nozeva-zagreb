@@ -185,6 +185,46 @@ const standardSurcharge =
       `Napomena: Cijena popravka se dodaje na cijenu oštrenja.\n\n` +
       `Ime i prezime:\nMobitel:\nPaketomat za povrat (grad + lokacija):\n`
   );
+    // === PODACI ZA UPLATU (IBAN / QR) ===
+  const PAYEE_NAME = "Byway";
+  const PAYEE_IBAN = "HR0324840081135329520";
+
+  const amountEur = total.toFixed(2);
+  const paymentReference = code;
+
+  const epcQrText =
+    `BCD\n` +
+    `001\n` +
+    `1\n` +
+    `SCT\n` +
+    `\n` +
+    `${PAYEE_NAME}\n` +
+    `${PAYEE_IBAN}\n` +
+    `EUR${amountEur}\n` +
+    `\n` +
+    `\n` +
+    `Ostrenje nozeva\n` +
+    `${paymentReference}`;
+
+  const qrUrl =
+    `https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=${encodeURIComponent(epcQrText)}`;
+
+  const copyPayment = async () => {
+    const text =
+      `Primatelj: ${PAYEE_NAME}\n` +
+      `IBAN: ${PAYEE_IBAN}\n` +
+      `Iznos: EUR ${amountEur}\n` +
+      `Poziv na broj: ${paymentReference}\n` +
+      `Opis: Ostrenje nozeva`;
+
+    try {
+      await navigator.clipboard.writeText(text);
+      alert("Podaci za uplatu su kopirani ✔️");
+    } catch {
+      alert("Kopiranje nije uspjelo – kopiraj ručno.");
+    }
+  };
+
 
   const setLineQty = (id: string, v: number) => {
     const val = Math.max(0, Math.min(99, Number.isFinite(v) ? v : 0));
