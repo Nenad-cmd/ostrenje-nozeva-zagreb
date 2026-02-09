@@ -88,8 +88,6 @@ const styles = {
   mobileHint: { fontSize: 12, opacity: 0.65, marginTop: 6 },
 };
 
-import { useMemo, useState } from "react";
-
 type Line = { id: string; name: string; price: number; kind: "base" | "addon" };
 
 const baseLines: Line[] = [
@@ -205,7 +203,7 @@ const standardSurcharge =
       `Napomena:\n`
   );
   
-  return (
+  return (                                                                                                                                                        
     <>
       {/* HERO SEKCIJA */}
       <section
@@ -439,71 +437,58 @@ const standardSurcharge =
               <strong>{eur(total)}</strong>
             </div>
           </div>
+        <div style={{ display: "grid", gap: 10, marginTop: 14 }}>
+  <a
+    href={`mailto:bruslab3@gmail.com?subject=${mailSubject}&body=${mailBody}`}
+    style={{
+      textAlign: "center",
+      padding: "12px 12px",
+      borderRadius: 10,
+      border: "1px solid #111",
+      background: "#fff",
+      color: "#111",
+      textDecoration: "none",
+      fontWeight: 600,
+    }}
+  >
+    Pošalji narudžbu e-mailom (preferirano)
+  </a>
 
-          <div style={{ display: "grid", gap: 10, marginTop: 14 }}>
-            <a
-              href={`https://wa.me/385959105056?text=${messageWA}`}
-              style={{
-                textAlign: "center",
-                padding: "12px 12px",
-                borderRadius: 10,
-                background: "#111",
-                color: "#fff",
-                textDecoration: "none",
-              }}
-            >
-             <a
-  href={`mailto:bruslab3@gmail.com?subject=${mailSubject}&body=${mailBody}`}
-  style={{
-    textAlign: "center",
-    padding: "12px 12px",
-    borderRadius: 10,
-    border: "1px solid #111",
-    background: "#fff",
-    color: "#111",
-    textDecoration: "none",
-  }}
->
-  Pošalji narudžbu e-mailom (preferirano)
-</a>
+  <a
+    href={`https://wa.me/385959105056?text=${messageWA}`}
+    style={{
+      textAlign: "center",
+      padding: "12px 12px",
+      borderRadius: 10,
+      background: "#111",
+      color: "#fff",
+      textDecoration: "none",
+      fontWeight: 600,
+    }}
+  >
+    Pošalji narudžbu na WhatsApp
+  </a>
 
-<a
-  href={`https://wa.me/385959105056?text=${messageWA}`}
-  style={{
-    textAlign: "center",
-    padding: "12px 12px",
-    borderRadius: 10,
-    background: "#111",
-    color: "#fff",
-    textDecoration: "none",
-  }}
->
-  Pošalji narudžbu na WhatsApp
-</a>
+  <button
+    onClick={reset}
+    style={{
+      padding: "10px 12px",
+      borderRadius: 10,
+      border: "1px solid #ccc",
+      background: "#fff",
+      cursor: "pointer",
+    }}
+  >
+    Reset
+  </button>
 
-
-             <button
-              onClick={reset}
-              style={{
-                padding: "10px 12px",
-                borderRadius: 10,
-                border: "1px solid #ccc",
-                background: "#fff",
-                cursor: "pointer",
-              }}
-            >
-              Reset
-            </button>
-
-            <div style={{ fontSize: 12, opacity: 0.8, lineHeight: 1.4 }}>
-              Kupac plaća slanje prema meni (BOX NOW). Povrat je besplatan za <strong>4+</strong> kom oštrenja.
-            </div>
-          </div>
-        </aside>
+  <div style={{ fontSize: 12, opacity: 0.8, lineHeight: 1.4 }}>
+    Kupac plaća slanje prema meni (BOX NOW). Povrat je besplatan za <strong>4+</strong> kom oštrenja.
+  </div>
+</div>
+</aside>
     </section>
       
-      
-
       {/* FAQ */}
       <section style={{ marginTop: 28, borderTop: "1px solid #eee", paddingTop: 18 }}>
         <h2>Česta pitanja</h2>
