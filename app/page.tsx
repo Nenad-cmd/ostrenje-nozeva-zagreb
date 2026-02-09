@@ -242,6 +242,43 @@ const standardSurcharge =
       `Paketomat za povrat (grad + lokacija):\n` +
       `Napomena:\n`
   );
+  const downloadPaymentPdf = async () => {
+  const { jsPDF } = await import("jspdf");
+
+  const res = await fetch(qrUrl);
+  const blob = await res.blob();
+
+  const dataUrl: string = await new Promise((resolve, reject) => {
+    const r = new FileReader();
+    r.onload = () => resolve(String(r.result));
+    r.onerror = reject;
+    r.readAsDataURL(blob);
+  });
+
+  const doc = new jsPDF({ unit: "mm", format: "a4" });
+
+  doc.setFontSize(16);
+  doc.text("Upute za uplatu – Oštrenje noževa", 14, 20);
+
+  doc.setFontSize(11);
+  doc.text(`Primatelj: ${PAYEE_NAME}`, 14, 35);
+  doc.text(`IBAN: ${PAYEE_IBAN}`, 14, 42);
+  doc.text(`Iznos: EUR ${amountEur}`, 14, 49);
+  doc.text(`Poziv na broj: ${paymentReference}`, 14, 56);
+  doc.text("Opis: Oštrenje noževa", 14, 63);
+
+  doc.text(
+    "Napomena: Povrat noževa šaljem nakon evidentirane uplate.",
+    14,
+    75
+  );
+
+  doc.text("QR za uplatu:", 140, 35);
+  doc.addImage(dataUrl, "PNG", 140, 40, 50, 50);
+
+  doc.save(`uplata_${paymentReference}.pdf`);
+};
+
   
   return (                                                                                                                                                        
     <>
@@ -519,6 +556,21 @@ const standardSurcharge =
       cursor: "pointer",
     }}
   >
+    <button
+  onClick={downloadPaymentPdf}
+  style={{
+    padding: "12px",
+    borderRadius: 10,
+    border: "1px solid #111",
+    background: "#111",
+    color: "#fff",
+    cursor: "pointer",
+    fontWeight: 700,
+  }}
+>
+  ⬇️ Preuzmi PDF uplatnicu
+</button>
+
     Reset
   </button>
 
