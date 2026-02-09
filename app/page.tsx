@@ -169,6 +169,13 @@ export default function Page() {
       `Uplata:\nPrimatelj: ${PAYEE_NAME}\nIBAN: ${PAYEE_IBAN}\nPoziv na broj: ${code}\nOpis: Ostrenje nozeva ${code}\n\n` +
       `Napomena: Račun šaljem e-mailom nakon evidentirane uplate.\n`
   );
+  const sendWhatsappOrder = () => {
+  window.open(
+    `https://wa.me/385959105056?text=${messageWA}`,
+    "_blank"
+  );
+};
+
 
   const downloadPaymentPdf = async () => {
     if (!isCustomerOk) {
@@ -480,92 +487,109 @@ export default function Page() {
               </div>
             </div>
 
-            {/* CTA */}
+            {/*CTA*/}
             <div style={{ display: "grid", gap: 10, marginTop: 14 }}>
-              {/* Zaključani mailto */}
-              <a
-                href={
-                  isCustomerOk
-                    ? `mailto:bruslab3@gmail.com?subject=${mailSubject}&body=${mailBody}`
-                    : undefined
-                }
-                onClick={(e) => {
-                  if (!isCustomerOk) {
-                    e.preventDefault();
-                    alert("Molim ispuni: ime, mobitel, e-mail, paketomat za povrat + odaberi barem 1 oštrenje.");
-                  }
-                }}
-                style={{
-                  textAlign: "center",
-                  padding: "12px 12px",
-                  borderRadius: 10,
-                  border: "1px solid #111",
-                  background: "#fff",
-                  color: "#111",
-                  textDecoration: "none",
-                  fontWeight: 700,
-                  opacity: isCustomerOk ? 1 : 0.5,
-                  cursor: isCustomerOk ? "pointer" : "not-allowed",
-                  pointerEvents: isCustomerOk ? "auto" : "none",
-                }}
-              >
-                Pošalji narudžbu e-mailom (preferirano)
-              </a>
 
-              <button
-                type="button"
-                onClick={downloadPaymentPdf}
-                disabled={!isCustomerOk}
-                style={{
-                  padding: "12px",
-                  borderRadius: 10,
-                  border: "1px solid #111",
-                  background: isCustomerOk ? "#111" : "#999",
-                  color: "#fff",
-                  cursor: isCustomerOk ? "pointer" : "not-allowed",
-                  fontWeight: 700,
-                }}
-              >
-                ⬇️ Preuzmi PDF uplatnicu
-              </button>
+  {/* EMAIL */}
+  <button
+    type="button"
+    onClick={sendEmailOrder}
+    disabled={!isCustomerOk}
+    style={{
+      textAlign: "center",
+      padding: "12px",
+      borderRadius: 10,
+      border: "1px solid #111",
+      background: isCustomerOk ? "#fff" : "#eee",
+      color: "#111",
+      fontWeight: 600,
+      cursor: isCustomerOk ? "pointer" : "not-allowed",
+    }}
+  >
+    Otvori e-mail narudžbu (preferirano)
+  </button>
 
-              <img
-                src={pdf417Url}
-                alt="2D barkod za uplatu (HUB-3 PDF417)"
-                style={{
-                  width: "100%",
-                  height: "auto",
-                  borderRadius: 12,
-                  border: "1px solid #eee",
-                }}
-              />
+  <div style={{ fontSize: 12, opacity: 0.7 }}>
+    Otvara e-mail aplikaciju s popunjenom narudžbom.
+  </div>
 
-              <button
-                type="button"
-                onClick={reset}
-                style={{
-                  padding: "10px 12px",
-                  borderRadius: 10,
-                  border: "1px solid #ccc",
-                  background: "#fff",
-                  cursor: "pointer",
-                }}
-              >
-                Reset količina
-              </button>
+  {/* WHATSAPP — OVO TI SAD FALI */}
+  <button
+    type="button"
+    onClick={sendWhatsappOrder}
+    disabled={!isCustomerOk}
+    style={{
+      textAlign: "center",
+      padding: "12px",
+      borderRadius: 10,
+      background: isCustomerOk ? "#111" : "#999",
+      color: "#fff",
+      fontWeight: 600,
+      cursor: isCustomerOk ? "pointer" : "not-allowed",
+      border: "1px solid #111",
+    }}
+  >
+    Pošalji narudžbu na WhatsApp
+  </button>
 
-              <div style={{ fontSize: 12, opacity: 0.8, lineHeight: 1.4 }}>
-                Kupac plaća slanje prema meni (BOX NOW). Povrat je besplatan za <strong>4+</strong> kom oštrenja.
-                <div style={{ marginTop: 6 }}>Račun šaljem e-mailom nakon evidentirane uplate.</div>
-              </div>
+  {/* PDF */}
+  <button
+    type="button"
+    onClick={downloadPaymentPdf}
+    disabled={!isCustomerOk}
+    style={{
+      padding: "12px",
+      borderRadius: 10,
+      border: "1px solid #111",
+      background: isCustomerOk ? "#111" : "#999",
+      color: "#fff",
+      cursor: isCustomerOk ? "pointer" : "not-allowed",
+      fontWeight: 700,
+    }}
+  >
+    ⬇️ Preuzmi PDF uplatnicu
+  </button>
 
-              {!isCustomerOk && (
-                <div style={{ fontSize: 12, opacity: 0.7 }}>
-                  Za slanje narudžbe i uplatnicu obavezno ispuni: ime, mobitel, e-mail i paketomat za povrat (i odaberi
-                  barem 1 oštrenje).
-                </div>
-              )}
-            </div>
+  <img
+    src={pdf417Url}
+    alt="2D barkod za uplatu (HUB-3 PDF417)"
+    style={{
+      width: "100%",
+      height: "auto",
+      borderRadius: 12,
+      border: "1px solid #eee",
+    }}
+  />
+
+  {/* RESET */}
+  <button
+    type="button"
+    onClick={reset}
+    style={{
+      padding: "10px",
+      borderRadius: 10,
+      border: "1px solid #ccc",
+      background: "#fff",
+      cursor: "pointer",
+    }}
+  >
+    Reset
+  </button>
+
+  <div style={{ fontSize: 12, opacity: 0.8, lineHeight: 1.4 }}>
+    Kupac plaća slanje prema meni (BOX NOW). Povrat je besplatan za <strong>4+</strong> kom oštrenja.
+    <div style={{ marginTop: 6 }}>
+      Račun šaljem e-mailom nakon evidentirane uplate.
+    </div>
+  </div>
+
+  {!isCustomerOk && (
+    <div style={{ fontSize: 12, opacity: 0.7 }}>
+      Za slanje narudžbe i uplatnicu obavezno ispuni: ime, mobitel, e-mail i paketomat za povrat.
+    </div>
+  )}
+</div>
+
           </aside>
         </section>
 
