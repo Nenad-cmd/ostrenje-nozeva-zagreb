@@ -161,7 +161,14 @@ export default function Page() {
       `Mobitel: ${customerPhone}\n` +
       `E-mail: ${customerEmail}\n` +
       `Paketomat za povrat (grad + lokacija): ${returnLocker}\n\n` +
-      `R1 račun: ${needR1 ? "DA" : "NE"}\n\n` +
+     `R1 račun: ${needR1 ? "DA" : "NE"}\n` +
+      (needR1
+        ? `\nR1 PODACI (ispuniti):\n` +  
+            `1) Naziv tvrtke:\n` +
+            `2) Adresa tvrtke:\n` +
+            `3) OIB:\n\n`
+          : `\n`) +
+  
       `Oštrenje (komada: ${baseCount}):\n${baseSummary || "-"}\n\n` +
       `Dodaci / popravci (komada: ${addonCount}):\n${addonSummary || "-"}\n\n` +
       `Međuzbroj oštrenje: ${eur(subtotalBase)}\n` +
