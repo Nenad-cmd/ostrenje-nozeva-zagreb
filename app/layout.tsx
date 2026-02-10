@@ -2,6 +2,9 @@ export const metadata = {
   title: "Oštrenje noževa Zagreb | Byway",
   description:
     "Profesionalno oštrenje noževa u Zagrebu. Brza obrada (24–48 h). Slanje i povrat putem BOX NOW paketomata ili osobna predaja uz najavu.",
+   icons: {
+    icon: "/favicon.ico",
+  },
   openGraph: {
     title: "Oštrenje noževa Zagreb | Byway",
     description:
