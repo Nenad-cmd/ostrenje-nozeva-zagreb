@@ -95,18 +95,6 @@ export default function Page() {
     .filter((l) => (qty[l.id] || 0) > 0)
     .map((l) => `- ${l.name} x ${qty[l.id]} = ${eur((qty[l.id] || 0) * l.price)}`)
     .join("\n");
-  const messageWA = encodeURIComponent(
-  `Pozdrav! Želim naručiti oštrenje.\n\n` +
-    `Šifra narudžbe: ${code}\n\n` +
-    `Kupac:\n` +
-    `Ime i prezime: ${customerName}\n` +
-    `Mobitel: ${customerPhone}\n` +
-    `E-mail: ${customerEmail}\n` +
-    `Paketomat za povrat: ${returnLocker}\n\n` +
-    `Oštrenje (komada: ${baseCount}):\n${baseSummary || "-"}\n\n` +
-    `Dodaci / popravci (komada: ${addonCount}):\n${addonSummary || "-"}\n\n` +
-    `Ukupno: ${eur(total)}\n`
-);
 
 
   // validacija kupca
@@ -182,13 +170,7 @@ export default function Page() {
       `Uplata:\nPrimatelj: ${PAYEE_NAME}\nIBAN: ${PAYEE_IBAN}\nPoziv na broj: ${code}\nOpis: Ostrenje nozeva ${code}\n\n` +
       `Napomena: Račun šaljem e-mailom nakon evidentirane uplate.\n`
   );
-  const sendWhatsappOrder = () => {
-  window.open(
-    `https://wa.me/385959105056?text=${messageWA}`,
-    "_blank"
-  );
-};
-
+  
 
   const downloadPaymentPdf = async () => {
     if (!isCustomerOk) {
@@ -519,31 +501,12 @@ export default function Page() {
       cursor: isCustomerOk ? "pointer" : "not-allowed",
     }}
   >
-    Otvori e-mail narudžbu (preferirano)
+    Otvori e-mail narudžbu 
   </button>
 
   <div style={{ fontSize: 12, opacity: 0.7 }}>
     Otvara e-mail aplikaciju s popunjenom narudžbom.
   </div>
-
-  {/* WHATSAPP — OVO TI SAD FALI */}
-  <button
-    type="button"
-    onClick={sendWhatsappOrder}
-    disabled={!isCustomerOk}
-    style={{
-      textAlign: "center",
-      padding: "12px",
-      borderRadius: 10,
-      background: isCustomerOk ? "#111" : "#999",
-      color: "#fff",
-      fontWeight: 600,
-      cursor: isCustomerOk ? "pointer" : "not-allowed",
-      border: "1px solid #111",
-    }}
-  >
-    Pošalji narudžbu na WhatsApp
-  </button>
 
   {/* PDF */}
   <button
