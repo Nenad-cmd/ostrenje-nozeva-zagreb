@@ -626,13 +626,10 @@ export default function Page() {
             <strong>Kako mogu prepoznati tvrđu oštricu (58+ HRC)?</strong>
             <br />
             Tvrđe oštrice najčešće se nalaze kod japanskih noževa i noževa od kvalitetnijih čelika, poput noževa marke
-            Global i sličnih japanskih ili polu-japanskih čelika.
+            Global i sličnih japanskih ili polu-japanskih čelika.Takvi noževi dulje zadržavaju oštrinu, ali zahtijevaju
+            više faza oštrenja.
           </p>
-
-          <p>
-            Takvi noževi dulje zadržavaju oštrinu, ali zahtijevaju preciznije oštrenje. Ako nisi siguran u tvrdoću,
-            možemo procijeniti nakon pregleda.
-          </p>
+  
         </section>
 
         {/* Kontakt forma */}
