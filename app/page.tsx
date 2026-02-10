@@ -256,20 +256,6 @@ export default function Page() {
           koji osiguravaju dugotrajnu oštrinu u svakodnevnoj upotrebi.
         </p>
 
-
-          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-            <span style={{ border: "1px solid #e6e6e6", borderRadius: 999, padding: "6px 10px", fontSize: 13 }}>
-              4+ kom oštrenja = besplatan povrat
-            </span>
-            <span style={{ border: "1px solid #e6e6e6", borderRadius: 999, padding: "6px 10px", fontSize: 13 }}>
-              8+ kom oštrenja = 10% popusta
-            </span>
-            <span style={{ border: "1px solid #e6e6e6", borderRadius: 999, padding: "6px 10px", fontSize: 13 }}>
-              Preferirani kontakt: e-mail
-            </span>
-          </div>
-  
-
           <div style={{ marginTop: 10, padding: 10, border: "1px solid #ddd", borderRadius: 10 }}>
             <strong>🎯 Akcije:</strong> 4+ kom oštrenja = besplatan povrat • 8+ kom oštrenja = 10% popusta
           </div>
