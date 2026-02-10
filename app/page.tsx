@@ -170,7 +170,11 @@ export default function Page() {
       `Uplata:\nPrimatelj: ${PAYEE_NAME}\nIBAN: ${PAYEE_IBAN}\nPoziv na broj: ${code}\nOpis: Ostrenje nozeva ${code}\n\n` +
       `Napomena: Račun šaljem e-mailom nakon evidentirane uplate.\n`
   );
-  
+  const sendEmailOrder = () => {
+  // otvara e-mail klijenta s već popunjenom narudžbom
+  window.location.href = `mailto:bruslab3@gmail.com?subject=${mailSubject}&body=${mailBody}`;
+};
+
 
   const downloadPaymentPdf = async () => {
     if (!isCustomerOk) {
