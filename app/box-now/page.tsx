@@ -1,10 +1,13 @@
+
+
 "use client";
 
 export default function BoxNowPage() {
   const copyRecipient = async () => {
-    const text = `Primatelj: Byway
-E-mail: bruslab3@gmail.com
-Paketomat: Dubrava 222, Zagreb`;
+    const text = `Paketomat: Dubrava 222, Zagreb
+Ime: Byway
+Mobitel: +385 95 910 5056
+E-mail: bruslab3@gmail.com`;
 
     try {
       await navigator.clipboard.writeText(text);
@@ -27,7 +30,7 @@ Paketomat: Dubrava 222, Zagreb`;
       <h1 style={{ marginTop: 0 }}>Kako poslati noževe putem BOX NOW paketomata</h1>
 
       <p style={{ opacity: 0.85 }}>
-        Slanje noževa na oštrenje je brzo i jednostavno. Slijedi ove korake i paket će sigurno stići.
+        Slanje noževa na oštrenje je jednostavno. Slijedi ove korake kako bi paket sigurno stigao na obradu.
       </p>
 
       <section style={{ marginTop: 24 }}>
@@ -44,23 +47,35 @@ Paketomat: Dubrava 222, Zagreb`;
           </li>
 
           <li>
-            <strong>Dođi do BOX NOW paketomata</strong>
+            <strong>Prijavi se na BOX NOW</strong>
             <ul>
-              <li>Odaberi najbližu BOX NOW lokaciju</li>
+              <li>Na BOX NOW stranici registriraj se ili se prijavi u sustav</li>
             </ul>
           </li>
 
           <li>
-            <strong>Unesi podatke za slanje</strong>
+            <strong>Klikni na “Pošalji”</strong>
+            <ul>
+              <li>Odaberi veličinu paketa <strong>S / M / L</strong></li>
+              <li>
+                U padajućem izborniku <strong>kategorija paketa</strong> odaberi: <strong>Kuhinjski pribor</strong>
+              </li>
+            </ul>
+          </li>
+
+          <li>
+            <strong>Unesi podatke primatelja</strong>
             <ul>
               <li>
-                <strong>Primatelj (kome šalješ paket):</strong>
-                <br />
-                Byway
-                <br />
-                E-mail: bruslab3@gmail.com
+                <strong>Primatelj:</strong>
                 <br />
                 Paketomat: <strong>Dubrava 222, Zagreb</strong>
+                <br />
+                Ime: <strong>Byway</strong>
+                <br />
+                Mobitel: <strong>+385 95 910 5056</strong>
+                <br />
+                E-mail: <strong>bruslab3@gmail.com</strong>
                 <div style={{ marginTop: 10 }}>
                   <button
                     onClick={copyRecipient}
@@ -77,38 +92,39 @@ Paketomat: Dubrava 222, Zagreb`;
                   </button>
                 </div>
               </li>
+            </ul>
+          </li>
 
-              <li style={{ marginTop: 10 }}>
-                <strong>Pošiljatelj (ti):</strong>
-                <br />
-                Upiši svoje ime i svoj mobitel ili e-mail
-              </li>
+          <li>
+            <strong>Plaćanje pošiljke</strong>
+            <ul>
+              <li>Nakon unosa podataka slijedi plaćanje pošiljke</li>
+            </ul>
+          </li>
 
-              <li style={{ marginTop: 10 }}>
-                <strong>Paketomat za povrat:</strong>
-                <br />
-                Odaberi <strong>svoj</strong> najbliži BOX NOW paketomat (gdje želiš preuzeti paket natrag)
-              </li>
-
-              <li style={{ marginTop: 10 }}>
-                <strong>Napomena:</strong>
-                <br />
-                Upiši svoje ime i šifru narudžbe
+          <li>
+            <strong>Broj za praćenje (SMS)</strong>
+            <ul>
+              <li>Nakon plaćanja dobivaš SMS s brojem za praćenje pošiljke</li>
+              <li>
+                Taj broj <strong>zapiši ili zalijepi na paket</strong>, a isti broj kasnije upiši i na BOX NOW paketomatu
               </li>
             </ul>
           </li>
 
           <li>
-            <strong>Pošalji paket</strong>
+            <strong>Predaja paketa na paketomatu</strong>
             <ul>
-              <li>Spremi kod za praćenje pošiljke</li>
+              <li>Dođi do BOX NOW paketomata</li>
+              <li>Upiši broj za praćenje dobiven SMS-om</li>
+              <li>Ubaci paket u pretinac i <strong>zatvori vratašca</strong></li>
             </ul>
           </li>
 
           <li>
             <strong>Povrat nakon oštrenja</strong>
             <ul>
-              <li>Povrat ide na paketomat koji navedeš u narudžbi</li>
+              <li>Rok obrade: 24–48 h od primitka paketa</li>
               <li>
                 <strong>4+ kom oštrenja → povrat besplatan</strong>
               </li>
@@ -145,5 +161,3 @@ Paketomat: Dubrava 222, Zagreb`;
     </main>
   );
 }
-
-
