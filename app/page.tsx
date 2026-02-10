@@ -72,6 +72,8 @@ export default function Page() {
     () => addonLines.reduce((sum, l) => sum + (qty[l.id] || 0) * l.price, 0),
     [qty]
   );
+  const [needR1, setNeedR1] = useState(false);
+
 
   // popust 10% na oštrenje (base) kad 8+
   const discountRate = baseCount >= 8 ? 0.1 : 0;
@@ -159,6 +161,7 @@ export default function Page() {
       `Mobitel: ${customerPhone}\n` +
       `E-mail: ${customerEmail}\n` +
       `Paketomat za povrat (grad + lokacija): ${returnLocker}\n\n` +
+      `R1 račun: ${needR1 ? "DA" : "NE"}\n\n` +
       `Oštrenje (komada: ${baseCount}):\n${baseSummary || "-"}\n\n` +
       `Dodaci / popravci (komada: ${addonCount}):\n${addonSummary || "-"}\n\n` +
       `Međuzbroj oštrenje: ${eur(subtotalBase)}\n` +
@@ -488,7 +491,28 @@ export default function Page() {
 
             {/*CTA*/}
             <div style={{ display: "grid", gap: 10, marginTop: 14 }}>
-
+              <label
+  style={{
+    display: "flex",
+    alignItems: "center",
+    gap: 8,
+    fontSize: 14,
+    cursor: "pointer",
+    marginTop: 10,
+  }}
+>
+  <input
+    type="checkbox"
+    checked={needR1}
+    onChange={(e) => setNeedR1(e.target.checked)}
+  />
+  Trebam R1 račun
+</label>
+              
+ <div style={{ fontSize: 12, opacity: 0.7, marginTop: 4 }}>
+  Poslovni korisnici mogu dodatne podatke upisati u e-mailu.
+</div>
+   
   {/* EMAIL */}
   <button
     type="button"
