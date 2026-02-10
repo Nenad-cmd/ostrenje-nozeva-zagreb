@@ -268,23 +268,7 @@ export default function Page() {
               Preferirani kontakt: e-mail
             </span>
           </div>
-          <section style={{ marginTop: 18, paddingTop: 14, borderTop: "1px solid #efefef" }}>
-  <h2 style={{ margin: "0 0 10px 0", fontSize: 22 }}>Kako postići oštrinu koja traje</h2>
-
-  <p style={{ margin: 0, lineHeight: 1.65, opacity: 0.95 }}>
-    <strong>
-      Prava tajna dugotrajne oštrine nije u samom brušenju, već u precizno izvedenom uklanjanju srha.
-    </strong>
-    <br />
-    Ovakav pristup potvrđen je i u profesionalnoj praksi, uključujući mesnu industriju, gdje se oštrina
-    noža testira kroz kontinuirani, stvarni rad.
-    <br />
-    Metoda je detaljno opisana u knjizi{" "}
-    <em>Knife Deburring: Science Behind the Lasting Razor Edge</em> autora Vadima Kraichuka, koja se smatra
-    jednim od referentnih djela za razumijevanje dugotrajne oštrine noževa.
-  </p>
-</section>
-
+  
 
           <div style={{ marginTop: 10, padding: 10, border: "1px solid #ddd", borderRadius: 10 }}>
             <strong>🎯 Akcije:</strong> 4+ kom oštrenja = besplatan povrat • 8+ kom oštrenja = 10% popusta
@@ -308,6 +292,28 @@ export default function Page() {
             </a>
           </div>
         </header>
+        {/* EDUKATIVNA SEKCIJA */}
+<section style={{ marginBottom: 24 }}>
+  <h2 style={{ margin: "0 0 10px 0", fontSize: 22 }}>
+    Kako postići oštrinu koja traje
+  </h2>
+
+  <p style={{ margin: 0, lineHeight: 1.65, opacity: 0.95 }}>
+    <strong>
+      Prava tajna dugotrajne oštrine nije u samom brušenju, već u precizno izvedenom
+      uklanjanju srha.
+    </strong>
+    <br />
+    Ovakav pristup potvrđen je i u profesionalnoj praksi, uključujući mesnu industriju,
+    gdje se oštrina noža testira kroz kontinuirani, stvarni rad.
+    <br />
+    Metoda je detaljno opisana u knjizi{" "}
+    <em>Knife Deburring: Science Behind the Lasting Razor Edge</em> autora Vadima
+    Kraichuka, koja se smatra jednim od referentnih djela za razumijevanje dugotrajne
+    oštrine noževa.
+  </p>
+</section>
+
 
         {/* Cjenik + Sažetak */}
         <section style={{ display: "grid", gridTemplateColumns: "1.2fr 0.8fr", gap: 18 }}>
