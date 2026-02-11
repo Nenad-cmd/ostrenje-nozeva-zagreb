@@ -76,24 +76,25 @@ E-mail: bruslab3@gmail.com`;
                 Mobitel: <strong>+385 95 910 5056</strong>
                 <br />
                 E-mail: <strong>bruslab3@gmail.com</strong>
-                <div style={{ marginTop: 10 }}>
-                  <button
-                    onClick={copyRecipient}
-                    style={{
-                      padding: "8px 12px",
-                      borderRadius: 8,
-                      border: "1px solid #111",
-                      background: "#fff",
-                      cursor: "pointer",
-                      fontWeight: 600,
-                    }}
-                  >
-                    📋 Kopiraj podatke za primatelja
-                  </button>
-                </div>
-              </li>
-            </ul>
-          </li>
+                <li>
+  <strong>Unesi podatke primatelja</strong>
+  <ul>
+    <li>
+      <strong>Primatelj:</strong>
+      <br />
+      Paketomat: <strong>Dubrava 222, Zagreb</strong>
+      <br />
+      Ime: <strong>Byway</strong>
+      <br />
+      Mobitel: <strong>+385 95 910 5056</strong>
+      <br />
+      E-mail: <strong>bruslab3@gmail.com</strong>
+      <p style={{ marginTop: 10 }}>
+        Podatke ručno upiši ili kopiraj pojedinačno 
+      </p>
+    </li>
+  </ul>
+</li>
 
           <li>
             <strong>Plaćanje pošiljke</strong>
