@@ -92,7 +92,7 @@ export default function BoxNowPage() {
           <li>
             <strong>Predaja paketa na paketomatu</strong>
             <ul>
-              <li>Dođi do BOX NOW paketomata</li>
+              <li>Dođi do bilo kojeg BOX NOW paketomata</li>
               <li>Upiši broj za praćenje</li>
               <li>
                 Ubaci paket u pretinac i <strong>zatvori vratašca</strong>
@@ -115,7 +115,6 @@ export default function BoxNowPage() {
       <section style={{ marginTop: 32, paddingTop: 16, borderTop: "1px solid #eee" }}>
         <h2>Važne napomene</h2>
         <ul>
-          <li>❗ Ne slati noževe u omotnicama</li>
           <li>❗ Dobro zaštiti oštrice radi sigurnosti</li>
           <li>✔ Rok obrade: 24–48 h od primitka</li>
         </ul>
