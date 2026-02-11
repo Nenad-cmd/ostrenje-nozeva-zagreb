@@ -42,7 +42,7 @@ E-mail: bruslab3@gmail.com`;
             <ul>
               <li>Zaštiti oštrice kartonom ili papirom</li>
               <li>Učvrsti ljepljivom trakom da se ne pomiču</li>
-              <li>Stavi u čvrstu kutiju (ne u kovertu)</li>
+              <li>Stavi u čvrstu kutiju </li>
             </ul>
           </li>
 
@@ -58,7 +58,7 @@ E-mail: bruslab3@gmail.com`;
             <ul>
               <li>Odaberi veličinu paketa <strong>S / M / L</strong></li>
               <li>
-                U padajućem izborniku <strong>kategorija paketa</strong> odaberi: <strong>Kuhinjski pribor</strong>
+               Unesi svoje podatke
               </li>
             </ul>
           </li>
@@ -101,22 +101,30 @@ E-mail: bruslab3@gmail.com`;
               <li>Nakon unosa podataka slijedi plaćanje pošiljke</li>
             </ul>
           </li>
+<li>
+  <strong>Broj za praćenje (SMS)</strong>
+  <ul>
+    <li>
+      Nakon plaćanja dobivaš SMS s brojem  pošiljke.
+    </li>
+    <li>
+      Isti broj dobivaš i na e-mail zajedno s naljepnicom za ispis.
+    </li>
+    <li>
+      Ako nemaš pisač, <strong>jasno napiši broj paketa markerom</strong> na paket.
+    </li>
+    <li>
+      Taj broj <strong>zapiši ili zalijepi na paket</strong>, a isti broj kasnije utipkaj i na BOX NOW paketomatu.
+    </li>
+  </ul>
+</li>
 
-          <li>
-            <strong>Broj za praćenje (SMS)</strong>
-            <ul>
-              <li>Nakon plaćanja dobivaš SMS s brojem za praćenje pošiljke</li>
-              <li>
-                Taj broj <strong>zapiši ili zalijepi na paket</strong>, a isti broj kasnije upiši i na BOX NOW paketomatu
-              </li>
-            </ul>
-          </li>
 
           <li>
             <strong>Predaja paketa na paketomatu</strong>
             <ul>
               <li>Dođi do BOX NOW paketomata</li>
-              <li>Upiši broj za praćenje dobiven SMS-om</li>
+              <li>Upiši ili zalijepi broj za praćenje </li>
               <li>Ubaci paket u pretinac i <strong>zatvori vratašca</strong></li>
             </ul>
           </li>
