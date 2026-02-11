@@ -113,14 +113,6 @@ export default function BoxNowPage() {
       </section>
 
       <section style={{ marginTop: 32, paddingTop: 16, borderTop: "1px solid #eee" }}>
-        <h2>Važne napomene</h2>
-        <ul>
-          <li>❗ Dobro zaštiti oštrice radi sigurnosti</li>
-          <li>✔ Rok obrade: 24–48 h od primitka</li>
-        </ul>
-      </section>
-
-      <section style={{ marginTop: 32, paddingTop: 16, borderTop: "1px solid #eee" }}>
         <a
           href="/"
           style={{
