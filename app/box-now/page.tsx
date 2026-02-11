@@ -1,22 +1,6 @@
-
-
 "use client";
 
 export default function BoxNowPage() {
-  const copyRecipient = async () => {
-    const text = `Paketomat: Dubrava 222, Zagreb
-Ime: Byway
-Mobitel: +385 95 910 5056
-E-mail: bruslab3@gmail.com`;
-
-    try {
-      await navigator.clipboard.writeText(text);
-      alert("Podaci za primatelja su kopirani ✔️");
-    } catch {
-      alert("Kopiranje nije uspjelo. Kopiraj ručno.");
-    }
-  };
-
   return (
     <main
       style={{
@@ -42,7 +26,7 @@ E-mail: bruslab3@gmail.com`;
             <ul>
               <li>Zaštiti oštrice kartonom ili papirom</li>
               <li>Učvrsti ljepljivom trakom da se ne pomiču</li>
-              <li>Stavi u čvrstu kutiju </li>
+              <li>Stavi u čvrstu kutiju</li>
             </ul>
           </li>
 
@@ -56,10 +40,10 @@ E-mail: bruslab3@gmail.com`;
           <li>
             <strong>Klikni na “Pošalji”</strong>
             <ul>
-              <li>Odaberi veličinu paketa <strong>S / M / L</strong></li>
               <li>
-               Unesi svoje podatke
+                Odaberi veličinu paketa <strong>S / M / L</strong>
               </li>
+              <li>Unesi svoje podatke</li>
             </ul>
           </li>
 
@@ -76,57 +60,43 @@ E-mail: bruslab3@gmail.com`;
                 Mobitel: <strong>+385 95 910 5056</strong>
                 <br />
                 E-mail: <strong>bruslab3@gmail.com</strong>
-                <li>
-  <strong>Unesi podatke primatelja</strong>
-  <ul>
-    <li>
-      <strong>Primatelj:</strong>
-      <br />
-      Paketomat: <strong>Dubrava 222, Zagreb</strong>
-      <br />
-      Ime: <strong>Byway</strong>
-      <br />
-      Mobitel: <strong>+385 95 910 5056</strong>
-      <br />
-      E-mail: <strong>bruslab3@gmail.com</strong>
-      <p style={{ marginTop: 10 }}>
-        Podatke ručno upiši ili kopiraj pojedinačno 
-      </p>
-    </li>
-  </ul>
-</li>
+                <p style={{ marginTop: 10 }}>
+                  Podatke ručno upiši ili kopiraj pojedinačno.
+                </p>
+              </li>
+            </ul>
+          </li>
 
           <li>
             <strong>Plaćanje pošiljke</strong>
             <ul>
-              <li>Nakon unosa podataka slijedi plaćanje pošiljke</li>
+              <li>Nakon unosa podataka slijedi plaćanje pošiljke.</li>
             </ul>
           </li>
-<li>
-  <strong>Broj za praćenje (SMS)</strong>
-  <ul>
-    <li>
-      Nakon plaćanja dobivaš SMS s brojem  pošiljke.
-    </li>
-    <li>
-      Isti broj dobivaš i na e-mail zajedno s naljepnicom za ispis.
-    </li>
-    <li>
-      Ako nemaš pisač, <strong>jasno napiši broj paketa markerom</strong> na paket.
-    </li>
-    <li>
-      Taj broj <strong>zapiši ili zalijepi na paket</strong>, a isti broj kasnije utipkaj i na BOX NOW paketomatu.
-    </li>
-  </ul>
-</li>
 
+          <li>
+            <strong>Broj za praćenje (SMS)</strong>
+            <ul>
+              <li>Nakon plaćanja dobivaš SMS s brojem za praćenje pošiljke.</li>
+              <li>Isti broj dobivaš i na e-mail zajedno s naljepnicom za ispis.</li>
+              <li>
+                Ako nemaš pisač, <strong>jasno napiši broj paketa markerom</strong> na paket.
+              </li>
+              <li>
+                Taj broj <strong>zapiši ili zalijepi na paket</strong>, a isti broj kasnije utipkaj i na BOX NOW
+                paketomatu.
+              </li>
+            </ul>
+          </li>
 
           <li>
             <strong>Predaja paketa na paketomatu</strong>
             <ul>
               <li>Dođi do BOX NOW paketomata</li>
-              <li>Upiši ili zalijepi broj za praćenje </li>
-              <li>Ubaci paket u pretinac i <strong>zatvori vratašca</strong></li>
+              <li>Upiši broj za praćenje</li>
+              <li>
+                Ubaci paket u pretinac i <strong>zatvori vratašca</strong>
+              </li>
             </ul>
           </li>
 
@@ -170,3 +140,4 @@ E-mail: bruslab3@gmail.com`;
     </main>
   );
 }
+
