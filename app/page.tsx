@@ -705,17 +705,25 @@ export default function Page() {
           <PhoneIcon />
           <strong>Najava:</strong> telefonom ili e-mailom prije dolaska
         </p>
-
-          <p style={{ marginTop: 8 }}>
-          <a
-          href="https://www.google.com/maps/search/?api=1&query=Golska+13+Zagreb+10040"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ textDecoration: "underline", color: "#111", fontWeight: 600 }}
-         >
-          Prikaži lokaciju na Google Maps
-          </a>
-        </p>
+<p style={{ marginTop: 8 }}>
+  <a
+    href="https://www.google.com/maps/search/?api=1&query=Golska+13+Zagreb+10040"
+    target="_blank"
+    rel="noopener noreferrer"
+    style={{
+      textDecoration: "underline",
+      color: "#111",
+      fontWeight: 600,
+      display: "inline-flex",
+      alignItems: "center",
+      gap: 6,
+    }}
+  >
+    <LocationIcon />
+    Prikaži lokaciju na Google Maps
+  </a>
+</p>
+          
         </section>
       </main>
     </>
