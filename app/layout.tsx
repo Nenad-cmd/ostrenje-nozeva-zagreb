@@ -2,7 +2,7 @@ export const metadata = {
   title: "Oštrenje noževa Zagreb | Byway",
   description:
     "Profesionalno oštrenje noževa u Zagrebu. Brza obrada (24–48 h). Slanje i povrat putem BOX NOW paketomata ili osobna predaja uz najavu.",
-   icons: {
+  icons: {
     icon: "/favicon.ico",
   },
   openGraph: {
@@ -30,19 +30,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="hr">
-      export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <html lang="hr">
-      <body style={{ backgroundColor: "#f7f1e3", color: "#222" }}>
-        {children}
-      </body>
-    </html>
-  );
-}
+      <body style={{ backgroundColor: "#f7f1e3", color: "#222", margin: 0 }}>
         {children}
       </body>
     </html>
