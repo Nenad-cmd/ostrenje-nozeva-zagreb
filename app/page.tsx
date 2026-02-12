@@ -257,7 +257,7 @@ export default function Page() {
         </p>
 
           <div style={{ marginTop: 10, padding: 10, border: "1px solid #ddd", borderRadius: 10 }}>
-            <strong>🎯 Akcije:</strong> 4+ kom oštrenja = besplatan povrat • 8+ kom oštrenja = 10% popusta
+            <strong>✦ Akcije:</strong> 4+ kom oštrenja = besplatan povrat • 8+ kom oštrenja = 10% popusta
           </div>
 
           <div style={{ marginTop: 14 }}>
@@ -698,10 +698,10 @@ export default function Page() {
             Noževe je moguće donijeti i osobno na fizičku lokaciju u Zagrebu, <strong>isključivo uz prethodnu najavu</strong>.
           </p>
 
-          <p>
-            📍 <strong>Adresa:</strong> Golska 13, Zagreb 10040
+         <p>
+            <strong>Adresa:</strong> Golska 13, Zagreb 10040
             <br />
-            📞 <strong>Najava:</strong> telefonom ili e-mailom prije dolaska
+            ☎ <strong>Najava:</strong> telefonom ili e-mailom prije dolaska
           </p>
 
           <p style={{ marginTop: 8 }}>
@@ -711,7 +711,7 @@ export default function Page() {
               rel="noopener noreferrer"
               style={{ textDecoration: "underline", color: "#111", fontWeight: 600 }}
             >
-              📍 Prikaži lokaciju na Google Maps
+             ➤ Prikaži lokaciju na Google Maps
             </a>
           </p>
         </section>
