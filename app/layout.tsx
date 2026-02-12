@@ -30,7 +30,19 @@ export default function RootLayout({
 }) {
   return (
     <html lang="hr">
+      export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="hr">
       <body style={{ backgroundColor: "#f2f2f2" }}>
+        {children}
+      </body>
+    </html>
+  );
+}
         {children}
       </body>
     </html>
