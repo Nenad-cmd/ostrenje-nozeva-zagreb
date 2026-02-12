@@ -699,6 +699,7 @@ export default function Page() {
           </p>
           
 <p style={{ lineHeight: 1.7 }}>
+  <span style={{ display: "inline-block", width: 20 }} />
   <strong>Adresa:</strong> Golska 13, Zagreb 10040
   <br />
   <PhoneIcon />
