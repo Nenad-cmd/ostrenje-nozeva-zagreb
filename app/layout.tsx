@@ -23,10 +23,16 @@ export const metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="hr">
-      <body>{children}</body>
+      <body style={{ backgroundColor: "#f2f2f2" }}>
+        {children}
+      </body>
     </html>
   );
 }
