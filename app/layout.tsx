@@ -37,7 +37,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="hr">
-      <body style={{ backgroundColor: "#f2f2f2" }}>
+      <body style={{ backgroundColor: "#f7f1e3", color: "#222" }}>
         {children}
       </body>
     </html>
