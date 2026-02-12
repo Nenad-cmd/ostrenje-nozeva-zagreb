@@ -1,5 +1,5 @@
 "use client";
-
+import { PhoneIcon, LocationIcon, MailIcon } from "./components/icons";
 import { useMemo, useState } from "react";
 
 type Line = { id: string; name: string; price: number; kind: "base" | "addon" };
