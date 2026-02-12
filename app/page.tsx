@@ -177,7 +177,7 @@ export default function Page() {
       `Povrat (BOX NOW): ${baseCount >= 4 ? "0,00 € (besplatan povrat za 4+)" : eur(returnShipping)}\n` +
       `Nadoplata (standard <4): ${eur(standardSurcharge)}\n` +
       `UKUPNO: ${eur(total)}\n\n` +
-      `Uplata:\nPrimatelj: ${PAYEE_NAME}\nIBAN: ${PAYEE_IBAN}\nPoziv na broj: ${code}\nOpis: Ostrenje nozeva ${code}\n\n` +
+      `Uplata:\nPrimatelj: ${PAYEE_NAME}\nIBAN: ${PAYEE_IBAN}\nPoziv na broj: ${code}\nOpis: oštrenje nozeva ${code}\n\n` +
       `Napomena: Račun šaljem e-mailom nakon evidentirane uplate.\n`
   );
   const sendEmailOrder = () => {
@@ -237,7 +237,7 @@ export default function Page() {
         <div style={{ borderRadius: 18, overflow: "hidden", border: "1px solid #eaeaea", height: 360 }}>
           <img
             src="/hero.webp"
-            alt="Oštrenje noževa Zagreb – Byway"
+            alt="Brušenje noževa i škara Zagreb – BayWay"
             style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
           />
         </div>
@@ -246,7 +246,7 @@ export default function Page() {
       <main style={{ maxWidth: 1020, margin: "0 auto", padding: 24, fontFamily: "system-ui, sans-serif" }}>
         {/* HEADER */}
         <header style={{ marginBottom: 22 }}>
-          <h1 style={{ margin: "0 0 6px 0", fontSize: 32 }}>Oštrenje noževa Zagreb</h1>
+          <h1 style={{ margin: "0 0 6px 0", fontSize: 32 }}>Brušenje noževa i škara</h1>
 
           <p style={{ margin: "0 0 10px 0", opacity: 0.85 }}>
             Brza obrada (24–48 h). Slanje i povrat putem BOX NOW paketomata.
