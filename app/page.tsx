@@ -667,7 +667,6 @@ export default function Page() {
                 name="Poruka"
                 rows={6}
                 required
-                placeholder="Npr. broj noževa, vrsta (58+ HRC, nazubljeni), paketomat za povrat…"
                 style={{ width: "100%", padding: 10 }}
               />
             </div>
