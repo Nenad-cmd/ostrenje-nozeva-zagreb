@@ -698,22 +698,24 @@ export default function Page() {
             Noževe je moguće donijeti i osobno na fizičku lokaciju u Zagrebu, <strong>isključivo uz prethodnu najavu</strong>.
           </p>
 
-         <p>
-            <strong>Adresa:</strong> Golska 13, Zagreb 10040
-            <br />
-            ☎ <strong>Najava:</strong> telefonom ili e-mailom prije dolaska
-          </p>
+        <p>
+          <LocationIcon />
+          <strong>Adresa:</strong> Golska 13, Zagreb 10040
+          <br />
+          <PhoneIcon />
+          <strong>Najava:</strong> telefonom ili e-mailom prije dolaska
+        </p>
 
           <p style={{ marginTop: 8 }}>
-            <a
-              href="https://www.google.com/maps/search/?api=1&query=Golska+13+Zagreb+10040"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ textDecoration: "underline", color: "#111", fontWeight: 600 }}
-            >
-             ➤ Prikaži lokaciju na Google Maps
-            </a>
-          </p>
+          <a
+          href="https://www.google.com/maps/search/?api=1&query=Golska+13+Zagreb+10040"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ textDecoration: "underline", color: "#111", fontWeight: 600 }}
+         >
+          Prikaži lokaciju na Google Maps
+          </a>
+        </p>
         </section>
       </main>
     </>
