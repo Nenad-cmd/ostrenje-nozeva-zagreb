@@ -1,5 +1,5 @@
 "use client";
-import { PhoneIcon, LocationIcon, MailIcon } from "./components/icons";
+import { PhoneIcon, LocationIcon, MailIcon, FacebookIkon } from "./components/icons";
 import { useMemo, useState } from "react";
 
 type Line = { id: string; name: string; price: number; kind: "base" | "addon" };
@@ -701,8 +701,19 @@ export default function Page() {
   <span style={{ display: "inline-block", width: 20 }} />
   <strong>Adresa:</strong> Golska 13, Zagreb 10040
   <br />
-  <PhoneIcon />
-  <strong>Najava:</strong> telefonom ili e-mailom prije dolaska
+<PhoneIcon />
+<strong>Najava:</strong> telefonom, e-mailom ili putem{" "}
+<a
+  href="https://www.facebook.com/brusenje.nozeva"
+  target="_blank"
+  rel="noopener noreferrer"
+  style={{ textDecoration: "underline", fontWeight: 600 }}
+>
+  Facebook stranice
+</a>
+{" "}
+prije dolaska
+
 </p>
           
 <p style={{ marginTop: 8 }}>
