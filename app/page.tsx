@@ -704,7 +704,7 @@ export default function Page() {
 <PhoneIcon />
 <strong>Najava:</strong> telefonom, e-mailom ili putem{" "}
 <a
-  href="https://www.facebook.com/brusenje.nozeva"
+  href="https://www.facebook.com/BayWay-Brušenje noževa"
   target="_blank"
   rel="noopener noreferrer"
   style={{ textDecoration: "underline", fontWeight: 600 }}
