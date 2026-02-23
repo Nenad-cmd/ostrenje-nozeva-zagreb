@@ -12,7 +12,7 @@ export default function ProdajaNozeva() {
     },
     {
       title: "Xinzuo Parry nož",
-      price: 40 €,
+      price: 40 ,
       img: "/nozevi/parry.jpg",
       alt: "Xinzuo Parry nož",
       note: "Manji kuhinjski nož (Parry).",
@@ -22,7 +22,7 @@ export default function ProdajaNozeva() {
     },
     {
       title: "Xinzuo Nakiri nož",
-      price: 60 €,
+      price: 60 ,
       img: "/nozevi/nakiri.jpg",
       alt: "Xinzuo Nakiri nož",
       note: "Nakiri – idealan za povrće.",
@@ -32,7 +32,7 @@ export default function ProdajaNozeva() {
     },
     {
       title: "Dijamantni oštrač",
-      price: 40 €,
+      price: 40 ,
       img: "/nozevi/ostrac-dijamantni.jpg",
       alt: "Dijamantni oštrač",
       note: "Dijamantni oštrač za održavanje oštrine.",
