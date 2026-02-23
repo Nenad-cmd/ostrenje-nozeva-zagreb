@@ -9,6 +9,7 @@ const baseLines: Line[] = [
   { id: "knife_58plus", name: "Oštrenje noža (58+ HRC)", price: 5, kind: "base" },
   { id: "serrated", name: "Oštrenje nazubljenog noža", price: 6, kind: "base" },
   { id: "scissors", name: "Oštrenje škara", price: 5, kind: "base" },
+  { id: "axe" , name: "Oštrenje sjekire" , price: 7, kind: "base" },
 ];
 
 const addonLines: Line[] = [
