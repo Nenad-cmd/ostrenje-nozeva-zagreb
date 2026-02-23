@@ -43,7 +43,7 @@ export default function ProdajaNozeva() {
   ];
 
   const eur = (n: number) =>
-    new Intl.NumberFormat("hr-HR", { style: "currency", currency: "€" }).format(n);
+    new Intl.NumberFormat("hr-HR", { style: "currency", currency: "EUR" }).format(n);
 
   return (
     <main style={{ maxWidth: 1020, margin: "0 auto", padding: 24, fontFamily: "system-ui, sans-serif" }}>
