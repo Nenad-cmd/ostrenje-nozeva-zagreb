@@ -1,51 +1,116 @@
 export default function ProdajaNozeva() {
-  return (
-    <main style={{ padding: "40px", maxWidth: "1000px", margin: "0 auto" }}>
-      <h1>Prodaja noževa</h1>
+  const products = [
+    {
+      title: "Xinzuo set – 3 noža",
+      price: 150,
+      img: "/nozevi/set-3.jpg",
+      alt: "Xinzuo set od 3 noža",
+      note: "Set od 3 kuhinjska noža.",
+      mailSubject: "Upit za Xinzuo set (3 noža)",
+      mailBody:
+        "Pozdrav,%0A%0AZainteresiran/a sam za Xinzuo set (3 noža) – 150 €.%0A%0AIme i prezime:%0ATelefon:%0AAdresa za dostavu:%0A%0AHvala!",
+    },
+    {
+      title: "Xinzuo Parry nož",
+      price: 40 €,
+      img: "/nozevi/parry.jpg",
+      alt: "Xinzuo Parry nož",
+      note: "Manji kuhinjski nož (Parry).",
+      mailSubject: "Upit za Xinzuo Parry nož",
+      mailBody:
+        "Pozdrav,%0A%0AZainteresiran/a sam za Xinzuo Parry nož – 40 €.%0A%0AIme i prezime:%0ATelefon:%0AAdresa za dostavu:%0A%0AHvala!",
+    },
+    {
+      title: "Xinzuo Nakiri nož",
+      price: 60 €,
+      img: "/nozevi/nakiri.jpg",
+      alt: "Xinzuo Nakiri nož",
+      note: "Nakiri – idealan za povrće.",
+      mailSubject: "Upit za Xinzuo Nakiri nož",
+      mailBody:
+        "Pozdrav,%0A%0AZainteresiran/a sam za Xinzuo Nakiri nož – 60 € .%0A%0AIme i prezime:%0ATelefon:%0AAdresa za dostavu:%0A%0AHvala!",
+    },
+    {
+      title: "Dijamantni oštrač",
+      price: 40 €,
+      img: "/nozevi/ostrac-dijamantni.jpg",
+      alt: "Dijamantni oštrač",
+      note: "Dijamantni oštrač za održavanje oštrine.",
+      mailSubject: "Upit za dijamantni oštrač",
+      mailBody:
+        "Pozdrav,%0A%0AZainteresiran/a sam za dijamantni oštrač – 40 €.%0A%0AIme i prezime:%0ATelefon:%0AAdresa za dostavu:%0A%0AHvala!",
+    },
+  ];
 
-      <p>
-        Nudimo Xinzuo kuhinjske noževe. Svi proizvodi označeni kao dostupni nalaze
-        se kod nas i šalju se odmah.
+  const eur = (n: number) =>
+    new Intl.NumberFormat("hr-HR", { style: "currency", currency: "€" }).format(n);
+
+  return (
+    <main style={{ maxWidth: 1020, margin: "0 auto", padding: 24, fontFamily: "system-ui, sans-serif" }}>
+      <h1 style={{ marginTop: 0 }}>Prodaja noževa</h1>
+
+      <p style={{ opacity: 0.9, lineHeight: 1.6, marginTop: 6 }}>
+        Trenutno u ponudi: Xinzuo noževi i dijamantni oštrač. Za narudžbu pošaljite upit e-mailom.
       </p>
 
-      <hr />
+      <section
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+          gap: 16,
+          marginTop: 18,
+        }}
+      >
+        {products.map((p) => (
+          <article key={p.title} style={{ border: "1px solid #ddd", borderRadius: 12, overflow: "hidden" }}>
+            {/* Slika (ako ne postoji, vidjet ćeš alt/blank, ali stranica radi) */}
+            <div style={{ width: "100%", height: 190, background: "#f5f5f5" }}>
+              <img
+                src={p.img}
+                alt={p.alt}
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+              />
+            </div>
 
-      <section>
-        <h2>Xinzuo set (3 noža)</h2>
-        <ul>
-          <li>Količina: 5 setova</li>
-          <li>Cijena: (upiši cijenu)</li>
-        </ul>
+            <div style={{ padding: 14 }}>
+              <h2 style={{ margin: "0 0 6px 0", fontSize: 18 }}>{p.title}</h2>
 
-        <p>
-          <a href="mailto:INFO@DOMENA.HR?subject=Upit%20za%20Xinzuo%20set%20(3%20no%C5%BEa)">
-            Pošalji upit za narudžbu
-          </a>
-        </p>
+              <div style={{ fontWeight: 800, fontSize: 18, marginBottom: 6 }}>{eur(p.price)}</div>
+
+              <div style={{ fontSize: 13, opacity: 0.8, lineHeight: 1.45, minHeight: 36 }}>{p.note}</div>
+
+              <div style={{ marginTop: 12 }}>
+                <a
+                  href={`mailto:bruslab3@gmail.com?subject=${encodeURIComponent(p.mailSubject)}&body=${p.mailBody}`}
+                  style={{
+                    display: "inline-block",
+                    padding: "10px 12px",
+                    borderRadius: 10,
+                    border: "1px solid #111",
+                    textDecoration: "none",
+                    color: "#111",
+                    fontWeight: 800,
+                    width: "100%",
+                    textAlign: "center",
+                    boxSizing: "border-box",
+                  }}
+                >
+                  Pošalji upit
+                </a>
+              </div>
+            </div>
+          </article>
+        ))}
       </section>
 
-      <hr />
+      <p style={{ fontSize: 12, opacity: 0.75, marginTop: 18 }}>
+        Napomena: Dostava i plaćanje po dogovoru (preporuka: uplata na račun). Račun/ potvrda po potrebi.
+      </p>
 
-      <section>
-        <h2>Pojedinačni noževi</h2>
-        <ul>
-          <li>Količina: 6 kom</li>
-          <li>Cijena: (upiši cijene po modelu)</li>
-        </ul>
-
-        <p>
-          <a href="mailto:INFO@DOMENA.HR?subject=Upit%20za%20Xinzuo%20pojedina%C4%8Dni%20no%C5%BE">
-            Pošalji upit za narudžbu
-          </a>
-        </p>
-      </section>
-
-      <hr />
-
-      <p style={{ fontSize: "14px", opacity: 0.8 }}>
-        Napomena: Noževi su nabavljeni direktno od proizvođača. Navedeni
-        artikli su dostupni odmah. Za artikle po narudžbi rok isporuke može biti
-        oko 30 dana.
+      <p style={{ marginTop: 18 }}>
+        <a href="/" style={{ textDecoration: "underline", color: "#111", fontWeight: 600 }}>
+          ← Povratak na početnu
+        </a>
       </p>
     </main>
   );
