@@ -33,7 +33,7 @@ export default function ProdajaNozeva() {
     {
       title: "Dijamantni oštrač",
       price: 40 ,
-      img: "/nozevi/ostrac-dijamantni.jpg",
+      img: "/nozevi/ostrac.jpg",
       alt: "Dijamantni oštrač",
       note: "Dijamantni oštrač za održavanje oštrine.",
       mailSubject: "Upit za dijamantni oštrač",
