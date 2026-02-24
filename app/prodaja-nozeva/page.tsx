@@ -64,13 +64,27 @@ export default function ProdajaNozeva() {
         {products.map((p) => (
           <article key={p.title} style={{ border: "1px solid #ddd", borderRadius: 12, overflow: "hidden" }}>
             {/* Slika (ako ne postoji, vidjet ćeš alt/blank, ali stranica radi) */}
-            <div style={{ width: "100%", height: 190, background: "#f5f5f5" }}>
-              <img
-                src={p.img}
-                alt={p.alt}
-                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-              />
-            </div>
+            <div
+  style={{
+    width: "100%",
+    height: 240,
+    background: "#f5f5f5",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  }}
+>
+  <img
+    src={p.img}
+    alt={p.alt}
+    style={{
+      maxWidth: "100%",
+      maxHeight: "100%",
+      objectFit: "contain",
+      display: "block",
+    }}
+  />
+</div>
 
             <div style={{ padding: 14 }}>
               <h2 style={{ margin: "0 0 6px 0", fontSize: 18 }}>{p.title}</h2>
