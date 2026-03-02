@@ -117,10 +117,7 @@ export default function ProdajaNozeva() {
         ))}
       </section>
 
-      <p style={{ fontSize: 12, opacity: 0.75, marginTop: 18 }}>
-        Napomena: Dostava i plaćanje po dogovoru (preporuka: uplata na račun). Račun/ potvrda po potrebi.
-      </p>
-
+    
       <p style={{ marginTop: 18 }}>
         <a href="/" style={{ textDecoration: "underline", color: "#111", fontWeight: 600 }}>
           ← Povratak na početnu
