@@ -6,7 +6,7 @@ type Line = { id: string; name: string; price: number; kind: "base" | "addon" };
 
 const baseLines: Line[] = [
   { id: "knife_standard", name: "Oštrenje noža (standard)", price: 3, kind: "base" },
-  { id: "knife_58plus", name: "Oštrenje noža (58+ HRC)", price: 5, kind: "base" },
+  { id: "knife_58plus", name: "Oštrenje noža 58 + HRC(Japanski noževi)", price: 5, kind: "base" },
   { id: "serrated", name: "Oštrenje nazubljenog noža", price: 6, kind: "base" },
   { id: "scissors", name: "Oštrenje škara", price: 5, kind: "base" },
   { id: "axe" , name: "Oštrenje sjekire" , price: 7, kind: "base" },
@@ -637,7 +637,7 @@ export default function Page() {
         </section>
 
         {/* FAQ */}
-        <section style={{ marginTop: 28, borderTop: "1px solid #eee", paddingTop: 18 }}>
+        {/* <section style={{ marginTop: 28, borderTop: "1px solid #eee", paddingTop: 18 }}>
           <h2>Česta pitanja</h2>
 
           <p>
@@ -648,7 +648,7 @@ export default function Page() {
             više faza oštrenja.
           </p>
   
-        </section>
+        </section> */}
 
         {/* Kontakt forma */}
         <section style={{ marginTop: 28, borderTop: "1px solid #eee", paddingTop: 18 }}>
