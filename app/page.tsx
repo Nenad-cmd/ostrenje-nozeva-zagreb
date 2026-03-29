@@ -624,18 +624,24 @@ const total =
   >
     Reset
   </button>
-
   <div style={{ fontSize: 12, opacity: 0.8, lineHeight: 1.4 }}>
-    Kupac plaća slanje prema meni (BOX NOW). Povrat je besplatan za <strong>4+</strong> kom oštrenja.
-    <div style={{ marginTop: 6 }}>
-      Račun šaljem e-mailom nakon evidentirane uplate.
-    </div>
+  Kupac plaća slanje prema meni (BOX NOW). Povrat je besplatan za <strong>4+</strong> kom oštrenja.
+
+  <div style={{ marginTop: 6, fontWeight: 600 }}>
+    Napomena: uplata nije obavezna prilikom narudžbe, ali je potrebna prije povrata noževa.
   </div>
 
-  {!isCustomerOk && (
-    <div style={{ fontSize: 12, opacity: 0.7 }}>
-      Za slanje narudžbe i uplatnicu obavezno ispuni: ime, mobitel, e-mail i paketomat za povrat.
-    </div>
+  <div style={{ marginTop: 6 }}>
+    Račun šaljem e-mailom nakon evidentirane uplate.
+  </div>
+</div>
+
+{!isCustomerOk && (
+  <div style={{ fontSize: 12, opacity: 0.7 }}>
+    Za slanje narudžbe i uplatnicu obavezno ispuni: ime, mobitel, e-mail i paketomat za povrat.
+  </div>
+)}
+ 
   )}
 </div>
 
