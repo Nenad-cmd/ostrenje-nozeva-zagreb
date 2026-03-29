@@ -98,7 +98,10 @@ const discount = baseUnitPrices
   // povrat besplatan kad je 4+ kom oštrenja
   const returnShipping = baseCount >= 4 ? 0 : returnOpt.price;
 
-  const total = Math.max(0, subtotalBase - discount) + subtotalAddons + returnShipping + standardSurcharge;
+const total =
+  Math.max(0, subtotalBase - discount) +
+  subtotalAddons +
+  standardSurcharge;
 
   const baseSummary = baseLines
     .filter((l) => (qty[l.id] || 0) > 0)
@@ -186,7 +189,7 @@ const discount = baseUnitPrices
       `Međuzbroj oštrenje: ${eur(subtotalBase)}\n` +
       (discount > 0 ? `Popust (15% od 5. komada): -${eur(discount)}\n` : "") +
       `Međuzbroj dodaci: ${eur(subtotalAddons)}\n` +
-      `Povrat (BOX NOW): ${baseCount >= 4 ? "0,00 € (besplatan povrat za 4+)" : eur(returnShipping)}\n` +
+    
       `Nadoplata (standard <4): ${eur(standardSurcharge)}\n` +
       `UKUPNO: ${eur(total)}\n\n` +
       `Uplata:\nPrimatelj: ${PAYEE_NAME}\nIBAN: ${PAYEE_IBAN}\nPoziv na broj: ${code}\nOpis: ostrenje nozeva ${code}\n\n` +
@@ -519,10 +522,6 @@ const discount = baseUnitPrices
                 <strong>{eur(subtotalAddons)}</strong>
               </div>
 
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <span>Povrat</span>
-                <strong>{baseCount >= 4 ? eur(0) : eur(returnShipping)}</strong>
-              </div>
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
                   <span>Nadoplata (&lt;4 kom ukupno)</span>
                   <strong>{eur(standardSurcharge)}</strong>
