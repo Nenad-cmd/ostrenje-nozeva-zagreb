@@ -94,9 +94,7 @@ const discount = baseUnitPrices
   .reduce((sum, price) => sum + price * 0.15, 0);
 
   // standard surcharge: ako standard ima 1-3 kom dodaj 2€
-  const standardCount = qty["knife_standard"] || 0;
-  const standardSurcharge = standardCount > 0 && standardCount < 4 ? 2 : 0;
-
+ const standardSurcharge = baseCount > 0 && baseCount < 4 ? 2 : 0;
   // povrat besplatan kad je 4+ kom oštrenja
   const returnShipping = baseCount >= 4 ? 0 : returnOpt.price;
 
