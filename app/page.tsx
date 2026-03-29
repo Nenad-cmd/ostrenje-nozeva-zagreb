@@ -641,8 +641,6 @@ const total =
     Za slanje narudžbe i uplatnicu obavezno ispuni: ime, mobitel, e-mail i paketomat za povrat.
   </div>
 )}
- 
-  )}
 </div>
 
           </aside>
