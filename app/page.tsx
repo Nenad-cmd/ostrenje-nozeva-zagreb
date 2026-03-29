@@ -191,10 +191,10 @@ const total =
       `Međuzbroj dodaci: ${eur(subtotalAddons)}\n` +
     
      `Nadoplata (<4 kom ukupno): ${eur(standardSurcharge)}\n` +
-`UKUPNO: ${eur(total)}\n\n` +
-`Uplata:\nPrimatelj: ${PAYEE_NAME}\nIBAN: ${PAYEE_IBAN}\nPoziv na broj: ${code}\nOpis: ostrenje nozeva ${code}\n\n` +
-`Napomena: uplata nije potrebna unaprijed. Plaćanje se vrši prije povrata noževa.\n` +
-`Račun šaljem e-mailom nakon evidentirane uplate.\n`
+    `UKUPNO: ${eur(total)}\n\n` +
+    `Uplata:\nPrimatelj: ${PAYEE_NAME}\nIBAN: ${PAYEE_IBAN}\nPoziv na broj: ${code}\nOpis: ostrenje nozeva ${code}\n\n` +
+    `Napomena: uplata nije potrebna unaprijed. Plaćanje se vrši prije povrata noževa.\n` +
+    `Račun šaljem e-mailom nakon evidentirane uplate.\n`
   );
 
   const sendEmailOrder = () => {
