@@ -525,7 +525,7 @@ const discount = baseUnitPrices
               </div>
 
               <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <span>Nadoplata (standard &lt;4)</span>
+               `Nadoplata (<4 kom ukupno): ${eur(standardSurcharge)}\n`
                 <strong>{eur(standardSurcharge)}</strong>
               </div>
 
