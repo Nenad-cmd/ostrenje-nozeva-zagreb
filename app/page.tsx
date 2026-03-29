@@ -282,8 +282,6 @@ export default function Page() {
 
   <p style={{ margin: 0, lineHeight: 1.65, opacity: 0.95 }}>
     <strong>
-  <p style={{ margin: 0, lineHeight: 1.65, opacity: 0.95 }}>
-  <strong>
     Prava tajna dugotrajne oštrine nije u samom brušenju, već u preciznom uklanjanju
     mikro srha (mikroskopskog ruba nastalog brušenjem).
   </strong>
