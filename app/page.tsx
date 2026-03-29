@@ -78,18 +78,21 @@ export default function Page() {
 
     // popust 15% samo na komade iznad 4
 const discountedUnits = Math.max(0, baseCount - 4);
-
 const baseUnitPrices = baseLines.flatMap((line) =>
   Array.from({ length: qty[line.id] || 0 }, () => line.price)
 );
 
-// najskuplji prvi
+// sortiraj od najskupljeg prema najjeftinijem
 baseUnitPrices.sort((a, b) => b - a);
 
-// prvih 4 bez popusta, ostali s popustom
+// koliko komada ima popust
+const discountedUnits = Math.max(0, baseCount - 4);
+
+// popust ide na najskupljih X komada
 const discount = baseUnitPrices
-  .slice(4)
+  .slice(0, discountedUnits)
   .reduce((sum, price) => sum + price * 0.15, 0);
+
   // standard surcharge: ako standard ima 1-3 kom dodaj 2€
   const standardCount = qty["knife_standard"] || 0;
   const standardSurcharge = standardCount > 0 && standardCount < 4 ? 2 : 0;
