@@ -77,7 +77,7 @@ export default function Page() {
 
 
     // popust 15% samo na komade iznad 4
-const discountedUnits = Math.max(0, baseCount - 4);
+
 const baseUnitPrices = baseLines.flatMap((line) =>
   Array.from({ length: qty[line.id] || 0 }, () => line.price)
 );
