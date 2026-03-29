@@ -523,12 +523,11 @@ const discount = baseUnitPrices
                 <span>Povrat</span>
                 <strong>{baseCount >= 4 ? eur(0) : eur(returnShipping)}</strong>
               </div>
-
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-               `Nadoplata (<4 kom ukupno): ${eur(standardSurcharge)}\n`
-                <strong>{eur(standardSurcharge)}</strong>
-              </div>
-
+                <div style={{ display: "flex", justifyContent: "space-between" }}>
+                  <span>Nadoplata (&lt;4 kom ukupno)</span>
+                  <strong>{eur(standardSurcharge)}</strong>
+                </div>
+            
               <div style={{ display: "flex", justifyContent: "space-between", marginTop: 6, fontSize: 18 }}>
                 <span>Ukupno</span>
                 <strong>{eur(total)}</strong>
