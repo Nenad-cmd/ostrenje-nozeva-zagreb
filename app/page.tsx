@@ -17,7 +17,7 @@ const addonLines: Line[] = [
 ];
 
 const RETURN_OPTIONS = [
-  { id: "S", label: "Povrat BOX NOW S (≈ 1,80 €)", price: 1.8 },
+  { id: "S", label: "Povrat BOX NOW S (≈ 2,00 €)", price: 2.0 },
   { id: "M", label: "Povrat BOX NOW M (≈ 4,00 €)", price: 4.0 },
 ];
 
