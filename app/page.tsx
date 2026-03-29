@@ -77,19 +77,19 @@ export default function Page() {
 
 
     // popust 15% samo na komade iznad 4
-let remainingDiscount = Math.max(0, baseCount - 4);
-let discount = 0;
+const discountedUnits = Math.max(0, baseCount - 4);
 
-for (const line of baseLines) {
-  const count = qty[line.id] || 0;
+const baseUnitPrices = baseLines.flatMap((line) =>
+  Array.from({ length: qty[line.id] || 0 }, () => line.price)
+);
 
-  for (let i = 0; i < count; i++) {
-    if (remainingDiscount > 0) {
-      discount += line.price * 0.15;
-      remainingDiscount--;
-    }
-  }
-}
+// najskuplji prvi
+baseUnitPrices.sort((a, b) => b - a);
+
+// prvih 4 bez popusta, ostali s popustom
+const discount = baseUnitPrices
+  .slice(4)
+  .reduce((sum, price) => sum + price * 0.15, 0);
   // standard surcharge: ako standard ima 1-3 kom dodaj 2€
   const standardCount = qty["knife_standard"] || 0;
   const standardSurcharge = standardCount > 0 && standardCount < 4 ? 2 : 0;
