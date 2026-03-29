@@ -1,22 +1,3 @@
-"use client";
-import { PhoneIcon, LocationIcon, MailIcon, FacebookIcon } from "./components/icons";
-import { useMemo, useState } from "react";
-
-type Line = { id: string; name: string; price: number; kind: "base" | "addon" };
-
-const baseLines: Line[] = [
-  { id: "knife_standard", name: "Oštrenje noža (standard)", price: 3, kind: "base" },
-  { id: "knife_58plus", name: "Oštrenje noža 58 + HRC(Japanski noževi)", price: 5, kind: "base" },
-  { id: "serrated", name: "Oštrenje nazubljenog noža", price: 6, kind: "base" },
-  { id: "scissors", name: "Oštrenje škara", price: 5, kind: "base" },
-  { id: "axe" , name: "Oštrenje sjekire" , price: 7, kind: "base" },
-];
-
-const addonLines: Line[] = [
-  { id: "repair_small", name: "Popravak manjih oštećenja (do 2 mm) — dodatak", price: 1, kind: "addon" },
-  { id: "repair_big", name: "Popravak većih oštećenja (preko 2 mm) — dodatak", price: 3, kind: "addon" },
-];
-
 const RETURN_OPTIONS = [
   { id: "S", label: "Povrat BOX NOW S (≈ 1,80 €)", price: 1.8 },
   { id: "M", label: "Povrat BOX NOW M (≈ 4,00 €)", price: 4.0 },
@@ -77,8 +58,12 @@ export default function Page() {
 
 
   // popust 10% na oštrenje (base) kad 8+
-  const discountRate = baseCount >= 8 ? 0.1 : 0;
-  const discount = subtotalBase * discountRate;
+ // const discountRate = baseCount >= 8 ? 0.1 : 0;
+ // const discount = subtotalBase * discountRate;
+    // popust 15% samo na komade iznad 4
+  const discountedUnits = Math.max(0, baseCount - 4);
+  const avgBasePrice = baseCount > 0 ? subtotalBase / baseCount : 0;
+  const discount = discountedUnits * avgBasePrice * 0.15;
 
   // standard surcharge: ako standard ima 1-3 kom dodaj 2€
   const standardCount = qty["knife_standard"] || 0;
@@ -173,7 +158,7 @@ export default function Page() {
       `Oštrenje (komada: ${baseCount}):\n${baseSummary || "-"}\n\n` +
       `Dodaci / popravci (komada: ${addonCount}):\n${addonSummary || "-"}\n\n` +
       `Međuzbroj oštrenje: ${eur(subtotalBase)}\n` +
-      (discountRate ? `Popust (8+ kom): -${eur(discount)}\n` : "") +
+      (discount > 0 ? `Popust (15% od 5. komada): -${eur(discount)}\n` : "") +
       `Međuzbroj dodaci: ${eur(subtotalAddons)}\n` +
       `Povrat (BOX NOW): ${baseCount >= 4 ? "0,00 € (besplatan povrat za 4+)" : eur(returnShipping)}\n` +
       `Nadoplata (standard <4): ${eur(standardSurcharge)}\n` +
@@ -258,7 +243,7 @@ export default function Page() {
         </p>
 
           <div style={{ marginTop: 10, padding: 10, border: "1px solid #ddd", borderRadius: 10 }}>
-            <strong>✦ Akcije:</strong> 4+ kom oštrenja = besplatan povrat • 8+ kom oštrenja = 10% popusta
+            <strong>✦ Akcije:</strong> 4+ kom oštrenja = besplatan povrat • od 5. komada -15%
           </div>
 
           <div style={{ marginTop: 14 }}>
@@ -304,18 +289,21 @@ export default function Page() {
 
   <p style={{ margin: 0, lineHeight: 1.65, opacity: 0.95 }}>
     <strong>
-      Prava tajna dugotrajne oštrine nije u samom brušenju, već u precizno izvedenom
-      uklanjanju srha.
-    </strong>
-    <br />
-    Ovakav pristup potvrđen je i u profesionalnoj praksi, uključujući mesnu industriju,
-    gdje se oštrina noža testira kroz kontinuirani, stvarni rad.
-    <br />
-    Metoda je detaljno opisana u knjizi{" "}
-    <em>Knife Deburring: Science Behind the Lasting Razor Edge</em> autora Vadima
-    Kraichuka, koja se smatra jednim od referentnih djela za razumijevanje dugotrajne
-    oštrine noževa.
-  </p>
+  <p style={{ margin: 0, lineHeight: 1.65, opacity: 0.95 }}>
+  <strong>
+    Prava tajna dugotrajne oštrine nije u samom brušenju, već u preciznom uklanjanju
+    mikro srha (mikroskopskog ruba nastalog brušenjem).
+  </strong>
+  <br />
+  Upravo taj završni korak čini razliku između noža koji brzo izgubi oštrinu i noža
+  koji zadržava stabilnu i pouzdanu oštrinu kroz dulje vrijeme.
+  <br />
+  Oštrenje se izvodi kroz više kontroliranih faza, uz poseban fokus na završnu obradu
+  reznog ruba, kako bi rezultat bio maksimalno precizan i dugotrajan.
+  <br />
+  Rezultat je ujednačena i dugotrajnija oštrina u svakodnevnoj upotrebi.
+</p>
+ 
 </section>
 
 
@@ -409,9 +397,9 @@ export default function Page() {
                 <li>
                   <strong>4+ kom (oštrenje)</strong> → besplatan povrat
                 </li>
-                <li>
-                  <strong>8+ kom (oštrenje)</strong> → 10% popusta na oštrenje
-                </li>
+              <li>
+                <strong>Od 5. komada</strong> → svaki sljedeći komad ima 15% popusta
+              </li>
                 <li style={{ opacity: 0.85 }}>Cijena popravka se dodaje na cijenu oštrenja.</li>
               </ul>
             </div>
@@ -500,12 +488,12 @@ export default function Page() {
                 <strong>{eur(subtotalBase)}</strong>
               </div>
 
-              {discountRate > 0 && (
+              {discount > 0 && (
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
-                  <span>Popust (10%)</span>
+                  <span>Popust (15% od 5. komada)</span>
                   <strong>-{eur(discount)}</strong>
-                </div>
-              )}
+              </div>
+            )}
 
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <span>Međuzbroj dodaci</span>
