@@ -1,3 +1,21 @@
+"use client";
+
+import { useMemo, useState } from "react";
+
+type Line = { id: string; name: string; price: number; kind: "base" | "addon" };
+
+const baseLines: Line[] = [
+  { id: "knife_standard", name: "Oštrenje noža (standard)", price: 3, kind: "base" },
+  { id: "knife_58plus", name: "Oštrenje noža (58+ HRC)", price: 5, kind: "base" },
+  { id: "serrated", name: "Oštrenje nazubljenog noža", price: 6, kind: "base" },
+  { id: "scissors", name: "Oštrenje škara", price: 5, kind: "base" },
+];
+
+const addonLines: Line[] = [
+  { id: "repair_small", name: "Popravak manjih oštećenja (do 2 mm) — dodatak", price: 1, kind: "addon" },
+  { id: "repair_big", name: "Popravak većih oštećenja (preko 2 mm) — dodatak", price: 3, kind: "addon" },
+];
+
 const RETURN_OPTIONS = [
   { id: "S", label: "Povrat BOX NOW S (≈ 1,80 €)", price: 1.8 },
   { id: "M", label: "Povrat BOX NOW M (≈ 4,00 €)", price: 4.0 },
