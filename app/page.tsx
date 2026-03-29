@@ -57,9 +57,7 @@ export default function Page() {
   const [needR1, setNeedR1] = useState(false);
 
 
-  // popust 10% na oštrenje (base) kad 8+
- // const discountRate = baseCount >= 8 ? 0.1 : 0;
- // const discount = subtotalBase * discountRate;
+
     // popust 15% samo na komade iznad 4
   const discountedUnits = Math.max(0, baseCount - 4);
   const avgBasePrice = baseCount > 0 ? subtotalBase / baseCount : 0;
@@ -140,6 +138,7 @@ export default function Page() {
 
   // mailto (ali zaključan dok nije ispunjeno)
   const mailSubject = encodeURIComponent(`Narudžba za oštrenje noževa – ${code}`);
+
   const mailBody = encodeURIComponent(
     `NARUDŽBA – ${code}\n\n` +
       `Kupac:\n` +
@@ -147,14 +146,13 @@ export default function Page() {
       `Mobitel: ${customerPhone}\n` +
       `E-mail: ${customerEmail}\n` +
       `Paketomat za povrat (grad + lokacija): ${returnLocker}\n\n` +
-     `R1 račun: ${needR1 ? "DA" : "NE"}\n` +
+      `R1 račun: ${needR1 ? "DA" : "NE"}\n` +
       (needR1
-        ? `\nR1 PODACI (ispuniti):\n` +  
-            `1) Naziv tvrtke:\n` +
-            `2) Adresa tvrtke:\n` +
-            `3) OIB:\n\n`
-          : `\n`) +
-  
+        ? `\nR1 PODACI (ispuniti):\n` +
+          `1) Naziv tvrtke:\n` +
+          `2) Adresa tvrtke:\n` +
+          `3) OIB:\n\n`
+        : `\n`) +
       `Oštrenje (komada: ${baseCount}):\n${baseSummary || "-"}\n\n` +
       `Dodaci / popravci (komada: ${addonCount}):\n${addonSummary || "-"}\n\n` +
       `Međuzbroj oštrenje: ${eur(subtotalBase)}\n` +
@@ -163,14 +161,13 @@ export default function Page() {
       `Povrat (BOX NOW): ${baseCount >= 4 ? "0,00 € (besplatan povrat za 4+)" : eur(returnShipping)}\n` +
       `Nadoplata (standard <4): ${eur(standardSurcharge)}\n` +
       `UKUPNO: ${eur(total)}\n\n` +
-      `Uplata:\nPrimatelj: ${PAYEE_NAME}\nIBAN: ${PAYEE_IBAN}\nPoziv na broj: ${code}\nOpis: oštrenje nozeva ${code}\n\n` +
+      `Uplata:\nPrimatelj: ${PAYEE_NAME}\nIBAN: ${PAYEE_IBAN}\nPoziv na broj: ${code}\nOpis: ostrenje nozeva ${code}\n\n` +
       `Napomena: Račun šaljem e-mailom nakon evidentirane uplate.\n`
   );
-  const sendEmailOrder = () => {
-  // otvara e-mail klijenta s već popunjenom narudžbom
-  window.location.href = `mailto:bruslab3@gmail.com?subject=${mailSubject}&body=${mailBody}`;
-};
 
+  const sendEmailOrder = () => {
+    window.location.href = `mailto:bruslab3@gmail.com?subject=${mailSubject}&body=${mailBody}`;
+  };
 
   const downloadPaymentPdf = async () => {
     if (!isCustomerOk) {
@@ -180,7 +177,6 @@ export default function Page() {
 
     const { jsPDF } = await import("jspdf");
 
-    // fetch barkoda kao sliku
     const res = await fetch(pdf417Url);
     const blob = await res.blob();
 
@@ -198,7 +194,6 @@ export default function Page() {
 
     doc.setFontSize(11);
     doc.text(`Šifra: ${code}`, 14, 30);
-
     doc.text(`Primatelj: ${PAYEE_NAME}`, 14, 42);
     doc.text(`IBAN: ${PAYEE_IBAN}`, 14, 49);
     doc.text(`Iznos: ${eur(total)}`, 14, 56);
@@ -206,11 +201,9 @@ export default function Page() {
     doc.text(`Opis: Ostrenje nozeva ${code}`.slice(0, 60), 14, 70);
 
     doc.text("Napomena: Račun šaljem e-mailom nakon evidentirane uplate.", 14, 82);
-
     doc.setFontSize(10);
     doc.text("2D barkod za uplatu (HUB-3 / PDF417):", 14, 96);
 
-    // add image (PNG/JPEG - bwipjs vraća PNG)
     doc.addImage(dataUrl, "PNG", 14, 102, 90, 38);
 
     doc.save(`uplata_${code}.pdf`);
