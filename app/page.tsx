@@ -628,11 +628,12 @@ const total =
   Kupac plaća slanje prema meni (BOX NOW). Povrat je besplatan za <strong>4+</strong> kom oštrenja.
 
   <div style={{ marginTop: 6, fontWeight: 600 }}>
-    Napomena: uplata nije obavezna prilikom narudžbe, ali je potrebna prije povrata noževa.
+    Napomena: uplata nije obavezna prilikom narudžbe,dovoljno je preuzet uplatnicu sa brojem  naruđbe.
   </div>
+    
 
   <div style={{ marginTop: 6 }}>
-    Račun šaljem e-mailom nakon evidentirane uplate.
+    Povrat noževa i račun šaljem nakon evidentirane uplate.
   </div>
 </div>
 
