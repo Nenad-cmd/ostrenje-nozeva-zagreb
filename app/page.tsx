@@ -6,7 +6,7 @@ type Line = { id: string; name: string; price: number; kind: "base" | "addon" };
 
 const baseLines: Line[] = [
   { id: "knife_standard", name: "Oštrenje noža (standard)", price: 3, kind: "base" },
-  { id: "knife_58plus", name: "Oštrenje noža (58+ HRC)", price: 5, kind: "base" },
+  { id: "knife_58plus", name: "Oštrenje noža 58+ HRC(Japanski noževi)", price: 5, kind: "base" },
   { id: "serrated", name: "Oštrenje nazubljenog noža", price: 6, kind: "base" },
   { id: "scissors", name: "Oštrenje škara", price: 5, kind: "base" },
 ];
