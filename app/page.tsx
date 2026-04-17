@@ -232,7 +232,7 @@ const downloadPaymentPdf = async () => {
   doc.text(`IBAN: ${PAYEE_IBAN}`, 14, 49);
   doc.text(`Iznos: ${eur(total)}`, 14, 56);
   doc.text(`Model: HR99`, 14, 63);
-  doc.text(`Opis plaćanja: Ostrenje nozeva ${code}`.slice(0, 60), 14, 70);
+  doc.text(`Opis plačanja: Oštrenje noževa ${code}`.slice(0, 60), 14, 70);
 
   doc.text("Napomena: Račun šaljem e-mailom nakon evidentirane uplate.", 14, 82);
   doc.setFontSize(10);
