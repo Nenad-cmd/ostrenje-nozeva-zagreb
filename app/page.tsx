@@ -194,9 +194,9 @@ const mailBody = encodeURIComponent(
     `Primatelj: ${PAYEE_NAME}\n` +
     `IBAN: ${PAYEE_IBAN}\n` +
     `Model: HR99\n` +
-    `Opis plaćanja: Ostrenje nozeva ${code}\n\n` +
-    `Napomena: uplata nije potrebna unaprijed. Plaćanje se vrši prije povrata noževa.\n` +
-    `Račun šaljem e-mailom nakon evidentirane uplate.\n`
+    `Opis placanja: Ostrenje nozeva ${code}\n\n` +
+    `Napomena: uplata nije potrebna unaprijed. Placanje se vrsi prije povrata nozeva.\n` +
+    `Racun saljem e-mailom nakon evidentirane uplate.\n`
 );
 
 const sendEmailOrder = () => {
