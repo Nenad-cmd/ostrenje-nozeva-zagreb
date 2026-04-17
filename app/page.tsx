@@ -108,140 +108,141 @@ const total =
     .map((l) => `- ${l.name} x ${qty[l.id]} = ${eur((qty[l.id] || 0) * l.price)}`)
     .join("\n");
 
-  const addonSummary = addonLines
-    .filter((l) => (qty[l.id] || 0) > 0)
-    .map((l) => `- ${l.name} x ${qty[l.id]} = ${eur((qty[l.id] || 0) * l.price)}`)
-    .join("\n");
+ const addonSummary = addonLines
+  .filter((l) => (qty[l.id] || 0) > 0)
+  .map((l) => `- ${l.name} x ${qty[l.id]} = ${eur((qty[l.id] || 0) * l.price)}`)
+  .join("\n");
 
+// validacija kupca
+const phoneOk = customerPhone.replace(/\D/g, "").length >= 8;
+const emailOk = customerEmail.includes("@");
+const isCustomerOk =
+  baseCount > 0 &&
+  customerName.trim().length >= 2 &&
+  phoneOk &&
+  emailOk &&
+  returnLocker.trim().length >= 3;
 
-  // validacija kupca
-  const phoneOk = customerPhone.replace(/\D/g, "").length >= 8;
-  const emailOk = customerEmail.includes("@");
-  const isCustomerOk =
-    baseCount > 0 &&
-    customerName.trim().length >= 2 &&
-    phoneOk &&
-    emailOk &&
-    returnLocker.trim().length >= 3;
+// HUB-3 PDF417 (HR banke) — izduženi barkod
+const payerName = (customerName || "").toUpperCase().slice(0, 30);
+const payerAddr1 = "";
+const payerCity = "";
 
-  // HUB-3 PDF417 (HR banke) — izduženi barkod
-  const payerName = (customerName || "").toUpperCase().slice(0, 30);
-  const payerAddr1 = "";
-  const payerCity = "";
+const amountCents = String(Math.round(total * 100)).padStart(15, "0");
+const model = "HR99";
+const reference = "";
+const purpose = "COST";
+const description = `Ostrenje nozeva ${code}`.slice(0, 35);
 
-  const amountCents = String(Math.round(total * 100)).padStart(15, "0");
-  const model = "HR00";
-  const reference = String(code).slice(0, 22);
-  const purpose = "COST";
-  const description = `Ostrenje nozeva ${code}`.slice(0, 35);
+const hub3Text = [
+  "HRVHUB30",
+  "EUR",
+  amountCents,
+  payerName,
+  payerAddr1,
+  payerCity,
+  PAYEE_NAME.toUpperCase().slice(0, 25),
+  PAYEE_ADDR1.toUpperCase().slice(0, 25),
+  PAYEE_CITY.toUpperCase().slice(0, 27),
+  PAYEE_IBAN.replace(/\s+/g, "").slice(0, 21),
+  model,
+  reference,
+  purpose,
+  description,
+].join("\n");
 
-  const hub3Text = [
-    "HRVHUB30",
-    "EUR",
-    amountCents,
-    payerName,
-    payerAddr1,
-    payerCity,
-    PAYEE_NAME.toUpperCase().slice(0, 25),
-    PAYEE_ADDR1.toUpperCase().slice(0, 25),
-    PAYEE_CITY.toUpperCase().slice(0, 27),
-    PAYEE_IBAN.replace(/\s+/g, "").slice(0, 21),
-    model,
-    reference,
-    purpose,
-    description,
-  ].join("\n");
+const pdf417Url =
+  `https://bwipjs-api.metafloor.com/?bcid=pdf417&scale=2&eclevel=5&includetext=false&text=${encodeURIComponent(
+    hub3Text
+  )}`;
 
-  const pdf417Url =
-    `https://bwipjs-api.metafloor.com/?bcid=pdf417&scale=2&eclevel=5&includetext=false&text=${encodeURIComponent(
-      hub3Text
-    )}`;
+const setLineQty = (id: string, v: number) => {
+  const val = Math.max(0, Math.min(99, Number.isFinite(v) ? v : 0));
+  setQty((prev) => ({ ...prev, [id]: val }));
+};
 
-  const setLineQty = (id: string, v: number) => {
-    const val = Math.max(0, Math.min(99, Number.isFinite(v) ? v : 0));
-    setQty((prev) => ({ ...prev, [id]: val }));
-  };
+const reset = () => {
+  setQty(Object.fromEntries(lines.map((l) => [l.id, 0])));
+  // NE brišem kupčeve podatke namjerno (da mu je lakše ispraviti narudžbu)
+};
 
-  const reset = () => {
-    setQty(Object.fromEntries(lines.map((l) => [l.id, 0])));
-    // NE brišem kupčeve podatke namjerno (da mu je lakše ispraviti narudžbu)
-  };
+// mailto (ali zaključan dok nije ispunjeno)
+const mailSubject = encodeURIComponent(`Narudžba za oštrenje noževa – ${code}`);
 
-  // mailto (ali zaključan dok nije ispunjeno)
-  const mailSubject = encodeURIComponent(`Narudžba za oštrenje noževa – ${code}`);
-
-  const mailBody = encodeURIComponent(
-    `NARUDŽBA – ${code}\n\n` +
-      `Kupac:\n` +
-      `Ime i prezime: ${customerName}\n` +
-      `Mobitel: ${customerPhone}\n` +
-      `E-mail: ${customerEmail}\n` +
-      `Paketomat za povrat (grad + lokacija): ${returnLocker}\n\n` +
-      `R1 račun: ${needR1 ? "DA" : "NE"}\n` +
-      (needR1
-        ? `\nR1 PODACI (ispuniti):\n` +
-          `1) Naziv tvrtke:\n` +
-          `2) Adresa tvrtke:\n` +
-          `3) OIB:\n\n`
-        : `\n`) +
-      `Oštrenje (komada: ${baseCount}):\n${baseSummary || "-"}\n\n` +
-      `Dodaci / popravci (komada: ${addonCount}):\n${addonSummary || "-"}\n\n` +
-      `Međuzbroj oštrenje: ${eur(subtotalBase)}\n` +
-      (discount > 0 ? `Popust (15% od 5. komada): -${eur(discount)}\n` : "") +
-      `Međuzbroj dodaci: ${eur(subtotalAddons)}\n` +
-    
-     `Nadoplata (<4 kom ukupno): ${eur(standardSurcharge)}\n` +
+const mailBody = encodeURIComponent(
+  `NARUDŽBA – ${code}\n\n` +
+    `Kupac:\n` +
+    `Ime i prezime: ${customerName}\n` +
+    `Mobitel: ${customerPhone}\n` +
+    `E-mail: ${customerEmail}\n` +
+    `Paketomat za povrat (grad + lokacija): ${returnLocker}\n\n` +
+    `R1 račun: ${needR1 ? "DA" : "NE"}\n` +
+    (needR1
+      ? `\nR1 PODACI (ispuniti):\n` +
+        `1) Naziv tvrtke:\n` +
+        `2) Adresa tvrtke:\n` +
+        `3) OIB:\n\n`
+      : `\n`) +
+    `Oštrenje (komada: ${baseCount}):\n${baseSummary || "-"}\n\n` +
+    `Dodaci / popravci (komada: ${addonCount}):\n${addonSummary || "-"}\n\n` +
+    `Međuzbroj oštrenje: ${eur(subtotalBase)}\n` +
+    (discount > 0 ? `Popust (15% od 5. komada): -${eur(discount)}\n` : "") +
+    `Međuzbroj dodaci: ${eur(subtotalAddons)}\n` +
+    `Nadoplata (<4 kom ukupno): ${eur(standardSurcharge)}\n` +
     `UKUPNO: ${eur(total)}\n\n` +
-    `Uplata:\nPrimatelj: ${PAYEE_NAME}\nIBAN: ${PAYEE_IBAN}\nPoziv na broj: ${code}\nOpis: ostrenje nozeva ${code}\n\n` +
+    `Uplata:\n` +
+    `Primatelj: ${PAYEE_NAME}\n` +
+    `IBAN: ${PAYEE_IBAN}\n` +
+    `Model: HR99\n` +
+    `Opis plaćanja: Ostrenje nozeva ${code}\n\n` +
     `Napomena: uplata nije potrebna unaprijed. Plaćanje se vrši prije povrata noževa.\n` +
     `Račun šaljem e-mailom nakon evidentirane uplate.\n`
-  );
+);
 
-  const sendEmailOrder = () => {
-    window.location.href = `mailto:bruslab3@gmail.com?subject=${mailSubject}&body=${mailBody}`;
-  };
+const sendEmailOrder = () => {
+  window.location.href = `mailto:bruslab3@gmail.com?subject=${mailSubject}&body=${mailBody}`;
+};
 
-  const downloadPaymentPdf = async () => {
-    if (!isCustomerOk) {
-      alert("Prvo ispuni podatke kupca + paketomat za povrat (i odaberi barem 1 oštrenje).");
-      return;
-    }
+const downloadPaymentPdf = async () => {
+  if (!isCustomerOk) {
+    alert("Prvo ispuni podatke kupca + paketomat za povrat (i odaberi barem 1 oštrenje).");
+    return;
+  }
 
-    const { jsPDF } = await import("jspdf");
+  const { jsPDF } = await import("jspdf");
 
-    const res = await fetch(pdf417Url);
-    const blob = await res.blob();
+  const res = await fetch(pdf417Url);
+  const blob = await res.blob();
 
-    const dataUrl: string = await new Promise((resolve, reject) => {
-      const r = new FileReader();
-      r.onload = () => resolve(String(r.result));
-      r.onerror = reject;
-      r.readAsDataURL(blob);
-    });
+  const dataUrl: string = await new Promise((resolve, reject) => {
+    const r = new FileReader();
+    r.onload = () => resolve(String(r.result));
+    r.onerror = reject;
+    r.readAsDataURL(blob);
+  });
 
-    const doc = new jsPDF({ unit: "mm", format: "a4" });
+  const doc = new jsPDF({ unit: "mm", format: "a4" });
 
-    doc.setFontSize(16);
-    doc.text("Upute za uplatu – Oštrenje noževa", 14, 20);
+  doc.setFontSize(16);
+  doc.text("Upute za uplatu – Oštrenje noževa", 14, 20);
 
-    doc.setFontSize(11);
-    doc.text(`Šifra: ${code}`, 14, 30);
-    doc.text(`Primatelj: ${PAYEE_NAME}`, 14, 42);
-    doc.text(`IBAN: ${PAYEE_IBAN}`, 14, 49);
-    doc.text(`Iznos: ${eur(total)}`, 14, 56);
-    doc.text(`Poziv na broj: ${code}`, 14, 63);
-    doc.text(`Opis: Ostrenje nozeva ${code}`.slice(0, 60), 14, 70);
+  doc.setFontSize(11);
+  doc.text(`Šifra: ${code}`, 14, 30);
+  doc.text(`Primatelj: ${PAYEE_NAME}`, 14, 42);
+  doc.text(`IBAN: ${PAYEE_IBAN}`, 14, 49);
+  doc.text(`Iznos: ${eur(total)}`, 14, 56);
+  doc.text(`Model: HR99`, 14, 63);
+  doc.text(`Opis plaćanja: Ostrenje nozeva ${code}`.slice(0, 60), 14, 70);
 
-    doc.text("Napomena: Račun šaljem e-mailom nakon evidentirane uplate.", 14, 82);
-    doc.setFontSize(10);
-    doc.text("2D barkod za uplatu (HUB-3 / PDF417):", 14, 96);
+  doc.text("Napomena: Račun šaljem e-mailom nakon evidentirane uplate.", 14, 82);
+  doc.setFontSize(10);
+  doc.text("2D barkod za uplatu (HUB-3 / PDF417):", 14, 96);
 
-    doc.addImage(dataUrl, "PNG", 14, 102, 90, 38);
+  doc.addImage(dataUrl, "PNG", 14, 102, 90, 38);
 
-    doc.save(`uplata_${code}.pdf`);
-  };
-
-  return (
+  doc.save(`uplata_${code}.pdf`);
+};
+return(
     <>
       {/* HERO */}
       <section style={{ maxWidth: 1100, margin: "0 auto", padding: 20 }}>
