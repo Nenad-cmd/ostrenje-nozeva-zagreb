@@ -232,9 +232,9 @@ const downloadPaymentPdf = async () => {
   doc.text(`IBAN: ${PAYEE_IBAN}`, 14, 49);
   doc.text(`Iznos: ${eur(total)}`, 14, 56);
   doc.text(`Model: HR99`, 14, 63);
-  doc.text(`Opis plačanja: Oštrenje noževa ${code}`.slice(0, 60), 14, 70);
+  doc.text(`Opis placanja: Ostrenje nozeva ${code}`.slice(0, 60), 14, 70);
 
-  doc.text("Napomena: Račun šaljem e-mailom nakon evidentirane uplate.", 14, 82);
+  doc.text("Napomena: Racun saljem e-mailom nakon evidentirane uplate.", 14, 82);
   doc.setFontSize(10);
   doc.text("2D barkod za uplatu (HUB-3 / PDF417):", 14, 96);
 
