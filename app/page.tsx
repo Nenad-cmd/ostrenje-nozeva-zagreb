@@ -1,6 +1,5 @@
 
 "use client";
-import { PhoneIcon, LocationIcon, MailIcon, FacebookIcon } from "./components/icons";
 import { useMemo, useState } from "react";
 
 type Line = { id: string; name: string; price: number; kind: "base" | "addon" };
@@ -206,23 +205,23 @@ export default function Page() {
 
   return (
     <div className="max-w-4xl mx-auto p-4 md:p-8 bg-white shadow-xl rounded-2xl my-6 font-sans text-gray-800">
-      {/* Zaglavlje / Kontakt */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center border-b pb-6 mb-6 gap-4">
         <div>
           <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">{PAYEE_NAME}</h1>
           <p className="text-sm text-gray-500 mt-1">Profesionalno oštrenje svih vrsta noževa i škara</p>
         </div>
         <div className="flex flex-col sm:flex-row gap-4 text-sm text-gray-600 w-full md:w-auto">
-          <div className="flex items-center gap-2"><LocationIcon className="w-4 h-4 text-blue-600" /> <span>{PAYEE_ADDR1}, {PAYEE_CITY}</span></div>
-          <div className="flex items-center gap-2"><PhoneIcon className="w-4 h-4 text-blue-600" /> <span>091 XXX XXXX</span></div>
-          <div className="flex items-center gap-2"><MailIcon className="w-4 h-4 text-blue-600" /> <span>bruslab3@gmail.com</span></div>
+          <div className="flex items-center gap-2">
+            <span>📍 {PAYEE_ADDR1}, {PAYEE_CITY}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span>✉ bruslab3@gmail.com</span>
+          </div>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Lijeva strana: Odabir usluga i Podaci */}
         <div className="lg:col-span-2 space-y-6">
-          {/* Oštrenje sekcija */}
           <div>
             <h2 className="text-xl font-bold mb-3 text-gray-900">1. Odaberite usluge oštrenja</h2>
             <div className="space-y-3">
@@ -233,111 +232,21 @@ export default function Page() {
                     <p className="text-xs text-blue-600 font-medium">{eur(line.price)} / kom</p>
                   </div>
                   <div className="flex items-center gap-2">
-                    <button onClick={() => setLineQty(line.id, (qty[line.id] || 0) - 1)} className="w-8 h-8 bg-white border rounded-lg shadow-sm font-bold flex items-center justify-center hover:bg-gray-100">-</button>
+                    <button type="button" onClick={() => setLineQty(line.id, (qty[line.id] || 0) - 1)} className="w-8 h-8 bg-white border rounded-lg shadow-sm font-bold flex items-center justify-center hover:bg-gray-100">-</button>
                     <span className="w-8 text-center font-bold text-gray-900">{qty[line.id] || 0}</span>
-                    <button onClick={() => setLineQty(line.id, (qty[line.id] || 0) + 1)} className="w-8 h-8 bg-white border rounded-lg shadow-sm font-bold flex items-center justify-center hover:bg-gray-100">+</button>
+                    <button type="button" onClick={() => setLineQty(line.id, (qty[line.id] || 0) + 1)} className="w-8 h-8 bg-white border rounded-lg shadow-sm font-bold flex items-center justify-center hover:bg-gray-100">+</button>
                   </div>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Dodaci sekcija */}
           <div>
             <h2 className="text-xl font-bold mb-3 text-gray-900">2. Dodaci i popravci oštećenja</h2>
             <div className="space-y-3">
-              {addonLines.map((line) => (  return (
-    <div className="max-w-4xl mx-auto p-4 md:p-8 bg-white shadow-xl rounded-2xl my-6 font-sans text-gray-800">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        
-        {/* Lijeva strana: Odabir usluga i Podaci */}
-        <div className="lg:col-span-2 space-y-6">
-          
-          {/* Prikaz linija i gumba za količinu */}
-          <div className="space-y-3">
-            {baseLines.map((line) => (
-              <div key={line.id} className="flex justify-between items-center p-3 bg-gray-50 rounded-xl border border-gray-100">
-                <div>
-                  <p className="font-semibold text-gray-800">{line.name}</p>
-                  <p className="text-xs text-blue-600">{eur(line.price)} / kom</p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <button onClick={() => setLineQty(line.id, (qty[line.id] || 0) - 1)} className="w-8 h-8 bg-white border rounded-lg shadow-sm font-bold flex items-center justify-center hover:bg-gray-100">-</button>
-                  <span className="w-8 text-center font-bold">{qty[line.id] || 0}</span>
-                  <button onClick={() => setLineQty(line.id, (qty[line.id] || 0) + 1)} className="w-8 h-8 bg-white border rounded-lg shadow-sm font-bold flex items-center justify-center hover:bg-gray-100">+</button>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Dostava info box */}
-          <div className="p-4 bg-blue-50 border border-blue-100 rounded-2xl">
-            <h3 className="font-bold text-blue-900 mb-1">📦 Dostava i preuzimanje paketa</h3>
-            <ul className="list-disc pl-5 text-sm text-blue-950 space-y-1">
-              <li>Noževe možete donijeti <strong>fizički na našu adresu</strong> ili ih poslati putem <strong>GLS paketomata</strong>.</li>
-              <li>Povrat oštrih noževa vrši se isključivo <strong>pouzećem (plaćanje prilikom preuzimanja)</strong>.</li>
-            </ul>
-          </div>
-
-          {/* Podaci o kupcu */}
-          <div>
-            <h2 className="text-xl font-bold mb-3 text-gray-900">3. Unesite vaše podatke</h2>
-            <div className="space-y-3">
-              <input type="text" placeholder="Ime i prezime" value={customerName} onChange={(e) => setCustomerName(e.target.value)} className="w-full p-3 border rounded-xl bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none text-sm transition" />
-              <input type="text" placeholder="Broj mobitela (npr. 091234567)" value={customerPhone} onChange={(e) => setCustomerPhone(e.target.value)} className="w-full p-3 border rounded-xl bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none text-sm transition" />
-              <input type="email" placeholder="E-mail adresa" value={customerEmail} onChange={(e) => setCustomerEmail(e.target.value)} className="w-full p-3 border rounded-xl bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none text-sm transition" />
-            </div>
-          </div>
-        </div>
-
-        {/* Desna strana: Pregled i slanje narudžbe */}
-        <div className="bg-gray-50 p-6 rounded-2xl border border-gray-100 h-fit">
-          <h2 className="text-xl font-bold mb-4 text-gray-900">Pregled narudžbe</h2>
-          <div className="text-xs text-gray-400 mb-4 font-mono">Šifra: {code}</div>
-          
-          <div className="space-y-2 border-b pb-4 mb-4 text-sm text-gray-600">
-            <div className="flex justify-between"><span>Ukupno artikala (oštrenje):</span> <span className="font-semibold text-gray-900">{baseCount} kom</span></div>
-            <div className="flex justify-between"><span>Ukupno dodataka:</span> <span className="font-semibold text-gray-900">{addonCount} kom</span></div>
-            <div className="flex justify-between"><span>Međuzbroj usluga:</span> <span className="font-semibold text-gray-900">{eur(subtotalBase + subtotalAddons)}</span></div>
-            {standardSurcharge > 0 && (
-              <div className="flex justify-between text-amber-600 font-medium">
-                <span>Nadoplata (za manje od 4 noža):</span>
-                <span>+{eur(standardSurcharge)}</span>
-              </div>
-            )}
-          </div>
-
-          <div className="flex justify-between items-center mb-6">
-            <span className="text-lg font-bold text-gray-900">UKUPNO:</span>
-            <span className="text-2xl font-black text-blue-600">{eur(total)}</span>
-          </div>
-
-          <div className="space-y-3">
-            <button 
-              onClick={sendEmailOrder} 
-              disabled={!isCustomerOk}
-              className={`w-full p-4 rounded-xl font-bold text-white shadow-md transition flex items-center justify-center gap-2 ${isCustomerOk ? "bg-green-600 hover:bg-green-700 cursor-pointer" : "bg-gray-300 cursor-not-allowed"}`}
-            >
-              ✉ Pošalji narudžbu e-mailom
-            </button>
-            
-            <button 
-              onClick={downloadPaymentPdf} 
-              disabled={!isCustomerOk}
-              className={`w-full p-3 rounded-xl font-semibold border transition text-sm flex items-center justify-center gap-2 ${isCustomerOk ? "bg-white text-gray-700 border-gray-300 hover:bg-gray-100 cursor-pointer" : "bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed"}`}
-            >
-              📄 Preuzmi PDF s uplatnicom
-            </button>
-          </div>
-
-          {!isCustomerOk && baseCount > 0 && (
-            <p className="text-xs text-amber-600 mt-4 text-center bg-amber-50 p-2 rounded-lg border border-amber-100">
-              * Molimo ispunite ispravno ime, e-mail i mobitel za slanje narudžbe.
-            </p>
-          )}
-        </div>
-
-      </div>
-    </div>
-  );
+              {addonLines.map((line) => (
+                <div key={line.id} className="flex justify-between items-center p-3 bg-gray-50 rounded-xl border border-gray-100 hover:border-gray-200 transition">
+                  <div>
+                    <p className="font-semibold text-gray-800 text-sm md:text-base">{line.name}</p>
+                    <p className="text-xs text-blue-600 font-medium">{eur(line.price)} / kom</p>
 
