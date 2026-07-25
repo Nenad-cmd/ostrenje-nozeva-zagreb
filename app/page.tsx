@@ -413,9 +413,9 @@ return(
                   </div>
                 </div>
               ))}
-            </div>
+              {/*  </div>
 
-            {/*  <div style={{ marginTop: 14, paddingTop: 12, borderTop: "1px dashed #ddd" }}>
+              <div style={{ marginTop: 14, paddingTop: 12, borderTop: "1px dashed #ddd" }}>
               <h3 style={{ margin: "0 0 6px 0" }}>Pravila</h3>
               <ul style={{ marginTop: 0 }}>
                 <li>
