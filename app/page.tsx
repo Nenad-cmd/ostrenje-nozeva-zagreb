@@ -268,9 +268,9 @@ return(
           koji osiguravaju dugotrajnu oštrinu u svakodnevnoj upotrebi.
         </p>
 
-          {/* <div style={{ marginTop: 10, padding: 10, border: "1px solid #ddd", borderRadius: 10 }}>
+           <div style={{ marginTop: 10, padding: 10, border: "1px solid #ddd", borderRadius: 10 }}>
             <strong>✦ Akcije:</strong> 4+ kom oštrenja = besplatan povrat • od 5. komada -15%
-          </div> */}
+          </div> 
 
           <div style={{ marginTop: 14 }}>
             <a
