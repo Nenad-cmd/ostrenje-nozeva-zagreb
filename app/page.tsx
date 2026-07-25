@@ -22,7 +22,7 @@ const RETURN_OPTIONS = [
 ];
 
 // === PODACI ZA UPLATU (tvoji) ===
-const PAYEE_NAME = "Byway";
+const PAYEE_NAME = "BrusLab";
 const PAYEE_IBAN = "HR0324840081135329520";
 const PAYEE_ADDR1 = "Golska 13";
 const PAYEE_CITY = "10040 Zagreb";
@@ -78,7 +78,7 @@ export default function Page() {
 
     // popust 15% samo na komade iznad 4
 
-const baseUnitPrices = baseLines.flatMap((line) =>
+  const baseUnitPrices = baseLines.flatMap((line) =>
   Array.from({ length: qty[line.id] || 0 }, () => line.price)
 );
 
@@ -249,7 +249,7 @@ return(
         <div style={{ borderRadius: 18, overflow: "hidden", border: "1px solid #eaeaea", height: 360 }}>
           <img
             src="/hero.webp"
-            alt="Brušenje noževa i škara Zagreb – BayWay"
+            alt="Brušenje noževa i škara Zagreb – BrusLab"
             style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
           />
         </div>
@@ -268,9 +268,9 @@ return(
           koji osiguravaju dugotrajnu oštrinu u svakodnevnoj upotrebi.
         </p>
 
-          <div style={{ marginTop: 10, padding: 10, border: "1px solid #ddd", borderRadius: 10 }}>
+          {/* <div style={{ marginTop: 10, padding: 10, border: "1px solid #ddd", borderRadius: 10 }}>
             <strong>✦ Akcije:</strong> 4+ kom oštrenja = besplatan povrat • od 5. komada -15%
-          </div>
+          </div> */}
 
           <div style={{ marginTop: 14 }}>
             <a
@@ -415,7 +415,7 @@ return(
               ))}
             </div>
 
-            <div style={{ marginTop: 14, paddingTop: 12, borderTop: "1px dashed #ddd" }}>
+            {/*  <div style={{ marginTop: 14, paddingTop: 12, borderTop: "1px dashed #ddd" }}>
               <h3 style={{ margin: "0 0 6px 0" }}>Pravila</h3>
               <ul style={{ marginTop: 0 }}>
                 <li>
@@ -427,7 +427,7 @@ return(
                 <li style={{ opacity: 0.85 }}>Cijena popravka se dodaje na cijenu oštrenja.</li>
               </ul>
             </div>
-          </div>
+          </div> */}
 
           {/* SAŽETAK + CTA */}
           <aside style={{ border: "1px solid #ddd", borderRadius: 10, padding: 16 }}>
