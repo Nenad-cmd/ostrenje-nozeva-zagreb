@@ -17,7 +17,7 @@ const addonLines: Line[] = [
   { id: "repair_big", name: "Popravak većih oštećenja (preko 2 mm) — dodatak", price: 3, kind: "addon" },
 ];
 
-// === PODACI ZA UPLATU (tvoji) ===
+// === PODACI ZA UPLATU ===
 const PAYEE_NAME = "BrusLab";
 const PAYEE_IBAN = "HR0324840081135329520";
 const PAYEE_ADDR1 = "Golska 13";
@@ -47,10 +47,11 @@ export default function Page() {
   // šifra
   const [code] = useState(orderCode);
 
-  // podaci kupca (obavezno)
+  // podaci kupca
   const [customerName, setCustomerName] = useState("");
   const [customerPhone, setCustomerPhone] = useState("");
   const [customerEmail, setCustomerEmail] = useState("");
+  const [needR1, setNeedR1] = useState(false);
 
   // zbrojevi
   const baseCount = useMemo(() => baseLines.reduce((sum, l) => sum + (qty[l.id] || 0), 0), [qty]);
@@ -64,9 +65,8 @@ export default function Page() {
     () => addonLines.reduce((sum, l) => sum + (qty[l.id] || 0) * l.price, 0),
     [qty]
   );
-  const [needR1, setNeedR1] = useState(false);
 
-  // standard surcharge: ako standard ima 1-3 kom dodaj 2€
+  // nadoplata ako ima manje od 4 noža ukupno
   const standardSurcharge = baseCount > 0 && baseCount < 4 ? 2 : 0;
 
   const total = subtotalBase + subtotalAddons + standardSurcharge;
@@ -90,7 +90,7 @@ export default function Page() {
     phoneOk &&
     emailOk;
 
-  // HUB-3 PDF417 (HR banke) — izduženi barkod
+  // HUB-3 PDF417 barkod podaci
   const payerName = (customerName || "").toUpperCase().slice(0, 30);
   const payerAddr1 = "";
   const payerCity = "";
@@ -119,7 +119,7 @@ export default function Page() {
   ].join("\n");
 
   const pdf417Url =
-    `https://bwipjs-api.metafloor.com/?bcid=pdf417&scale=2&eclevel=5&includetext=false&text=${encodeURIComponent(
+    `https://metafloor.com{encodeURIComponent(
       hub3Text
     )}`;
 
@@ -132,9 +132,8 @@ export default function Page() {
     setQty(Object.fromEntries(lines.map((l) => [l.id, 0])));
   };
 
-  // mailto
+  // E-mail priprema
   const mailSubject = encodeURIComponent(`Narudžba za oštrenje noževa – ${code}`);
-
   const mailBody = encodeURIComponent(
     `NARUDŽBA – ${code}\n\n` +
       `Kupac:\n` +
@@ -167,17 +166,16 @@ export default function Page() {
   );
 
   const sendEmailOrder = () => {
-    window.location.href = `mailto:bruslab3@gmail.com?subject=${mailSubject}&body=${mailBody}`;
+    window.location.href = `mailto:bruslab3@://gmail.com{mailSubject}&body=${mailBody}`;
   };
 
   const downloadPaymentPdf = async () => {
     if (!isCustomerOk) {
-      alert("Prvo ispuni podatke kupca (i odaberi barem 1 oštrenje).");
+      alert("Prvo ispuni podatke kupca i odaberi barem 1 oštrenje.");
       return;
     }
 
     const { jsPDF } = await import("jspdf");
-
     const res = await fetch(pdf417Url);
     const blob = await res.blob();
 
@@ -189,10 +187,8 @@ export default function Page() {
     });
 
     const doc = new jsPDF({ unit: "mm", format: "a4" });
-
     doc.setFontSize(16);
     doc.text("Upute za uplatu – Oštrenje noževa", 14, 20);
-
     doc.setFontSize(11);
     doc.text(`Šifra: ${code}`, 14, 30);
     doc.text(`Primatelj: ${PAYEE_NAME}`, 14, 42);
@@ -200,16 +196,54 @@ export default function Page() {
     doc.text(`Iznos: ${eur(total)}`, 14, 56);
     doc.text(`Model: HR99`, 14, 63);
     doc.text(`Opis placanja: Ostrenje nozeva ${code}`.slice(0, 60), 14, 70);
-
     doc.text("Napomena o dostavi: Nozeve mozete donijeti osobno ili poslati GLS paketomatom. Povrat se vrsi pouzecem.", 14, 78);
     doc.text("Racun saljem e-mailom nakon evidentirane uplate.", 14, 86);
     doc.setFontSize(10);
     doc.text("2D barkod za uplatu (HUB-3 / PDF417):", 14, 96);
-
     doc.addImage(dataUrl, "PNG", 14, 102, 90, 38);
-
     doc.save(`uplata_${code}.pdf`);
   };
 
   return (
-    <>
+    <div className="max-w-4xl mx-auto p-4 md:p-8 bg-white shadow-xl rounded-2xl my-6 font-sans text-gray-800">
+      {/* Zaglavlje / Kontakt */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center border-b pb-6 mb-6 gap-4">
+        <div>
+          <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">{PAYEE_NAME}</h1>
+          <p className="text-sm text-gray-500 mt-1">Profesionalno oštrenje svih vrsta noževa i škara</p>
+        </div>
+        <div className="flex flex-col sm:flex-row gap-4 text-sm text-gray-600 w-full md:w-auto">
+          <div className="flex items-center gap-2"><LocationIcon className="w-4 h-4 text-blue-600" /> <span>{PAYEE_ADDR1}, {PAYEE_CITY}</span></div>
+          <div className="flex items-center gap-2"><PhoneIcon className="w-4 h-4 text-blue-600" /> <span>091 XXX XXXX</span></div>
+          <div className="flex items-center gap-2"><MailIcon className="w-4 h-4 text-blue-600" /> <span>bruslab3@gmail.com</span></div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Lijeva strana: Odabir usluga i Podaci */}
+        <div className="lg:col-span-2 space-y-6">
+          {/* Oštrenje sekcija */}
+          <div>
+            <h2 className="text-xl font-bold mb-3 text-gray-900">1. Odaberite usluge oštrenja</h2>
+            <div className="space-y-3">
+              {baseLines.map((line) => (
+                <div key={line.id} className="flex justify-between items-center p-3 bg-gray-50 rounded-xl border border-gray-100 hover:border-gray-200 transition">
+                  <div>
+                    <p className="font-semibold text-gray-800 text-sm md:text-base">{line.name}</p>
+                    <p className="text-xs text-blue-600 font-medium">{eur(line.price)} / kom</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button onClick={() => setLineQty(line.id, (qty[line.id] || 0) - 1)} className="w-8 h-8 bg-white border rounded-lg shadow-sm font-bold flex items-center justify-center hover:bg-gray-100">-</button>
+                    <span className="w-8 text-center font-bold text-gray-900">{qty[line.id] || 0}</span>
+                    <button onClick={() => setLineQty(line.id, (qty[line.id] || 0) + 1)} className="w-8 h-8 bg-white border rounded-lg shadow-sm font-bold flex items-center justify-center hover:bg-gray-100">+</button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Dodaci sekcija */}
+          <div>
+            <h2 className="text-xl font-bold mb-3 text-gray-900">2. Dodaci i popravci oštećenja</h2>
+            <div className="space-y-3">
+              {addonLines.map((line) => (
