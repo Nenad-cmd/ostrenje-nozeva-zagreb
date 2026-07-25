@@ -413,7 +413,7 @@ return(
                   </div>
                 </div>
               ))}
-              {/*  </div>
+                </div>
 
               <div style={{ marginTop: 14, paddingTop: 12, borderTop: "1px dashed #ddd" }}>
               <h3 style={{ margin: "0 0 6px 0" }}>Pravila</h3>
@@ -427,7 +427,7 @@ return(
                 <li style={{ opacity: 0.85 }}>Cijena popravka se dodaje na cijenu oštrenja.</li>
               </ul>
             </div>
-          </div> */}
+          </div> 
 
           {/* SAŽETAK + CTA */}
           <aside style={{ border: "1px solid #ddd", borderRadius: 10, padding: 16 }}>
