@@ -135,8 +135,18 @@ export default function Page() {
     (needR1 ? `\n\n[Trebam R1 račun - upisati OIB i podatke tvrtke ovdje]` : "")
   );
 
-  const sendEmailOrder = () => {
-    window.location.href = `mailto:bruslab3@://gmail.com{mailSubject}&body=${mailBody}`;
+   const sendEmailOrder = () => {
+    // Kreiramo privremeni link u memoriji koji zaobilazi blokade preglednika
+    const link = document.createElement("a");
+    link.href = `mailto:bruslab3@://gmail.com{mailSubject}&body=${mailBody}`;
+    
+    // Prisilno otvaramo u novom prozoru kako se trenutna stranica ne bi zamrznula
+    link.target = "_blank";
+    
+    // Pokrećemo klik i odmah brišemo element iz memorije
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
 
