@@ -1,4 +1,3 @@
-
 "use client";
 import { PhoneIcon, LocationIcon, MailIcon, FacebookIcon } from "./components/icons";
 import { useMemo, useState } from "react";
@@ -17,6 +16,7 @@ const addonLines: Line[] = [
   { id: "repair_big", name: "Popravak većih oštećenja (preko 2 mm) — dodatak", price: 3, kind: "addon" },
 ];
 
+// Ovdje je ubačena GLS opcija pouzeća u tvoj niz
 const RETURN_OPTIONS = [
   { id: "S", label: "Povrat BOX NOW S (≈ 2,00 €)", price: 2.0 },
   { id: "M", label: "Povrat BOX NOW M (≈ 4,00 €)", price: 4.0 },
@@ -63,7 +63,7 @@ export default function Page() {
   const subtotalBase = useMemo(() => baseLines.reduce((sum, l) => sum + (qty[l.id] || 0) * l.price, 0), [qty]);
   const subtotalAddons = useMemo(() => addonLines.reduce((sum, l) => sum + (qty[l.id] || 0) * l.price, 0), [qty]);
 
-   const baseUnitPrices = baseLines.flatMap((line) =>
+  const baseUnitPrices = baseLines.flatMap((line) =>
     Array.from({ length: qty[line.id] || 0 }, () => line.price)
   );
 
@@ -75,6 +75,8 @@ export default function Page() {
     .reduce((sum, price) => sum + price * 0.15, 0);
 
   const standardSurcharge = baseCount > 0 && baseCount < 4 ? 2 : 0;
+  
+  // Besplatan povrat vrijedi za BOX NOW na 4+ komada, ali na GLS se uvijek naplaćuje pouzeće
   const returnShipping = (baseCount >= 4 && returnOpt.id !== "GLS") ? 0 : returnOpt.price;
 
   const total = Math.max(0, subtotalBase - discount) + subtotalAddons + standardSurcharge + returnShipping;
@@ -111,7 +113,9 @@ export default function Page() {
     setQty((prev) => ({ ...prev, [id]: val }));
   };
 
-  const reset = () => { setQty(Object.fromEntries(lines.map((l) => [l.id, 0]))); };
+  const reset = () => {
+    setQty(Object.fromEntries(lines.map((l) => [l.id, 0])));
+  };
 
   const mailSubject = encodeURIComponent(`Narudžba za oštrenje noževa – ${code}`);
   const mailBody = encodeURIComponent(
@@ -124,8 +128,24 @@ export default function Page() {
     (returnOpt.id !== "GLS" ? `IBAN: ${PAYEE_IBAN}\nPlatit prije povrata.` : `Iznos plaćate dostavljaču prilikom preuzimanja paketa (GLS).`)
   );
 
-   const sendEmailOrder = () => {
+  const sendEmailOrder = () => {
     window.location.href = `mailto:bruslab3@://gmail.com{mailSubject}&body=${mailBody}`;
+  };
+
+  const downloadPaymentPdf = async () => {
+    if (!isCustomerOk) return;
+    const { jsPDF } = await import("jspdf");
+    const res = await fetch(pdf417Url);
+    const blob = await res.blob();
+    const dataUrl: string = await new Promise((res) => {
+      const r = new FileReader();
+      r.onload = () => res(String(r.result));
+      r.readAsDataURL(blob);
+    });
+    const doc = new jsPDF({ unit: "mm", format: "a4" });
+    doc.text("Upute za uplatu", 14, 20);
+    doc.addImage(dataUrl, "PNG", 14, 40, 90, 38);
+    doc.save(`uplata_${code}.pdf`);
   };
 
   return (
@@ -888,26 +908,5 @@ export default function Page() {
     </>
   );
 }
-export async function downloadPaymentPdf(code: string, PAYEE_NAME: string, PAYEE_IBAN: string, total: number, pdf417Url: string, eur: (n: number) => string) {
-  const { jsPDF } = await import("jspdf");
-  const res = await fetch(pdf417Url);
-  const blob = await res.blob();
-  const dataUrl: string = await new Promise((resolve) => {
-    const r = new FileReader();
-    r.onload = () => resolve(String(r.result));
-    r.readAsDataURL(blob);
-  });
-  const doc = new jsPDF({ unit: "mm", format: "a4" });
-  doc.setFontSize(16);
-  doc.text("Upute za uplatu – Oštrenje noževa", 14, 20);
-  doc.setFontSize(11);
-  doc.text(`Šifra: ${code}`, 14, 30);
-  doc.text(`Primatelj: ${PAYEE_NAME}`, 14, 42);
-  doc.text(`IBAN: ${PAYEE_IBAN}`, 14, 49);
-  doc.text(`Iznos: ${eur(total)}`, 14, 56);
-  doc.text(`Model: HR99`, 14, 63);
-  doc.text(`Opis placanja: Ostrenje nozeva ${code}`.slice(0, 60), 14, 70);
-  doc.addImage(dataUrl, "PNG", 14, 85, 90, 38);
-  doc.save(`uplata_${code}.pdf`);
-}
+
 
