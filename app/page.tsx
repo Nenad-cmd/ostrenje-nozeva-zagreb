@@ -124,17 +124,47 @@ export default function Page() {
     (returnOpt.id !== "GLS" ? `IBAN: ${PAYEE_IBAN}\nPlatit prije povrata.` : `Iznos plaćate dostavljaču prilikom preuzimanja paketa (GLS).`)
   );
 
-  const sendEmailOrder = () => { window.location.href = `mailto:bruslab3@://gmail.com{mailSubject}&body=${mailBody}`; };
+   const sendEmailOrder = () => {
+    window.location.href = `mailto:bruslab3@://gmail.com{mailSubject}&body=${mailBody}`;
+  };
 
   const downloadPaymentPdf = async () => {
-    if (!isCustomerOk) return;
+    if (!isCustomerOk) {
+      alert("Prvo ispuni podatke kupca + paketomat za povrat (i odaberi barem 1 oštrenje).");
+      return;
+    }
+
     const { jsPDF } = await import("jspdf");
+
     const res = await fetch(pdf417Url);
     const blob = await res.blob();
-    const dataUrl: string = await new Promise((res) => { const r = new FileReader(); r.onload = () => res(String(r.result)); r.readAsDataURL(blob); });
+
+    const dataUrl: string = await new Promise((resolve, reject) => {
+      const r = new FileReader();
+      r.onload = () => resolve(String(r.result));
+      r.onerror = reject;
+      r.readAsDataURL(blob);
+    });
+
     const doc = new jsPDF({ unit: "mm", format: "a4" });
-    doc.text("Upute za uplatu", 14, 20);
-    doc.addImage(dataUrl, "PNG", 14, 40, 90, 38);
+
+    doc.setFontSize(16);
+    doc.text("Upute za uplatu – Oštrenje noževa", 14, 20);
+
+    doc.setFontSize(11);
+    doc.text(`Šifra: ${code}`, 14, 30);
+    doc.text(`Primatelj: ${PAYEE_NAME}`, 14, 42);
+    doc.text(`IBAN: ${PAYEE_IBAN}`, 14, 49);
+    doc.text(`Iznos: ${eur(total)}`, 14, 56);
+    doc.text(`Model: HR99`, 14, 63);
+    doc.text(`Opis placanja: Ostrenje nozeva ${code}`.slice(0, 60), 14, 70);
+
+    doc.text("Napomena: Racun saljem e-mailom nakon evidentirane uplate.", 14, 82);
+    doc.setFontSize(10);
+    doc.text("2D barkod za uplatu (HUB-3 / PDF417):", 14, 96);
+
+    doc.addImage(dataUrl, "PNG", 14, 102, 90, 38);
+
     doc.save(`uplata_${code}.pdf`);
   };
 
