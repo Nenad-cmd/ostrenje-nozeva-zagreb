@@ -491,20 +491,20 @@ key={l.id}
             {/* Povrat */}
             <div style={{ marginTop: 12 }}>
               <label style={{ display: "block", fontWeight: 600, marginBottom: 6 }}>Povrat (BOX NOW)</label>
-              <select
-                value={returnOpt.id}
-                onChange={(e) =>
-                  setReturnOpt(RETURN_OPTIONS.find((o) => o.id === e.target.value) || RETURN_OPTIONS[0])
-                }
-                style={{ width: "100%", padding: 10, borderRadius: 8, border: "1px solid #ccc" }}
-                disabled={baseCount >= 4}
-              >
-                {RETURN_OPTIONS.map((o) => (
-                  <option key={o.id} value={o.id}>
-                    {o.label}
-                  </option>
-                ))}
-              </select>
+            <select
+  value={returnOpt.id}
+  onChange={(e) =>
+    setReturnOpt(RETURN_OPTIONS.find((o) => o.id === e.target.value) || RETURN_OPTIONS[0])
+  }
+  style={{ width: "100%", padding: 10, borderRadius: 8, border: "1px solid #ccc" }}
+>
+  {RETURN_OPTIONS.map((o) => (
+    <option key={o.id} value={o.id}>
+      {o.label}
+    </option>
+  ))}
+</select>
+
 
               {baseCount >= 4 && (
                 <div style={{ marginTop: 6, fontSize: 13, opacity: 0.8 }}>Povrat je besplatan (4+ kom oštrenja).</div>
