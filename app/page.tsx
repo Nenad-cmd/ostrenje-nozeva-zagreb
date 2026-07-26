@@ -136,9 +136,11 @@ export default function Page() {
   );
 
   
-   const sendEmailOrder = () => {
-    // Pripremamo čist i pregledan tekst za tvoj e-mail
+  const sendEmailOrder = () => {
+    // Pripremamo tekst koji sadrži NASLOV, ŠIFRU i sve detalje narudžbe na jednom mjestu
     const tekstNarudzbe = 
+      `NASLOV MAIL-A: Narudžba za oštrenje noževa – ${code}\n` +
+      `==================================================\n\n` +
       `NARUDŽBA – ${code}\n\n` +
       `Kupac: ${customerName}\n` +
       `Mobitel: ${customerPhone}\n` +
@@ -149,14 +151,14 @@ export default function Page() {
       `Dodaci (komada: ${addonCount}):\n${addonSummary || "-"}\n\n` +
       `UKUPNO ZA PLATITI: ${eur(total)}`;
 
-    // Automatski kopiramo tekst u međuspremnik (clipboard) na računalu
+    // Automatski kopiramo sve u međuspremnik (clipboard) na računalu
     navigator.clipboard.writeText(tekstNarudzbe).then(() => {
-      alert("Tekst narudžbe je automatski KOPIRAN! Sada će se otvoriti e-mail, samo stisnite Zalijepi (Ctrl + V ili desni klik -> Zalijepi).");
-      // POPRAVLJENO: Upisana točna adresa s točkom brus.lab3@gmail.com
-      window.location.href = `mailto:brus.lab3@://gmail.com{code}`;
+      alert("Tekst narudžbe i naslov su KOPIRANI!\n\nSada će se otvoriti e-mail. Samo stisnite Zalijepi (Ctrl + V) u polje za poruku.");
+      // ČISTI LINK BEZ IČEGA - Sustav ga sada MORA ispravno prepoznati i upisati mail
+      window.location.href = "mailto:brus.lab3@gmail.com";
     }).catch(() => {
-      // Rezervna opcija ako preglednik blokira automatsko kopiranje
-      window.location.href = `mailto:brus.lab3@://gmail.com{code}&body=Ime:%20${customerName}`;
+      // Rezervna opcija ako preglednik zablokira kopiranje
+      window.location.href = "mailto:brus.lab3@gmail.com";
     });
   };
 
