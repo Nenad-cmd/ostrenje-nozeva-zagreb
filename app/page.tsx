@@ -174,7 +174,7 @@ return(
         </p>
 
            <div style={{ marginTop: 10, padding: 10, border: "1px solid #ddd", borderRadius: 10 }}>
-            <strong>✦ Akcije:</strong> 4+ kom oštrenja = besplatan povrat • od 5. komada -15%
+            <strong>✦ Akcije:</strong> 4+ kom oštrenja = besplatan povrat BOXNOW • od 5. komada -15%
           </div> 
 
           <div style={{ marginTop: 14 }}>
@@ -324,7 +324,7 @@ key={l.id}
               <h3 style={{ margin: "0 0 6px 0" }}>Pravila</h3>
               <ul style={{ marginTop: 0 }}>
                 <li>
-                  <strong>4+ kom (oštrenje)</strong> → besplatan povrat
+                  <strong>4+ kom (oštrenje)</strong> → besplatan povrat BOXNOW
                 </li>
               <li>
                 <strong>Od 5. komada</strong> → svaki sljedeći komad ima 15% popusta
@@ -387,16 +387,16 @@ key={l.id}
               />
             </div>
 
-            {/* Povrat */}
+                      {/* Povrat */}
             <div style={{ marginTop: 12 }}>
-              <label style={{ display: "block", fontWeight: 600, marginBottom: 6 }}>Povrat (BOX NOW)</label>
+              <label style={{ display: "block", fontWeight: 600, marginBottom: 6 }}>Način dostave i povrata</label>
               <select
                 value={returnOpt.id}
                 onChange={(e) =>
                   setReturnOpt(RETURN_OPTIONS.find((o) => o.id === e.target.value) || RETURN_OPTIONS[0])
                 }
                 style={{ width: "100%", padding: 10, borderRadius: 8, border: "1px solid #ccc" }}
-                disabled={baseCount >= 4}
+                disabled={baseCount >= 4 && returnOpt.id !== "GLS"}
               >
                 {RETURN_OPTIONS.map((o) => (
                   <option key={o.id} value={o.id}>
@@ -405,7 +405,7 @@ key={l.id}
                 ))}
               </select>
 
-              {baseCount >= 4 && (
+              {baseCount >= 4 && returnOpt.id !== "GLS" && (
                 <div style={{ marginTop: 6, fontSize: 13, opacity: 0.8 }}>Povrat je besplatan (4+ kom oštrenja).</div>
               )}
             </div>
@@ -421,20 +421,25 @@ key={l.id}
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
                   <span>Popust (15% od 5. komada)</span>
                   <strong>-{eur(discount)}</strong>
-              </div>
-            )}
+                </div>
+              )}
 
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <span>Međuzbroj dodaci</span>
                 <strong>{eur(subtotalAddons)}</strong>
               </div>
 
-                <div style={{ display: "flex", justifyContent: "space-between" }}>
-                  <span>Nadoplata (&lt;4 kom ukupno)</span>
-                  <strong>{eur(standardSurcharge)}</strong>
-                </div>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <span>Nadoplata (&lt;4 kom ukupno)</span>
+                <strong>{eur(standardSurcharge)}</strong>
+              </div>
             
-              <div style={{ display: "flex", justifyContent: "space-between", marginTop: 6, fontSize: 18 }}>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <span>{returnOpt.id === "GLS" ? "Dostava i pouzeće (GLS)" : "Povrat (BOX NOW)"}</span>
+                <strong>{eur(returnShipping)}</strong>
+              </div>
+            
+              <div style={{ display: "flex", justifyContent: "space-between", marginTop: 6, fontSize: 18, borderTop: "1px solid #eee", paddingTop: 6 }}>
                 <span>Ukupno</span>
                 <strong>{eur(total)}</strong>
               </div>
