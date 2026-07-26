@@ -151,11 +151,15 @@ export default function Page() {
     doc.save(`uplata_${code}.pdf`);
   };
 
-  return (
+  // Ove dvije zagrade u nastavku zatvaraju prethodne otvorene blokove/funkcije u tvom kodu
+    }
+  }
 
+  return (
     <>
       {/* HERO */}
       <section style={{ maxWidth: 1100, margin: "0 auto", padding: 20 }}>
+
         <div style={{ borderRadius: 18, overflow: "hidden", border: "1px solid #eaeaea", height: 360 }}>
           <img
             src="/hero.webp"
