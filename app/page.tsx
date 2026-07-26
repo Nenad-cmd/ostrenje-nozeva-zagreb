@@ -124,41 +124,15 @@ export default function Page() {
     (returnOpt.id !== "GLS" ? `IBAN: ${PAYEE_IBAN}\nPlatit prije povrata.` : `Iznos plaćate dostavljaču prilikom preuzimanja paketa (GLS).`)
   );
 
-     const sendEmailOrder = () => {
+   const sendEmailOrder = () => {
     window.location.href = `mailto:bruslab3@://gmail.com{mailSubject}&body=${mailBody}`;
   };
-
-  const downloadPaymentPdf = async () => {
-    const { jsPDF } = await import("jspdf");
-    const res = await fetch(pdf417Url);
-    const blob = await res.blob();
-    const dataUrl: string = await new Promise((resolve) => {
-      const r = new FileReader();
-      r.onload = () => resolve(String(r.result));
-      r.readAsDataURL(blob);
-    });
-    const doc = new jsPDF({ unit: "mm", format: "a4" });
-    doc.setFontSize(16);
-    doc.text("Upute za uplatu – Oštrenje noževa", 14, 20);
-    doc.setFontSize(11);
-    doc.text(`Šifra: ${code}`, 14, 30);
-    doc.text(`Primatelj: ${PAYEE_NAME}`, 14, 42);
-    doc.text(`IBAN: ${PAYEE_IBAN}`, 14, 49);
-    doc.text(`Iznos: ${eur(total)}`, 14, 56);
-    doc.text(`Model: HR99`, 14, 63);
-    doc.text(`Opis placanja: Ostrenje nozeva ${code}`.slice(0, 60), 14, 70);
-    doc.addImage(dataUrl, "PNG", 14, 85, 90, 38);
-    doc.save(`uplata_${code}.pdf`);
-  };
-
-  // Ove dvije zagrade u nastavku zatvaraju prethodne otvorene blokove/funkcije u tvom kodu
-    }
-  }
 
   return (
     <>
       {/* HERO */}
       <section style={{ maxWidth: 1100, margin: "0 auto", padding: 20 }}>
+
 
         <div style={{ borderRadius: 18, overflow: "hidden", border: "1px solid #eaeaea", height: 360 }}>
           <img
@@ -752,22 +726,14 @@ export default function Page() {
               {/* PDF UPLATNICA I BARKOD (Sakrivaju se ako je odabran GLS) */}
               {returnOpt.id !== "GLS" && (
                 <>
-                  <button
-                    type="button"
-                    onClick={downloadPaymentPdf}
-                    disabled={!isCustomerOk}
-                    style={{
-                      padding: "12px",
-                      borderRadius: 10,
-                      border: "1px solid #111",
-                      background: isCustomerOk ? "#111" : "#999",
-                      color: "#fff",
-                      cursor: isCustomerOk ? "pointer" : "not-allowed",
-                      fontWeight: 700,
-                    }}
-                  >
-                    ⬇️ Preuzmi PDF uplatnicu
-                  </button>
+                 <button
+  type="button"
+  onClick={() => downloadPaymentPdf(code, PAYEE_NAME, PAYEE_IBAN, total, pdf417Url, eur)}
+  disabled={!isCustomerOk}
+  style={{ padding: "12px", borderRadius: 10, border: "1px solid #111", background: isCustomerOk ? "#111" : "#999", color: "#fff", fontWeight: 700, cursor: isCustomerOk ? "pointer" : "not-allowed" }}
+>
+  ⬇️ Preuzmi PDF uplatnicu
+</button>
 
                   <img
                     src={pdf417Url}
@@ -922,3 +888,26 @@ export default function Page() {
     </>
   );
 }
+export async function downloadPaymentPdf(code: string, PAYEE_NAME: string, PAYEE_IBAN: string, total: number, pdf417Url: string, eur: (n: number) => string) {
+  const { jsPDF } = await import("jspdf");
+  const res = await fetch(pdf417Url);
+  const blob = await res.blob();
+  const dataUrl: string = await new Promise((resolve) => {
+    const r = new FileReader();
+    r.onload = () => resolve(String(r.result));
+    r.readAsDataURL(blob);
+  });
+  const doc = new jsPDF({ unit: "mm", format: "a4" });
+  doc.setFontSize(16);
+  doc.text("Upute za uplatu – Oštrenje noževa", 14, 20);
+  doc.setFontSize(11);
+  doc.text(`Šifra: ${code}`, 14, 30);
+  doc.text(`Primatelj: ${PAYEE_NAME}`, 14, 42);
+  doc.text(`IBAN: ${PAYEE_IBAN}`, 14, 49);
+  doc.text(`Iznos: ${eur(total)}`, 14, 56);
+  doc.text(`Model: HR99`, 14, 63);
+  doc.text(`Opis placanja: Ostrenje nozeva ${code}`.slice(0, 60), 14, 70);
+  doc.addImage(dataUrl, "PNG", 14, 85, 90, 38);
+  doc.save(`uplata_${code}.pdf`);
+}
+
