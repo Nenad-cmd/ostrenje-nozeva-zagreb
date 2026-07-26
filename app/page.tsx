@@ -166,7 +166,7 @@ return(
           <h1 style={{ margin: "0 0 6px 0", fontSize: 32 }}>Brušenje noževa i škara</h1>
 
           <p style={{ margin: "0 0 10px 0", opacity: 0.85 }}>
-            Brza obrada (24–48 h). Slanje i povrat putem BOX NOW paketomata.
+            Brza obrada (24–48 h). Slanje i povrat putem BOX NOW paketomata ili GLS-om plačanje preuzečem(4€)
           </p>
           <p style={{ margin: "0 0 14px 0", opacity: 0.9 }}>
           Profesionalno oštrenje noževa pružamo na području Zagreba, koristeći precizne sustave oštrenja
