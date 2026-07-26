@@ -117,20 +117,47 @@ export default function Page() {
     setQty(Object.fromEntries(lines.map((l) => [l.id, 0])));
   };
 
+  // mailto (ali zaključan dok nije ispunjeno)
   const mailSubject = encodeURIComponent(`Narudžba za oštrenje noževa – ${code}`);
+
   const mailBody = encodeURIComponent(
-    `NARUDŽBA – ${code}\n\nKupac:\nIme i prezime: ${customerName}\nMobitel: ${customerPhone}\nE-mail: ${customerEmail}\n` +
-    `${returnOpt.id === "GLS" ? "Adresa za dostavu (GLS)" : "Paketomat za povrat"}: ${returnLocker}\n\n` +
-    `Način dostave: ${returnOpt.id === "GLS" ? "GLS — Plaćanje pouzećem" : "BOX NOW — Bankovna uplata"}\n\n` +
-    `Oštrenje (komada: ${baseCount}):\n${baseSummary || "-"}\n\nMeđuzbroj oštrenje: ${eur(subtotalBase)}\n` +
-    (discount > 0 ? `Popust: -${eur(discount)}\n` : "") + `Međuzbroj dodaci: ${eur(subtotalAddons)}\n` +
-    `Nadoplata (<4 kom): ${eur(standardSurcharge)}\nDostava/Povrat: ${eur(returnShipping)}\nUKUPNO: ${eur(total)}\n\n` +
-    (returnOpt.id !== "GLS" ? `IBAN: ${PAYEE_IBAN}\nPlatit prije povrata.` : `Iznos plaćate dostavljaču prilikom preuzimanja paketa (GLS).`)
+    `NARUDŽBA – ${code}\n\n` +
+      `Kupac:\n` +
+      `Ime i prezime: ${customerName}\n` +
+      `Mobitel: ${customerPhone}\n` +
+      `E-mail: ${customerEmail}\n` +
+      (returnOpt.id === "GLS" ? `Adresa za dostavu (GLS): ` : `Paketomat za povrat: `) + `${returnLocker}\n\n` +
+      `Način dostave i plaćanja: ${returnOpt.id === "GLS" ? "GLS — Plaćanje pouzećem" : "BOX NOW paketomat — Bankovna uplata"}\n\n` +
+      `R1 račun: ${needR1 ? "DA" : "NE"}\n` +
+      (needR1
+        ? `\nR1 PODACI (ispuniti):\n` +
+          `1) Naziv tvrtke:\n` +
+          `2) Adresa tvrtke:\n` +
+          `3) OIB:\n\n`
+        : `\n`) +
+      `Oštrenje (komada: ${baseCount}):\n${baseSummary || "-"}\n\n` +
+      `Dodaci / popravci (komada: ${addonCount}):\n${addonSummary || "-"}\n\n` +
+      `Međuzbroj oštrenje: ${eur(subtotalBase)}\n` +
+      (discount > 0 ? `Popust (15% od 5. komada): -${eur(discount)}\n` : "") +
+      `Međuzbroj dodaci: ${eur(subtotalAddons)}\n` +
+      `Nadoplata (<4 kom ukupno): ${eur(standardSurcharge)}\n` +
+      (returnOpt.id === "GLS" ? `Dostava i pouzeće (GLS): ${eur(returnOpt.price)}\n` : `Povrat (BOX NOW): ${eur(returnShipping)}\n`) +
+      `UKUPNO: ${eur(total)}\n\n` +
+      (returnOpt.id !== "GLS"
+        ? `Uplata:\n` +
+          `Primatelj: ${PAYEE_NAME}\n` +
+          `IBAN: ${PAYEE_IBAN}\n` +
+          `Model: HR99\n` +
+          `Opis placanja: Ostrenje nozeva ${code}\n\n` +
+          `Napomena: uplata nije potrebna unaprijed. Placanje se vrsi prije povrata nozeva.\n`
+        : `Napomena: Iznos plaćate gotovinom ili karticom dostavljaču prilikom preuzimanja paketa (GLS).\n`) +
+      `Racun saljem e-mailom nakon evidentirane uplate.\n`
   );
 
   const sendEmailOrder = () => {
     window.location.href = `mailto:bruslab3@://gmail.com{mailSubject}&body=${mailBody}`;
   };
+
 
   const downloadPaymentPdf = async () => {
     if (!isCustomerOk) return;
