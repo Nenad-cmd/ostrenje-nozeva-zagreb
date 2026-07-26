@@ -1,5 +1,4 @@
 
-
 "use client";
 import { PhoneIcon, LocationIcon, MailIcon, FacebookIcon } from "./components/icons";
 import { useMemo, useState } from "react";
@@ -24,8 +23,6 @@ const RETURN_OPTIONS = [
   { id: "GLS", label: "Povrat GLS — plaćanje pouzećem (4,00 €)", price: 4.0 },
 ];
 
-
-// === PODACI ZA UPLATU (tvoji) ===
 const PAYEE_NAME = "BrusLab";
 const PAYEE_IBAN = "HR0324840081135329520";
 const PAYEE_ADDR1 = "Golska 13";
@@ -47,173 +44,100 @@ function orderCode() {
 export default function Page() {
   const lines = [...baseLines, ...addonLines];
 
-  // količine
   const [qty, setQty] = useState<Record<string, number>>(() =>
     Object.fromEntries(lines.map((l) => [l.id, 0]))
   );
 
-  // povrat
   const [returnOpt, setReturnOpt] = useState(RETURN_OPTIONS[0]);
-
-  // šifra
   const [code] = useState(orderCode);
 
-  // podaci kupca (obavezno)
   const [customerName, setCustomerName] = useState("");
   const [customerPhone, setCustomerPhone] = useState("");
   const [customerEmail, setCustomerEmail] = useState("");
   const [returnLocker, setReturnLocker] = useState("");
+  const [needR1, setNeedR1] = useState(false);
 
-  // zbrojevi
   const baseCount = useMemo(() => baseLines.reduce((sum, l) => sum + (qty[l.id] || 0), 0), [qty]);
   const addonCount = useMemo(() => addonLines.reduce((sum, l) => sum + (qty[l.id] || 0), 0), [qty]);
 
-  const subtotalBase = useMemo(
-    () => baseLines.reduce((sum, l) => sum + (qty[l.id] || 0) * l.price, 0),
-    [qty]
+  const subtotalBase = useMemo(() => baseLines.reduce((sum, l) => sum + (qty[l.id] || 0) * l.price, 0), [qty]);
+  const subtotalAddons = useMemo(() => addonLines.reduce((sum, l) => sum + (qty[l.id] || 0) * l.price, 0), [qty]);
+
+   const baseUnitPrices = baseLines.flatMap((line) =>
+    Array.from({ length: qty[line.id] || 0 }, () => line.price)
   );
-  const subtotalAddons = useMemo(
-    () => addonLines.reduce((sum, l) => sum + (qty[l.id] || 0) * l.price, 0),
-    [qty]
-  );
-  const [needR1, setNeedR1] = useState(false);
 
+  baseUnitPrices.sort((a, b) => b - a);
+  const discountedUnits = Math.max(0, baseCount - 4);
 
+  const discount = baseUnitPrices
+    .slice(0, discountedUnits)
+    .reduce((sum, price) => sum + price * 0.15, 0);
 
-    // popust 15% samo na komade iznad 4
-
-  const baseUnitPrices = baseLines.flatMap((line) =>
-  Array.from({ length: qty[line.id] || 0 }, () => line.price)
-);
-
-// sortiraj od najskupljeg prema najjeftinijem
-baseUnitPrices.sort((a, b) => b - a);
-
-// koliko komada ima popust
-const discountedUnits = Math.max(0, baseCount - 4);
-
-// popust ide na najskupljih X komada
-const discount = baseUnitPrices
-  .slice(0, discountedUnits)
-  .reduce((sum, price) => sum + price * 0.15, 0);
-
-  // standard surcharge: ako standard ima 1-3 kom dodaj 2€
- const standardSurcharge = baseCount > 0 && baseCount < 4 ? 2 : 0;
-  // povrat besplatan kad je 4+ kom oštrenja (vrijedi samo za BOX NOW, ne i za GLS)
+  const standardSurcharge = baseCount > 0 && baseCount < 4 ? 2 : 0;
   const returnShipping = (baseCount >= 4 && returnOpt.id !== "GLS") ? 0 : returnOpt.price;
 
-  const total =
-    Math.max(0, subtotalBase - discount) +
-    subtotalAddons +
-    standardSurcharge +
-    returnShipping;
-
+  const total = Math.max(0, subtotalBase - discount) + subtotalAddons + standardSurcharge + returnShipping;
 
   const baseSummary = baseLines
     .filter((l) => (qty[l.id] || 0) > 0)
     .map((l) => `- ${l.name} x ${qty[l.id]} = ${eur((qty[l.id] || 0) * l.price)}`)
     .join("\n");
 
- const addonSummary = addonLines
-  .filter((l) => (qty[l.id] || 0) > 0)
-  .map((l) => `- ${l.name} x ${qty[l.id]} = ${eur((qty[l.id] || 0) * l.price)}`)
-  .join("\n");
+  const addonSummary = addonLines
+    .filter((l) => (qty[l.id] || 0) > 0)
+    .map((l) => `- ${l.name} x ${qty[l.id]} = ${eur((qty[l.id] || 0) * l.price)}`)
+    .join("\n");
 
-// validacija kupca
-const phoneOk = customerPhone.replace(/\D/g, "").length >= 8;
-const emailOk = customerEmail.includes("@");
-const isCustomerOk =
-  baseCount > 0 &&
-  customerName.trim().length >= 2 &&
-  phoneOk &&
-  emailOk &&
-  returnLocker.trim().length >= 3;
+  const phoneOk = customerPhone.replace(/\D/g, "").length >= 8;
+  const emailOk = customerEmail.includes("@");
+  const isCustomerOk = baseCount > 0 && customerName.trim().length >= 2 && phoneOk && emailOk && returnLocker.trim().length >= 3;
 
-// HUB-3 PDF417 (HR banke) — izduženi barkod
-const payerName = (customerName || "").toUpperCase().slice(0, 30);
-const payerAddr1 = "";
-const payerCity = "";
+  const payerName = (customerName || "").toUpperCase().slice(0, 30);
+  const amountCents = String(Math.round(total * 100)).padStart(15, "0");
+  const description = `Ostrenje nozeva ${code}`.slice(0, 35);
 
-const amountCents = String(Math.round(total * 100)).padStart(15, "0");
-const model = "HR99";
-const reference = "";
-const purpose = "COST";
-const description = `Ostrenje nozeva ${code}`.slice(0, 35);
+  const hub3Text = [
+    "HRVHUB30", "EUR", amountCents, payerName, "", "",
+    PAYEE_NAME.toUpperCase().slice(0, 25), PAYEE_ADDR1.toUpperCase().slice(0, 25),
+    PAYEE_CITY.toUpperCase().slice(0, 27), PAYEE_IBAN.replace(/\s+/g, "").slice(0, 21),
+    "HR99", "", "COST", description,
+  ].join("\n");
 
-const hub3Text = [
-  "HRVHUB30",
-  "EUR",
-  amountCents,
-  payerName,
-  payerAddr1,
-  payerCity,
-  PAYEE_NAME.toUpperCase().slice(0, 25),
-  PAYEE_ADDR1.toUpperCase().slice(0, 25),
-  PAYEE_CITY.toUpperCase().slice(0, 27),
-  PAYEE_IBAN.replace(/\s+/g, "").slice(0, 21),
-  model,
-  reference,
-  purpose,
-  description,
-].join("\n");
+  const pdf417Url = `https://metafloor.com{encodeURIComponent(hub3Text)}`;
 
-const pdf417Url =
-  `https://bwipjs-api.metafloor.com/?bcid=pdf417&scale=2&eclevel=5&includetext=false&text=${encodeURIComponent(
-    hub3Text
-  )}`;
+  const setLineQty = (id: string, v: number) => {
+    const val = Math.max(0, Math.min(99, Number.isFinite(v) ? v : 0));
+    setQty((prev) => ({ ...prev, [id]: val }));
+  };
 
-const setLineQty = (id: string, v: number) => {
-  const val = Math.max(0, Math.min(99, Number.isFinite(v) ? v : 0));
-  setQty((prev) => ({ ...prev, [id]: val }));
-};
+  const reset = () => { setQty(Object.fromEntries(lines.map((l) => [l.id, 0]))); };
 
-const reset = () => {
-  setQty(Object.fromEntries(lines.map((l) => [l.id, 0])));
-  // NE brišem kupčeve podatke namjerno (da mu je lakše ispraviti narudžbu)
-};
+  const mailSubject = encodeURIComponent(`Narudžba za oštrenje noževa – ${code}`);
+  const mailBody = encodeURIComponent(
+    `NARUDŽBA – ${code}\n\nKupac:\nIme i prezime: ${customerName}\nMobitel: ${customerPhone}\nE-mail: ${customerEmail}\n` +
+    `${returnOpt.id === "GLS" ? "Adresa za dostavu (GLS)" : "Paketomat za povrat"}: ${returnLocker}\n\n` +
+    `Način dostave: ${returnOpt.id === "GLS" ? "GLS — Plaćanje pouzećem" : "BOX NOW — Bankovna uplata"}\n\n` +
+    `Oštrenje (komada: ${baseCount}):\n${baseSummary || "-"}\n\nMeđuzbroj oštrenje: ${eur(subtotalBase)}\n` +
+    (discount > 0 ? `Popust: -${eur(discount)}\n` : "") + `Međuzbroj dodaci: ${eur(subtotalAddons)}\n` +
+    `Nadoplata (<4 kom): ${eur(standardSurcharge)}\nDostava/Povrat: ${eur(returnShipping)}\nUKUPNO: ${eur(total)}\n\n` +
+    (returnOpt.id !== "GLS" ? `IBAN: ${PAYEE_IBAN}\nPlatit prije povrata.` : `Iznos plaćate dostavljaču prilikom preuzimanja paketa (GLS).`)
+  );
 
-// mailto (ali zaključan dok nije ispunjeno)
-const mailSubject = encodeURIComponent(`Narudžba za oštrenje noževa – ${code}`);
+  const sendEmailOrder = () => { window.location.href = `mailto:bruslab3@://gmail.com{mailSubject}&body=${mailBody}`; };
 
-const mailBody = encodeURIComponent(
-  `NARUDŽBA – ${code}\n\n` +
-    `Kupac:\n` +
-    `Ime i prezime: ${customerName}\n` +
-    `Mobitel: ${customerPhone}\n` +
-    `E-mail: ${customerEmail}\n` +
-    `Paketomat za povrat (grad + lokacija): ${returnLocker}\n\n` +
-    `R1 račun: ${needR1 ? "DA" : "NE"}\n` +
-    (needR1
-      ? `\nR1 PODACI (ispuniti):\n` +
-        `1) Naziv tvrtke:\n` +
-        `2) Adresa tvrtke:\n` +
-        `3) OIB:\n\n`
-      : `\n`) +
-    `Oštrenje (komada: ${baseCount}):\n${baseSummary || "-"}\n\n` +
-    `Dodaci / popravci (komada: ${addonCount}):\n${addonSummary || "-"}\n\n` +
-    `Međuzbroj oštrenje: ${eur(subtotalBase)}\n` +
-    (discount > 0 ? `Popust (15% od 5. komada): -${eur(discount)}\n` : "") +
-    `Međuzbroj dodaci: ${eur(subtotalAddons)}\n` +
-    `Nadoplata (<4 kom ukupno): ${eur(standardSurcharge)}\n` +
-    `UKUPNO: ${eur(total)}\n\n` +
-    `Uplata:\n` +
-    `Primatelj: ${PAYEE_NAME}\n` +
-    `IBAN: ${PAYEE_IBAN}\n` +
-    `Model: HR99\n` +
-    `Opis placanja: Ostrenje nozeva ${code}\n\n` +
-    `Napomena: uplata nije potrebna unaprijed. Placanje se vrsi prije povrata nozeva.\n` +
-    `Racun saljem e-mailom nakon evidentirane uplate.\n`
-);
+  const downloadPaymentPdf = async () => {
+    if (!isCustomerOk) return;
+    const { jsPDF } = await import("jspdf");
+    const res = await fetch(pdf417Url);
+    const blob = await res.blob();
+    const dataUrl: string = await new Promise((res) => { const r = new FileReader(); r.onload = () => res(String(r.result)); r.readAsDataURL(blob); });
+    const doc = new jsPDF({ unit: "mm", format: "a4" });
+    doc.text("Upute za uplatu", 14, 20);
+    doc.addImage(dataUrl, "PNG", 14, 40, 90, 38);
+    doc.save(`uplata_${code}.pdf`);
+  };
 
-const sendEmailOrder = () => {
-  window.location.href = `mailto:bruslab3@gmail.com?subject=${mailSubject}&body=${mailBody}`;
-};
-
-const downloadPaymentPdf = async () => {
-  if (!isCustomerOk) {
-    alert("Prvo ispuni podatke kupca + paketomat za povrat (i odaberi barem 1 oštrenje).");
-    return;
-  }
 
   const { jsPDF } = await import("jspdf");
 
@@ -248,7 +172,7 @@ const downloadPaymentPdf = async () => {
 
   doc.save(`uplata_${code}.pdf`);
 };
-return(
+  return (
     <>
       {/* HERO */}
       <section style={{ maxWidth: 1100, margin: "0 auto", padding: 20 }}>
@@ -267,14 +191,14 @@ return(
           <h1 style={{ margin: "0 0 6px 0", fontSize: 32 }}>Brušenje noževa i škara</h1>
 
           <p style={{ margin: "0 0 10px 0", opacity: 0.85 }}>
-            Brza obrada (24–48 h). Slanje i povrat putem BOX NOW paketomata.
+            Brza obrada (24–48 h). Slanje i povrat putem BOX NOW paketomata ili GLS-a.
           </p>
           <p style={{ margin: "0 0 14px 0", opacity: 0.9 }}>
-          Profesionalno oštrenje noževa pružamo na području Zagreba, koristeći precizne sustave oštrenja
-          koji osiguravaju dugotrajnu oštrinu u svakodnevnoj upotrebi.
-        </p>
+            Profesionalno oštrenje noževa pružamo na području Zagreba, koristeći precizne sustave oštrenja
+            koji osiguravaju dugotrajnu oštrinu u svakodnevnoj upotrebi.
+          </p>
 
-           <div style={{ marginTop: 10, padding: 10, border: "1px solid #ddd", borderRadius: 10 }}>
+          <div style={{ marginTop: 10, padding: 10, border: "1px solid #ddd", borderRadius: 10 }}>
             <strong>✦ Akcije:</strong> 4+ kom oštrenja = besplatan povrat • od 5. komada -15%
           </div> 
 
@@ -296,46 +220,44 @@ return(
             </a>
           </div>
           <div style={{ marginTop: 10 }}>
-  <a
-    href="/prodaja-nozeva"
-    style={{
-      display: "inline-block",
-      padding: "8px 12px",
-      borderRadius: 8,
-      border: "1px solid #111",
-      textDecoration: "none",
-      color: "#111",
-      fontWeight: 600,
-      fontSize: 14,
-    }}
-  >
-    🔪 Prodaja noževa (Xinzuo)
-  </a>
-</div>
+            <a
+              href="/prodaja-nozeva"
+              style={{
+                display: "inline-block",
+                padding: "8px 12px",
+                borderRadius: 8,
+                border: "1px solid #111",
+                textDecoration: "none",
+                color: "#111",
+                fontWeight: 600,
+                fontSize: 14,
+              }}
+            >
+              🔪 Prodaja noževa (Xinzuo)
+            </a>
+          </div>
         </header>
+
         {/* EDUKATIVNA SEKCIJA */}
-<section style={{ marginBottom: 24 }}>
-  <h2 style={{ margin: "0 0 10px 0", fontSize: 22 }}>
-    Kako postići oštrinu koja traje
-  </h2>
-
-  <p style={{ margin: 0, lineHeight: 1.65, opacity: 0.95 }}>
-    <strong>
-    Prava tajna dugotrajne oštrine nije u samom brušenju, već u preciznom uklanjanju
-    mikro srha (mikroskopskog ruba nastalog brušenjem).
-  </strong>
-  <br />
-  Upravo taj završni korak čini razliku između noža koji brzo izgubi oštrinu i noža
-  koji zadržava stabilnu i pouzdanu oštrinu kroz dulje vrijeme.
-  <br />
-  Oštrenje se izvodi kroz više kontroliranih faza, uz poseban fokus na završnu obradu
-  reznog ruba, kako bi rezultat bio maksimalno precizan i dugotrajan.
-  <br />
-  Rezultat je ujednačena i dugotrajnija oštrina u svakodnevnoj upotrebi.
-</p>
- 
-</section>
-
+        <section style={{ marginBottom: 24 }}>
+          <h2 style={{ margin: "0 0 10px 0", fontSize: 22 }}>
+            Kako postići oštrinu koja traje
+          </h2>
+          <p style={{ margin: 0, lineHeight: 1.65, opacity: 0.95 }}>
+            <strong>
+              Prava tajna dugotrajne oštrine nije u samom brušenju, već u preciznom uklanjanju
+              mikro srha (mikroskopskog ruba nastalog brušenjem).
+            </strong>
+            <br />
+            Upravo taj završni korak čini razliku između noža koji brzo izgubi oštrinu i noža
+            koji zadržava stabilnu i pouzdanu oštrinu kroz dulje vrijeme.
+            <br />
+            Oštrenje se izvodi kroz više kontroliranih faza, uz poseban fokus na završnu obradu
+            reznog ruba, kako bi rezultat bio maksimalno precizan i dugotrajan.
+            <br />
+            Rezultat je ujednačena i dugotrajnija oštrina u svakodnevnoj upotrebi.
+          </p>
+        </section>
 
         {/* Cjenik + Sažetak */}
         <section style={{ display: "grid", gridTemplateColumns: "1.2fr 0.8fr", gap: 18 }}>
@@ -347,7 +269,7 @@ return(
             <div style={{ display: "grid", gap: 10 }}>
               {baseLines.map((l) => (
                 <div
-key={l.id}
+                  key={l.id}
                   style={{
                     display: "flex",
                     justifyContent: "space-between",
@@ -419,17 +341,17 @@ key={l.id}
                   </div>
                 </div>
               ))}
-                </div>
+            </div>
 
-              <div style={{ marginTop: 14, paddingTop: 12, borderTop: "1px dashed #ddd" }}>
+            <div style={{ marginTop: 14, paddingTop: 12, borderTop: "1px dashed #ddd" }}>
               <h3 style={{ margin: "0 0 6px 0" }}>Pravila</h3>
               <ul style={{ marginTop: 0 }}>
                 <li>
                   <strong>4+ kom (oštrenje)</strong> → besplatan povrat
                 </li>
-              <li>
-                <strong>Od 5. komada</strong> → svaki sljedeći komad ima 15% popusta
-              </li>
+                <li>
+                  <strong>Od 5. komada</strong> → svaki sljedeći komad ima 15% popusta
+                </li>
                 <li style={{ opacity: 0.85 }}>Cijena popravka se dodaje na cijenu oštrenja.</li>
               </ul>
             </div>
@@ -478,35 +400,285 @@ key={l.id}
               />
 
               <label style={{ display: "block", fontSize: 12, opacity: 0.8 }}>
-                Paketomat za povrat (grad + lokacija)
+                {returnOpt.id === "GLS" ? "Adresa za dostavu (Ulica, kućni broj, grad)" : "Paketomat za povrat (grad + lokacija)"}
               </label>
               <input
                 value={returnLocker}
                 onChange={(e) => setReturnLocker(e.target.value)}
-                placeholder="npr. Zagreb, Dubrava 222"
+                placeholder={returnOpt.id === "GLS" ? "npr. Golska 13, 10040 Zagreb" : "npr. Zagreb, Dubrava 222"}
                 style={{ width: "100%", padding: 10, borderRadius: 8, border: "1px solid #ccc" }}
               />
             </div>
 
-            {/* Povrat */}
+    
+          width: "100%",
+      return (
+    <>
+      {/* HERO */}
+      <section style={{ maxWidth: 1100, margin: "0 auto", padding: 20 }}>
+        <div style={{ borderRadius: 18, overflow: "hidden", border: "1px solid #eaeaea", height: 360 }}>
+          <img
+            src="/hero.webp"
+            alt="Brušenje noževa i škara Zagreb – BrusLab"
+            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+          />
+        </div>
+      </section>
+
+      <main style={{ maxWidth: 1020, margin: "0 auto", padding: 24, fontFamily: "system-ui, sans-serif" }}>
+        {/* HEADER */}
+        <header style={{ marginBottom: 22 }}>
+          <h1 style={{ margin: "0 0 6px 0", fontSize: 32 }}>Brušenje noževa i škara</h1>
+
+          <p style={{ margin: "0 0 10px 0", opacity: 0.85 }}>
+            Brza obrada (24–48 h). Slanje i povrat putem BOX NOW paketomata ili GLS-a.
+          </p>
+          <p style={{ margin: "0 0 14px 0", opacity: 0.9 }}>
+            Profesionalno oštrenje noževa pružamo na području Zagreba, koristeći precizne sustave oštrenja
+            koji osiguravaju dugotrajnu oštrinu u svakodnevnoj upotrebi.
+          </p>
+
+          <div style={{ marginTop: 10, padding: 10, border: "1px solid #ddd", borderRadius: 10 }}>
+            <strong>✦ Akcije:</strong> 4+ kom oštrenja = besplatan povrat • od 5. komada -15%
+          </div> 
+
+          <div style={{ marginTop: 14 }}>
+            <a
+              href="/box-now"
+              style={{
+                display: "inline-block",
+                padding: "8px 12px",
+                borderRadius: 8,
+                border: "1px solid #111",
+                textDecoration: "none",
+                color: "#111",
+                fontWeight: 600,
+                fontSize: 14,
+              }}
+            >
+              📦 Kako poslati noževe (BOX NOW upute)
+            </a>
+          </div>
+          <div style={{ marginTop: 10 }}>
+            <a
+              href="/prodaja-nozeva"
+              style={{
+                display: "inline-block",
+                padding: "8px 12px",
+                borderRadius: 8,
+                border: "1px solid #111",
+                textDecoration: "none",
+                color: "#111",
+                fontWeight: 600,
+                fontSize: 14,
+              }}
+            >
+              🔪 Prodaja noževa (Xinzuo)
+            </a>
+          </div>
+        </header>
+
+        {/* EDUKATIVNA SEKCIJA */}
+        <section style={{ marginBottom: 24 }}>
+          <h2 style={{ margin: "0 0 10px 0", fontSize: 22 }}>
+            Kako postići oštrinu koja traje
+          </h2>
+          <p style={{ margin: 0, lineHeight: 1.65, opacity: 0.95 }}>
+            <strong>
+              Prava tajna dugotrajne oštrine nije u samom brušenju, već u preciznom uklanjanju
+              mikro srha (mikroskopskog ruba nastalog brušenjem).
+            </strong>
+            <br />
+            Upravo taj završni korak čini razliku između noža koji brzo izgubi oštrinu i noža
+            koji zadržava stabilnu i pouzdanu oštrinu kroz dulje vrijeme.
+            <br />
+            Oštrenje se izvodi kroz više kontroliranih faza, uz poseban fokus na završnu obradu
+            reznog ruba, kako bi rezultat bio maksimalno precizan i dugotrajan.
+            <br />
+            Rezultat je ujednačena i dugotrajnija oštrina u svakodnevnoj upotrebi.
+          </p>
+        </section>
+
+        {/* Cjenik + Sažetak */}
+        <section style={{ display: "grid", gridTemplateColumns: "1.2fr 0.8fr", gap: 18 }}>
+          {/* CJENIK */}
+          <div style={{ border: "1px solid #ddd", borderRadius: 10, padding: 16 }}>
+            <h2 style={{ marginTop: 0 }}>Cjenik</h2>
+
+            <h3 style={{ marginBottom: 8 }}>Oštrenje</h3>
+            <div style={{ display: "grid", gap: 10 }}>
+              {baseLines.map((l) => (
+                <div
+                  key={l.id}
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    border: "1px solid #eee",
+                    borderRadius: 10,
+                    padding: 12,
+                  }}
+                >
+                  <div>
+                    <div style={{ fontWeight: 600 }}>{l.name}</div>
+                    <div style={{ opacity: 0.75 }}>{eur(l.price)} / kom</div>
+                  </div>
+
+                  <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                    <label style={{ fontSize: 12, opacity: 0.8 }}>Količina</label>
+                    <input
+                      type="number"
+                      min={0}
+                      value={qty[l.id] ?? 0}
+                      onChange={(e) => setLineQty(l.id, Number(e.target.value || 0))}
+                      style={{
+                        width: 80,
+                        padding: 10,
+                        borderRadius: 8,
+                        border: "1px solid #ccc",
+                        textAlign: "center",
+                      }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <h3 style={{ marginTop: 18, marginBottom: 8 }}>Dodaci / popravci</h3>
+            <div style={{ display: "grid", gap: 10 }}>
+              {addonLines.map((l) => (
+                <div
+                  key={l.id}
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    border: "1px solid #eee",
+                    borderRadius: 10,
+                    padding: 12,
+                  }}
+                >
+                  <div>
+                    <div style={{ fontWeight: 600 }}>{l.name}</div>
+                    <div style={{ opacity: 0.75 }}>{eur(l.price)} / kom</div>
+                  </div>
+
+                  <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                    <label style={{ fontSize: 12, opacity: 0.8 }}>Količina</label>
+                    <input
+                      type="number"
+                      min={0}
+                      value={qty[l.id] ?? 0}
+                      onChange={(e) => setLineQty(l.id, Number(e.target.value || 0))}
+                      style={{
+                        width: 80,
+                        padding: 10,
+                        borderRadius: 8,
+                        border: "1px solid #ccc",
+                        textAlign: "center",
+                      }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div style={{ marginTop: 14, paddingTop: 12, borderTop: "1px dashed #ddd" }}>
+              <h3 style={{ margin: "0 0 6px 0" }}>Pravila</h3>
+              <ul style={{ marginTop: 0 }}>
+                <li>
+                  <strong>4+ kom (oštrenje)</strong> → besplatan povrat
+                </li>
+                <li>
+                  <strong>Od 5. komada</strong> → svaki sljedeći komad ima 15% popusta
+                </li>
+                <li style={{ opacity: 0.85 }}>Cijena popravka se dodaje na cijenu oštrenja.</li>
+              </ul>
+            </div>
+          </div> 
+
+          {/* SAŽETAK + CTA */}
+          <aside style={{ border: "1px solid #ddd", borderRadius: 10, padding: 16 }}>
+            <h2 style={{ marginTop: 0 }}>Sažetak</h2>
+
+            <div style={{ fontSize: 14, opacity: 0.85, marginBottom: 10 }}>
+              Šifra narudžbe: <strong>{code}</strong>
+            </div>
+
+            <div style={{ marginBottom: 10 }}>
+              Oštrenje (kom): <strong>{baseCount}</strong>
+              <br />
+              Dodaci (kom): <strong>{addonCount}</strong>
+            </div>
+
+            {/* Podaci kupca */}
             <div style={{ marginTop: 12 }}>
-              <label style={{ display: "block", fontWeight: 600, marginBottom: 6 }}>Povrat (BOX NOW)</label>
-            <select
-  value={returnOpt.id}
-  onChange={(e) =>
-    setReturnOpt(RETURN_OPTIONS.find((o) => o.id === e.target.value) || RETURN_OPTIONS[0])
-  }
-  style={{ width: "100%", padding: 10, borderRadius: 8, border: "1px solid #ccc" }}
->
-  {RETURN_OPTIONS.map((o) => (
-    <option key={o.id} value={o.id}>
-      {o.label}
-    </option>
-  ))}
-</select>
+              <h3 style={{ margin: "0 0 8px 0" }}>Podaci za narudžbu (obavezno)</h3>
 
+              <label style={{ display: "block", fontSize: 12, opacity: 0.8 }}>Ime i prezime</label>
+              <input
+                value={customerName}
+                onChange={(e) => setCustomerName(e.target.value)}
+                placeholder="npr. Ivan Horvat"
+                style={{ width: "100%", padding: 10, borderRadius: 8, border: "1px solid #ccc", marginBottom: 8 }}
+              />
 
-              {baseCount >= 4 && (
+              <label style={{ display: "block", fontSize: 12, opacity: 0.8 }}>Mobitel</label>
+              <input
+                value={customerPhone}
+                onChange={(e) => setCustomerPhone(e.target.value)}
+                placeholder="npr. 091 123 4567"
+                style={{ width: "100%", padding: 10, borderRadius: 8, border: "1px solid #ccc", marginBottom: 8 }}
+              />
+
+              <label style={{ display: "block", fontSize: 12, opacity: 0.8 }}>E-mail</label>
+              <input
+                value={customerEmail}
+                onChange={(e) => setCustomerEmail(e.target.value)}
+                placeholder="npr. ivan@email.com"
+                style={{ width: "100%", padding: 10, borderRadius: 8, border: "1px solid #ccc", marginBottom: 8 }}
+              />
+
+              <label style={{ display: "block", fontSize: 12, opacity: 0.8 }}>
+                {returnOpt.id === "GLS" ? "Adresa za dostavu (Ulica, kućni broj, grad)" : "Paketomat za povrat (grad + lokacija)"}
+              </label>
+              <input
+                value={returnLocker}
+                onChange={(e) => setReturnLocker(e.target.value)}
+                placeholder={returnOpt.id === "GLS" ? "npr. Golska 13, 10040 Zagreb" : "npr. Zagreb, Dubrava 222"}
+                style={{ width: "100%", padding: 10, borderRadius: 8, border: "1px solid #ccc" }}
+              />
+            </div>
+
+            {/* Povrat / Način dostave */}
+            <div style={{ marginTop: 12 }}>
+              <label style={{ display: "block", fontWeight: 600, marginBottom: 6 }}>Način dostave / povrata</label>
+              <select
+
+            </button>
+          </form>
+
+          <p style={{ fontSize: 12, opacity: 0.75, marginTop: 10 }}>Odgovaram putem e-maila u najkraćem mogućem roku.</p>
+        </section>
+
+                  {/* Povrat / Način dostave */}
+            <div style={{ marginTop: 12 }}>
+              <label style={{ display: "block", fontWeight: 600, marginBottom: 6 }}>Način dostave / povrata</label>
+              <select
+                value={returnOpt.id}
+                onChange={(e) =>
+                  setReturnOpt(RETURN_OPTIONS.find((o) => o.id === e.target.value) || RETURN_OPTIONS[0])
+                }
+                style={{ width: "100%", padding: 10, borderRadius: 8, border: "1px solid #ccc" }}
+              >
+                {RETURN_OPTIONS.map((o) => (
+                  <option key={o.id} value={o.id}>
+                    {o.label}
+                  </option>
+                ))}
+              </select>
+
+              {baseCount >= 4 && returnOpt.id !== "GLS" && (
                 <div style={{ marginTop: 6, fontSize: 13, opacity: 0.8 }}>Povrat je besplatan (4+ kom oštrenja).</div>
               )}
             </div>
@@ -522,167 +694,151 @@ key={l.id}
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
                   <span>Popust (15% od 5. komada)</span>
                   <strong>-{eur(discount)}</strong>
-              </div>
-            )}
+                </div>
+              )}
 
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <span>Međuzbroj dodaci</span>
                 <strong>{eur(subtotalAddons)}</strong>
               </div>
 
-                <div style={{ display: "flex", justifyContent: "space-between" }}>
-                  <span>Nadoplata (&lt;4 kom ukupno)</span>
-                  <strong>{eur(standardSurcharge)}</strong>
-                </div>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <span>Nadoplata (&lt;4 kom ukupno)</span>
+                <strong>{eur(standardSurcharge)}</strong>
+              </div>
             
-              <div style={{ display: "flex", justifyContent: "space-between", marginTop: 6, fontSize: 18 }}>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <span>{returnOpt.id === "GLS" ? "Dostava i pouzeće (GLS)" : "Povrat (BOX NOW)"}</span>
+                <strong>{eur(returnShipping)}</strong>
+              </div>
+
+              <div style={{ display: "flex", justifyContent: "space-between", marginTop: 6, fontSize: 18, borderTop: "1px solid #eee", paddingTop: 6 }}>
                 <span>Ukupno</span>
                 <strong>{eur(total)}</strong>
               </div>
             </div>
 
-            {/*CTA*/}
+            {/* CTA */}
             <div style={{ display: "grid", gap: 10, marginTop: 14 }}>
               <label
-  style={{
-    display: "flex",
-    alignItems: "center",
-    gap: 8,
-    fontSize: 14,
-    cursor: "pointer",
-    marginTop: 10,
-  }}
->
-  <input
-    type="checkbox"
-    checked={needR1}
-    onChange={(e) => setNeedR1(e.target.checked)}
-  />
-  Trebam R1 račun
-</label>
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                  fontSize: 14,
+                  cursor: "pointer",
+                  marginTop: 10,
+                }}
+              >
+                <input
+                  type="checkbox"
+                  checked={needR1}
+                  onChange={(e) => setNeedR1(e.target.checked)}
+                />
+                Trebam R1 račun
+              </label>
               
- <div style={{ fontSize: 12, opacity: 0.7, marginTop: 4 }}>
-  Poslovni korisnici mogu dodatne podatke upisati u e-mailu.
-</div>
+              <div style={{ fontSize: 12, opacity: 0.7, marginTop: 4 }}>
+                Poslovni korisnici mogu dodatne podatke upisati u e-mailu.
+              </div>
    
-  {/* EMAIL */}
-  <button
-    type="button"
-    onClick={sendEmailOrder}
-    disabled={!isCustomerOk}
-    style={{
-      textAlign: "center",
-      padding: "12px",
-      borderRadius: 10,
-      border: "1px solid #111",
-      background: isCustomerOk ? "#fff" : "#eee",
-      color: "#111",
-      fontWeight: 600,
-      cursor: isCustomerOk ? "pointer" : "not-allowed",
-    }}
-  >
-    Otvori e-mail narudžbu 
-  </button>
+              {/* EMAIL */}
+              <button
+                type="button"
+                onClick={sendEmailOrder}
+                disabled={!isCustomerOk}
+                style={{
+                  textAlign: "center",
+                  padding: "12px",
+                  borderRadius: 10,
+                  border: "1px solid #111",
+                  background: isCustomerOk ? "#fff" : "#eee",
+                  color: "#111",
+                  fontWeight: 600,
+                  cursor: isCustomerOk ? "pointer" : "not-allowed",
+                }}
+              >
+                Otvori e-mail narudžbu 
+              </button>
 
-  <div style={{ fontSize: 12, opacity: 0.7 }}>
-    Otvara e-mail aplikaciju s popunjenom narudžbom.
-  </div>
+              <div style={{ fontSize: 12, opacity: 0.7 }}>
+                Otvara e-mail aplikaciju s popunjenom narudžbom.
+              </div>
 
-  {/* PDF */}
-  <button
-    type="button"
-    onClick={downloadPaymentPdf}
-    disabled={!isCustomerOk}
-    style={{
-      padding: "12px",
-      borderRadius: 10,
-      border: "1px solid #111",
-      background: isCustomerOk ? "#111" : "#999",
-      color: "#fff",
-      cursor: isCustomerOk ? "pointer" : "not-allowed",
-      fontWeight: 700,
-    }}
-  >
-      {/* PDF UPLATNICA I BARKOD SE SAKRIVAJU AKO JE ODABRAN GLS */}
-  {returnOpt.id !== "GLS" && (
-    <>
-      <button
-        type="button"
-        onClick={downloadPaymentPdf}
-        disabled={!isCustomerOk}
-        style={{
-          padding: "12px",
-          borderRadius: 10,
-          border: "1px solid #111",
-          background: isCustomerOk ? "#111" : "#999",
-          color: "#fff",
-          cursor: isCustomerOk ? "pointer" : "not-allowed",
-          fontWeight: 700,
-        }}
-      >
-        ⬇️ Preuzmi PDF uplatnicu
-      </button>
+              {/* PDF UPLATNICA I BARKOD (Sakrivaju se ako je odabran GLS) */}
+              {returnOpt.id !== "GLS" && (
+                <>
+                  <button
+                    type="button"
+                    onClick={downloadPaymentPdf}
+                    disabled={!isCustomerOk}
+                    style={{
+                      padding: "12px",
+                      borderRadius: 10,
+                      border: "1px solid #111",
+                      background: isCustomerOk ? "#111" : "#999",
+                      color: "#fff",
+                      cursor: isCustomerOk ? "pointer" : "not-allowed",
+                      fontWeight: 700,
+                    }}
+                  >
+                    ⬇️ Preuzmi PDF uplatnicu
+                  </button>
 
-      <img
-        src={pdf417Url}
-        alt="2D barkod za uplatu (HUB-3 PDF417)"
-        style={{
-          width: "100%",
-          height: "auto",
-          borderRadius: 12,
-          border: "1px solid #eee",
-        }}
-      />
-  {/* RESET */}
-  <button
-    type="button"
-    onClick={reset}
-    style={{
-      padding: "10px",
-      borderRadius: 10,
-      border: "1px solid #ccc",
-      background: "#fff",
-      cursor: "pointer",
-    }}
-  >
-    Reset
-  </button>
-  <div style={{ fontSize: 12, opacity: 0.8, lineHeight: 1.4 }}>
-  Kupac plaća slanje prema meni (BOX NOW). Povrat je besplatan za <strong>4+</strong> kom oštrenja.
+                  <img
+                    src={pdf417Url}
+                    alt="2D barkod za uplatu (HUB-3 PDF417)"
+                    style={{
+                      width: "100%",
+                      height: "auto",
+                      borderRadius: 12,
+                      border: "1px solid #eee",
+                    }}
+                  />
+                </>
+              )}
 
-  <div style={{ marginTop: 6, fontWeight: 600 }}>
-    Napomena: uplata nije obavezna prilikom narudžbe,dovoljno je preuzet uplatnicu sa brojem  naruđbe.
-  </div>
-    
+              {/* RESET */}
+              <button
+                type="button"
+                onClick={reset}
+                style={{
+                  padding: "10px",
+                  borderRadius: 10,
+                  border: "1px solid #ccc",
+                  background: "#fff",
+                  cursor: "pointer",
+                }}
+              >
+                Reset
+              </button>
 
-  <div style={{ marginTop: 6 }}>
-    Povrat noževa i račun šaljem nakon evidentirane uplate.
-  </div>
-</div>
+              <div style={{ fontSize: 12, opacity: 0.8, lineHeight: 1.4 }}>
+                {returnOpt.id === "GLS" ? (
+                  <div style={{ marginTop: 6, fontWeight: 600 }}>
+                    Napomena: Odabrali ste GLS plaćanje pouzećem. Uplatnica nije potrebna, a cjelokupan iznos plaćate dostavljaču kod preuzimanja paketa.
+                  </div>
+                ) : (
+                  <>
+                    Kupac plaća slanje prema meni (BOX NOW). Povrat je besplatan za <strong>4+</strong> kom oštrenja.
+                    <div style={{ marginTop: 6, fontWeight: 600 }}>
+                      Napomena: uplata nije obavezna prilikom narudžbe, dovoljno je preuzeti uplatnicu sa brojem narudžbe.
+                    </div>
+                    <div style={{ marginTop: 6 }}>
+                      Povrat noževa i račun šaljem nakon evidentirane uplate.
+                    </div>
+                  </>
+                )}
+              </div>
 
-{!isCustomerOk && (
-  <div style={{ fontSize: 12, opacity: 0.7 }}>
-    Za slanje narudžbe i uplatnicu obavezno ispuni: ime, mobitel, e-mail i paketomat za povrat.
-  </div>
-)}
-</div>
-
+              {!isCustomerOk && (
+                <div style={{ fontSize: 12, opacity: 0.7 }}>
+                  Za slanje narudžbe obavezno ispuni: ime, mobitel, e-mail i adresu/paketomat za povrat.
+                </div>
+              )}
+            </div>
           </aside>
         </section>
-
-        {/* FAQ */}
-        {/* <section style={{ marginTop: 28, borderTop: "1px solid #eee", paddingTop: 18 }}>
-          <h2>Česta pitanja</h2>
-
-          <p>
-            <strong>Kako mogu prepoznati tvrđu oštricu (58+ HRC)?</strong>
-            <br />
-            Tvrđe oštrice najčešće se nalaze kod japanskih noževa i noževa od kvalitetnijih čelika, poput noževa marke
-            Global i sličnih japanskih ili polu-japanskih čelika.Takvi noževi dulje zadržavaju oštrinu, ali zahtijevaju
-            više faza oštrenja.
-          </p>
-  
-        </section> */}
 
         {/* Kontakt forma */}
         <section style={{ marginTop: 28, borderTop: "1px solid #eee", paddingTop: 18 }}>
@@ -734,7 +890,7 @@ key={l.id}
                 cursor: "pointer",
               }}
             >
-              Pošalji e-mail upit
+                 Pošalji e-mail upit
             </button>
           </form>
 
@@ -745,7 +901,7 @@ key={l.id}
         <section style={{ marginTop: 32, paddingTop: 18, borderTop: "1px solid #eee", fontSize: 15 }}>
           <h2>Kontakt i osobna predaja</h2>
 
-          <p>
+      </p>
             Noževe je moguće donijeti i osobno na fizičku lokaciju u Zagrebu, <strong>isključivo uz prethodnu najavu</strong>.
           </p>
           
