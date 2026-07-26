@@ -469,91 +469,110 @@ key={l.id}
   Poslovni korisnici mogu dodatne podatke upisati u e-mailu.
 </div>
    
-  {/* EMAIL */}
-  <button
-    type="button"
-    onClick={sendEmailOrder}
-    disabled={!isCustomerOk}
-    style={{
-      textAlign: "center",
-      padding: "12px",
-      borderRadius: 10,
-      border: "1px solid #111",
-      background: isCustomerOk ? "#fff" : "#eee",
-      color: "#111",
-      fontWeight: 600,
-      cursor: isCustomerOk ? "pointer" : "not-allowed",
-    }}
-  >
-    Otvori e-mail narudžbu 
-  </button>
+              {/* EMAIL */}
+              <button
+                type="button"
+                onClick={sendEmailOrder}
+                disabled={!isCustomerOk}
+                style={{
+                  textAlign: "center",
+                  padding: "12px",
+                  borderRadius: 10,
+                  border: "1px solid #111",
+                  background: isCustomerOk ? "#fff" : "#eee",
+                  color: "#111",
+                  fontWeight: 600,
+                  cursor: isCustomerOk ? "pointer" : "not-allowed",
+                  width: "100%",
+                  marginTop: 10
+                }}
+              >
+                Otvori e-mail narudžbu 
+              </button>
 
-  <div style={{ fontSize: 12, opacity: 0.7 }}>
-    Otvara e-mail aplikaciju s popunjenom narudžbom.
-  </div>
+              <div style={{ fontSize: 12, opacity: 0.7 }}>
+                Otvara e-mail aplikaciju s popunjenom narudžbom.
+              </div>
 
-  {/* PDF */}
-  <button
-    type="button"
-    onClick={downloadPaymentPdf}
-    disabled={!isCustomerOk}
-    style={{
-      padding: "12px",
-      borderRadius: 10,
-      border: "1px solid #111",
-      background: isCustomerOk ? "#111" : "#999",
-      color: "#fff",
-      cursor: isCustomerOk ? "pointer" : "not-allowed",
-      fontWeight: 700,
-    }}
-  >
-    ⬇️ Preuzmi PDF uplatnicu
-  </button>
+              {/* UPLATNICA I BARKOD SE PRIKAZUJU SAMO AKO NIJE ODABRAN GLS (ZNAČI SAMO ZA BOX NOW) */}
+              {returnOpt.id !== "GLS" && (
+                <>
+                  {/* PDF */}
+                  <button
+                    type="button"
+                    onClick={downloadPaymentPdf}
+                    disabled={!isCustomerOk}
+                    style={{
+                      padding: "12px",
+                      borderRadius: 10,
+                      border: "1px solid #111",
+                      background: isCustomerOk ? "#111" : "#999",
+                      color: "#fff",
+                      cursor: isCustomerOk ? "pointer" : "not-allowed",
+                      fontWeight: 700,
+                      width: "100%",
+                      marginTop: 10
+                    }}
+                  >
+                    ⬇️ Preuzmi PDF uplatnicu
+                  </button>
 
-  <img
-    src={pdf417Url}
-    alt="2D barkod za uplatu (HUB-3 PDF417)"
-    style={{
-      width: "100%",
-      height: "auto",
-      borderRadius: 12,
-      border: "1px solid #eee",
-    }}
-  />
+                  <img
+                    src={pdf417Url}
+                    alt="2D barkod za uplatu (HUB-3 PDF417)"
+                    style={{
+                      width: "100%",
+                      height: "auto",
+                      borderRadius: 12,
+                      border: "1px solid #eee",
+                      marginTop: 10
+                    }}
+                  />
+                </>
+              )}
 
-  {/* RESET */}
-  <button
-    type="button"
-    onClick={reset}
-    style={{
-      padding: "10px",
-      borderRadius: 10,
-      border: "1px solid #ccc",
-      background: "#fff",
-      cursor: "pointer",
-    }}
-  >
-    Reset
-  </button>
-  <div style={{ fontSize: 12, opacity: 0.8, lineHeight: 1.4 }}>
-  Kupac plaća slanje prema meni (BOX NOW). Povrat je besplatan za <strong>4+</strong> kom oštrenja.
+              {/* RESET */}
+              <button
+                type="button"
+                onClick={reset}
+                style={{
+                  padding: "10px",
+                  borderRadius: 10,
+                  border: "1px solid #ccc",
+                  background: "#fff",
+                  cursor: "pointer",
+                  width: "100%",
+                  marginTop: 10
+                }}
+              >
+                Reset
+              </button>
 
-  <div style={{ marginTop: 6, fontWeight: 600 }}>
-    Napomena: uplata nije obavezna prilikom narudžbe,dovoljno je preuzet uplatnicu sa brojem  naruđbe.
-  </div>
-    
+              <div style={{ fontSize: 12, opacity: 0.8, lineHeight: 1.4 }}>
+                {returnOpt.id === "GLS" ? (
+                  <div style={{ marginTop: 6, fontWeight: 600 }}>
+                    Napomena: Odabrali ste GLS plaćanje pouzećem. Uplatnica nije potrebna, a cjelokupan iznos plaćate dostavljaču kod preuzimanja paketa.
+                  </div>
+                ) : (
+                  <>
+                    Kupac plaća slanje prema meni (BOX NOW). Povrat je besplatan za <strong>4+</strong> kom oštrenja.
+                    <div style={{ marginTop: 6, fontWeight: 600 }}>
+                      Napomena: uplata nije obavezna prilikom narudžbe, dovoljno je preuzeti uplatnicu sa brojem narudžbe.
+                    </div>
+                    <div style={{ marginTop: 6 }}>
+                      Povrat noževa i račun šaljem nakon evidentirane uplate.
+                    </div>
+                  </>
+                )}
+              </div>
 
-  <div style={{ marginTop: 6 }}>
-    Povrat noževa i račun šaljem nakon evidentirane uplate.
-  </div>
-</div>
+              {!isCustomerOk && (
+                <div style={{ fontSize: 12, opacity: 0.7 }}>
+                  Za slanje narudžbe obavezno ispuni: ime, mobitel, e-mail i adresu/paketomat za povrat.
+                </div>
+              )}
 
-{!isCustomerOk && (
-  <div style={{ fontSize: 12, opacity: 0.7 }}>
-    Za slanje narudžbe i uplatnicu obavezno ispuni: ime, mobitel, e-mail i paketomat za povrat.
-  </div>
-)}
-</div>
+          </div>
 
           </aside>
         </section>
