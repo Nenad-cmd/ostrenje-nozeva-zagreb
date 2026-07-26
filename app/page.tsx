@@ -136,7 +136,7 @@ export default function Page() {
   );
 
   
-  const sendEmailOrder = () => {
+   const sendEmailOrder = () => {
     // Pripremamo čist i pregledan tekst za tvoj e-mail
     const tekstNarudzbe = 
       `NARUDŽBA – ${code}\n\n` +
@@ -152,11 +152,11 @@ export default function Page() {
     // Automatski kopiramo tekst u međuspremnik (clipboard) na računalu
     navigator.clipboard.writeText(tekstNarudzbe).then(() => {
       alert("Tekst narudžbe je automatski KOPIRAN! Sada će se otvoriti e-mail, samo stisnite Zalijepi (Ctrl + V ili desni klik -> Zalijepi).");
-      // Otvaramo čisti mailto koji sada sigurno radi jer nema dugačkog teksta u linku
-      window.location.href = `mailto:bruslab3@://gmail.com{code}`;
+      // POPRAVLJENO: Upisana točna adresa s točkom brus.lab3@gmail.com
+      window.location.href = `mailto:brus.lab3@://gmail.com{code}`;
     }).catch(() => {
       // Rezervna opcija ako preglednik blokira automatsko kopiranje
-      window.location.href = `mailto:bruslab3@://gmail.com{code}&body=Ime:%20${customerName}`;
+      window.location.href = `mailto:brus.lab3@://gmail.com{code}&body=Ime:%20${customerName}`;
     });
   };
 
