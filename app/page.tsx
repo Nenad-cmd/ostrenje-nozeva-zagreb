@@ -135,18 +135,29 @@ export default function Page() {
     (needR1 ? `\n\n[Trebam R1 račun - upisati OIB i podatke tvrtke ovdje]` : "")
   );
 
-   const sendEmailOrder = () => {
-    // Kreiramo privremeni link u memoriji koji zaobilazi blokade preglednika
-    const link = document.createElement("a");
-    link.href = `mailto:bruslab3@://gmail.com{mailSubject}&body=${mailBody}`;
-    
-    // Prisilno otvaramo u novom prozoru kako se trenutna stranica ne bi zamrznula
-    link.target = "_blank";
-    
-    // Pokrećemo klik i odmah brišemo element iz memorije
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  
+  const sendEmailOrder = () => {
+    // Pripremamo čist i pregledan tekst za tvoj e-mail
+    const tekstNarudzbe = 
+      `NARUDŽBA – ${code}\n\n` +
+      `Kupac: ${customerName}\n` +
+      `Mobitel: ${customerPhone}\n` +
+      `E-mail: ${customerEmail}\n` +
+      `${returnOpt.id === "GLS" ? "Adresa za dostavu (GLS)" : "Paketomat za povrat"}: ${returnLocker}\n\n` +
+      `Način dostave: ${returnOpt.id === "GLS" ? "GLS — Plaćanje pouzećem" : "BOX NOW — Bankovna uplata"}\n\n` +
+      `Oštrenje (komada: ${baseCount}):\n${baseSummary || "-"}\n\n` +
+      `Dodaci (komada: ${addonCount}):\n${addonSummary || "-"}\n\n` +
+      `UKUPNO ZA PLATITI: ${eur(total)}`;
+
+    // Automatski kopiramo tekst u međuspremnik (clipboard) na računalu
+    navigator.clipboard.writeText(tekstNarudzbe).then(() => {
+      alert("Tekst narudžbe je automatski KOPIRAN! Sada će se otvoriti e-mail, samo stisnite Zalijepi (Ctrl + V ili desni klik -> Zalijepi).");
+      // Otvaramo čisti mailto koji sada sigurno radi jer nema dugačkog teksta u linku
+      window.location.href = `mailto:bruslab3@://gmail.com{code}`;
+    }).catch(() => {
+      // Rezervna opcija ako preglednik blokira automatsko kopiranje
+      window.location.href = `mailto:bruslab3@://gmail.com{code}&body=Ime:%20${customerName}`;
+    });
   };
 
 
@@ -486,8 +497,7 @@ key={l.id}
  <div style={{ fontSize: 12, opacity: 0.7, marginTop: 4 }}>
   Poslovni korisnici mogu dodatne podatke upisati u e-mailu.
 </div>
-   
-              {/* EMAIL */}
+                 {/* EMAIL */}
               <button
                 type="button"
                 onClick={sendEmailOrder}
@@ -508,9 +518,10 @@ key={l.id}
                 Otvori e-mail narudžbu 
               </button>
 
-              <div style={{ fontSize: 12, opacity: 0.7 }}>
-                Otvara e-mail aplikaciju s popunjenom narudžbom.
+              <div style={{ fontSize: 12, opacity: 0.7, marginTop: 4 }}>
+                Kopira podatke narudžbe i otvara e-mail aplikaciju.
               </div>
+
 
               {/* UPLATNICA I BARKOD SE PRIKAZUJU SAMO AKO NIJE ODABRAN GLS (ZNAČI SAMO ZA BOX NOW) */}
               {returnOpt.id !== "GLS" && (
