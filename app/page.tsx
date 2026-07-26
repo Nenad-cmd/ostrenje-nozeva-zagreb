@@ -21,7 +21,9 @@ const addonLines: Line[] = [
 const RETURN_OPTIONS = [
   { id: "S", label: "Povrat BOX NOW S (≈ 2,00 €)", price: 2.0 },
   { id: "M", label: "Povrat BOX NOW M (≈ 4,00 €)", price: 4.0 },
+  { id: "GLS", label: "Povrat GLS — plaćanje pouzećem (4,00 €)", price: 4.0 },
 ];
+
 
 // === PODACI ZA UPLATU (tvoji) ===
 const PAYEE_NAME = "BrusLab";
@@ -97,13 +99,15 @@ const discount = baseUnitPrices
 
   // standard surcharge: ako standard ima 1-3 kom dodaj 2€
  const standardSurcharge = baseCount > 0 && baseCount < 4 ? 2 : 0;
-  // povrat besplatan kad je 4+ kom oštrenja
-  const returnShipping = baseCount >= 4 ? 0 : returnOpt.price;
+  // povrat besplatan kad je 4+ kom oštrenja (vrijedi samo za BOX NOW, ne i za GLS)
+  const returnShipping = (baseCount >= 4 && returnOpt.id !== "GLS") ? 0 : returnOpt.price;
 
-const total =
-  Math.max(0, subtotalBase - discount) +
-  subtotalAddons +
-  standardSurcharge;
+  const total =
+    Math.max(0, subtotalBase - discount) +
+    subtotalAddons +
+    standardSurcharge +
+    returnShipping;
+
 
   const baseSummary = baseLines
     .filter((l) => (qty[l.id] || 0) > 0)
@@ -599,20 +603,36 @@ key={l.id}
       fontWeight: 700,
     }}
   >
-    ⬇️ Preuzmi PDF uplatnicu
-  </button>
+      {/* PDF UPLATNICA I BARKOD SE SAKRIVAJU AKO JE ODABRAN GLS */}
+  {returnOpt.id !== "GLS" && (
+    <>
+      <button
+        type="button"
+        onClick={downloadPaymentPdf}
+        disabled={!isCustomerOk}
+        style={{
+          padding: "12px",
+          borderRadius: 10,
+          border: "1px solid #111",
+          background: isCustomerOk ? "#111" : "#999",
+          color: "#fff",
+          cursor: isCustomerOk ? "pointer" : "not-allowed",
+          fontWeight: 700,
+        }}
+      >
+        ⬇️ Preuzmi PDF uplatnicu
+      </button>
 
-  <img
-    src={pdf417Url}
-    alt="2D barkod za uplatu (HUB-3 PDF417)"
-    style={{
-      width: "100%",
-      height: "auto",
-      borderRadius: 12,
-      border: "1px solid #eee",
-    }}
-  />
-
+      <img
+        src={pdf417Url}
+        alt="2D barkod za uplatu (HUB-3 PDF417)"
+        style={{
+          width: "100%",
+          height: "auto",
+          borderRadius: 12,
+          border: "1px solid #eee",
+        }}
+      />
   {/* RESET */}
   <button
     type="button"
