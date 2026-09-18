@@ -70,9 +70,9 @@ export default function Page() {
   baseUnitPrices.sort((a, b) => b - a);
   const discountedUnits = Math.max(0, baseCount - 4);
 
-  const discount = baseUnitPrices
-    .slice(0, discountedUnits)
-    .reduce((sum, price) => sum + price * 0.15, 0);
+  // const discount = baseUnitPrices
+  //   .slice(0, discountedUnits)
+  //   .reduce((sum, price) => sum + price * 0.15, 0);
 
   const standardSurcharge = baseCount > 0 && baseCount < 4 ? 2 : 0;
   
@@ -357,9 +357,9 @@ key={l.id}
                 <li>
                   <strong>4+ kom (oštrenje)</strong> → besplatan povrat BOXNOW
                 </li>
-              <li>
+              {/* <li>
                 <strong>Od 5. komada</strong> → svaki sljedeći komad ima 15% popusta
-              </li>
+              </li> */}
                 <li style={{ opacity: 0.85 }}>Cijena popravka se dodaje na cijenu oštrenja.</li>
               </ul>
             </div>
