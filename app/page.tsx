@@ -448,12 +448,12 @@ key={l.id}
                 <strong>{eur(subtotalBase)}</strong>
               </div>
 
-              {discount > 0 && (
+              {/* {discount > 0 && (
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
                   <span>Popust (15% od 5. komada)</span>
                   <strong>-{eur(discount)}</strong>
-                </div>
-              )}
+                </div> 
+              )} */}
 
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <span>Međuzbroj dodaci</span>
