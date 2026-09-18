@@ -70,9 +70,9 @@ export default function Page() {
   baseUnitPrices.sort((a, b) => b - a);
   const discountedUnits = Math.max(0, baseCount - 4);
 
-  // const discount = baseUnitPrices
-  //   .slice(0, discountedUnits)
-  //   .reduce((sum, price) => sum + price * 0.15, 0);
+  const discount = baseUnitPrices
+    .slice(0, discountedUnits)
+    .reduce((sum, price) => sum + price * 0.15, 0);
 
   const standardSurcharge = baseCount > 0 && baseCount < 4 ? 2 : 0;
   
