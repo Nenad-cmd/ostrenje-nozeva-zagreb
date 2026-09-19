@@ -696,7 +696,7 @@ key={l.id}
           
 <p style={{ marginTop: 8 }}>
   <a
-    href="https://goo.gl"
+    href="https://google.com"
     target="_blank"
     rel="noopener noreferrer"
     style={{
@@ -722,7 +722,7 @@ key={l.id}
           
 <p style={{ marginTop: 8 }}>
   <a
-    href="https://goo.gl"
+    href="https://google.com"
     target="_blank"
     rel="noopener noreferrer"
     style={{
