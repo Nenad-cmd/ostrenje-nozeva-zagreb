@@ -679,68 +679,79 @@ key={l.id}
           <p style={{ fontSize: 12, opacity: 0.75, marginTop: 10 }}>Odgovaram putem e-maila u najkraćem mogućem roku.</p>
         </section>
 {/* Osobna predaja */}
-        <section style={{ marginTop: 32, paddingTop: 18, borderTop: "1px solid #eee", fontSize: 15 }}>
-          <h2>Kontakt i osobna predaja</h2>
+<section style={{ marginTop: 32, paddingTop: 18, borderTop: "1px solid #eee", fontSize: 15 }}>
+  <h2>Kontakt i osobna predaja</h2>
 
-          <p>
-            Noževe je moguće donijeti i osobno na fizičke lokacije u Zagrebu prema navedenim uvjetima.
-          </p>
-          
-<p style={{ lineHeight: 1.7 }}>
-  <span style={{ display: "inline-block", width: 20 }} />
-  <strong>Lokacija 1:</strong> Golska 13, Zagreb 10040
-  <br />
-<PhoneIcon />
-<strong>Najava:</strong> isključivo uz prethodnu najavu telefonom ili e-mailom prije dolaska
-</p>
-          
-<p style={{ marginTop: 8 }}>
-  <a
-    href="https://google.com"
-    target="_blank"
-    rel="noopener noreferrer"
-    style={{
-      textDecoration: "underline",
-      color: "#111",
-      fontWeight: 600,
-      display: "inline-flex",
-      alignItems: "center",
-      gap: 6,
-    }}
-  >
-    <LocationIcon />
-    Prikaži lokaciju 1 na Google Maps
-  </a>
-</p>
+  <p>
+    Noževe je moguće donijeti i osobno na fizičke lokacije u Zagrebu prema navedenim uvjetima.
+  </p>
+  
+  <div style={{ lineHeight: 1.7, marginTop: 12 }}>
+    {/* Prva lokacija */}
+    <div style={{ marginBottom: 24 }}>
+      <strong>Lokacija 1:</strong> Golska 13, Zagreb 10040
+      <br />
+      <span style={{ color: "#d9534f", fontWeight: 600 }}>
+        ⚠️ Isključivo uz prethodnu najavu!
+      </span>
+      <br />
+      <span style={{ fontSize: 14 }}>
+        <PhoneIcon /> <strong>Najava:</strong> telefonom ili e-mailom prije dolaska
+      </span>
+      <br />
+      <button
+        onClick={() => {
+          navigator.clipboard.writeText("Golska 13, Zagreb");
+          alert("Adresa Lokacije 1 je kopirana! Možete je zalijepiti u Google Maps.");
+        }}
+        style={{
+          marginTop: 6,
+          padding: "4px 10px",
+          fontSize: 13,
+          fontWeight: 600,
+          backgroundColor: "#f5f5f5",
+          border: "1px solid #ccc",
+          borderRadius: 4,
+          cursor: "pointer",
+          display: "inline-flex",
+          alignItems: "center",
+          gap: 6
+        }}
+      >
+        <LocationIcon /> Kopiraj adresu za Google Maps
+      </button>
+    </div>
 
-<p style={{ lineHeight: 1.7, marginTop: 24 }}>
-  <span style={{ display: "inline-block", width: 20 }} />
-  <strong>Lokacija 2:</strong> Paromlinska cesta 2a, Zagreb 10000 (izlaz pothodnik)
-  <br />
-  <strong>Radno vrijeme:</strong> radnim danom od 10-17 i sub. od 10-14 (nije potrebna najava)
-</p>
-          
-<p style={{ marginTop: 8 }}>
-  <a
-    href="https://google.com"
-    target="_blank"
-    rel="noopener noreferrer"
-    style={{
-      textDecoration: "underline",
-      color: "#111",
-      fontWeight: 600,
-      display: "inline-flex",
-      alignItems: "center",
-      gap: 6,
-    }}
-  >
-    <LocationIcon />
-    Prikaži lokaciju 2 na Google Maps
-  </a>
-</p>
-          
-        </section>
-
+    {/* Druga lokacija */}
+    <div style={{ marginBottom: 16 }}>
+      <strong>Lokacija 2:</strong> Paromlinska cesta 2a, Zagreb 10000 (izlaz pothodnik)
+      <br />
+      <span><strong>Radno vrijeme:</strong> radnim danom od 10-17 i sub. od 10-14 (nije potrebna najava)</span>
+      <br />
+      <button
+        onClick={() => {
+          navigator.clipboard.writeText("45.80276, 15.97802");
+          alert("Koordinate Lokacije 2 su kopirane! Možete ih zalijepiti u Google Maps.");
+        }}
+        style={{
+          marginTop: 6,
+          padding: "4px 10px",
+          fontSize: 13,
+          fontWeight: 600,
+          backgroundColor: "#f5f5f5",
+          border: "1px solid #ccc",
+          borderRadius: 4,
+          cursor: "pointer",
+          display: "inline-flex",
+          alignItems: "center",
+          gap: 6
+        }}
+      >
+        <LocationIcon /> Kopiraj koordinate za Google Maps
+      </button>
+    </div>
+  </div>
+</section>
 
       </main>
     </>
