@@ -690,7 +690,7 @@ key={l.id}
           
           <p style={{ lineHeight: 1.7 }}>
             <span style={{ display: "inline-block", width: 20 }} />
-            <strong>Lokacija 1:</strong> Golska 13, Zagreb 10040
+            <strong>Lokacija 1(sjedište):</strong> Golska 13, Zagreb 10040
             <br />
             ☎ <strong>Najava:</strong> isključivo uz prethodnu najavu telefonom ili e-mailom prije dolaska
           </p>
@@ -698,7 +698,7 @@ key={l.id}
    
           <p style={{ lineHeight: 1.7, marginTop: 24 }}>
             <span style={{ display: "inline-block", width: 20 }} />
-            <strong>Lokacija 2:</strong> Paromlinska cesta 2a, Zagreb (ulaz s ulice kod buseva za Veliku Goricu 30m zapadno od mcdonaldsa)
+            <strong>Lokacija 2(brusiona):</strong> Paromlinska cesta 2a, Zagreb (ulaz s ulice kod buseva za Veliku Goricu 30m zapadno od McDonaldsa)
             <br />
             <strong>Radno vrijeme:</strong> radnim danom od 10-17 i sub. od 10-14 
           </p>
