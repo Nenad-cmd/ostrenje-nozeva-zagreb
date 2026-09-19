@@ -696,7 +696,7 @@ key={l.id}
           
 <p style={{ marginTop: 8 }}>
   <a
-    href="https://google.com"
+    href="https://goo.gl"
     target="_blank"
     rel="noopener noreferrer"
     style={{
@@ -722,7 +722,7 @@ key={l.id}
           
 <p style={{ marginTop: 8 }}>
   <a
-    href="https://google.com"
+    href="https://goo.gl"
     target="_blank"
     rel="noopener noreferrer"
     style={{
@@ -735,7 +735,7 @@ key={l.id}
     }}
   >
     <LocationIcon />
-    Prikaži lokaciju 2 na Google Maps (Ulični prikaz)
+    Prikaži lokaciju 2 na Google Maps
   </a>
 </p>
           
