@@ -677,7 +677,8 @@ key={l.id}
           </form>
 
           <p style={{ fontSize: 12, opacity: 0.75, marginTop: 10 }}>Odgovaram putem e-maila u najkraćem mogućem roku.</p>
-          {/* Osobna predaja */}
+       
+      {/* Osobna predaja */}
         <section style={{ marginTop: 32, paddingTop: 18, borderTop: "1px solid #eee", fontSize: 15 }}>
           <h2>Kontakt i osobna predaja</h2>
 
@@ -685,10 +686,10 @@ key={l.id}
             Noževe je moguće donijeti i osobno na fizičku lokaciju u Zagrebu, <strong>isključivo uz prethodnu najavu</strong>.
           </p>
 
-         <p>
-            <strong>Adresa:</strong> Golska 13, Zagreb 10040
+          <p>
+            📍 <strong>Adresa:</strong> Golska 13, Zagreb 10040
             <br />
-            ☎ <strong>Najava:</strong> telefonom ili e-mailom prije dolaska
+            📞 <strong>Najava:</strong> telefonom ili e-mailom prije dolaska
           </p>
 
           <p style={{ marginTop: 8 }}>
@@ -698,7 +699,7 @@ key={l.id}
               rel="noopener noreferrer"
               style={{ textDecoration: "underline", color: "#111", fontWeight: 600 }}
             >
-             ➤ Prikaži lokaciju na Google Maps
+              📍 Prikaži lokaciju na Google Maps
             </a>
           </p>
         </section>
