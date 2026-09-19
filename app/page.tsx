@@ -695,20 +695,15 @@ key={l.id}
             ☎ <strong>Najava:</strong> isključivo uz prethodnu najavu telefonom ili e-mailom prije dolaska
           </p>
           
-          <p style={{ marginTop: 4, fontSize: 14, color: "#555", fontStyle: "italic" }}>
-            ➤ Za navigaciju u svoje karte upišite: <strong>Golska ulica 13, Zagreb</strong>
-          </p>
-
+   
           <p style={{ lineHeight: 1.7, marginTop: 24 }}>
             <span style={{ display: "inline-block", width: 20 }} />
-            <strong>Lokacija 2:</strong> Paromlinska cesta 2a, Zagreb (ulaz s ulice)
+            <strong>Lokacija 2:</strong> Paromlinska cesta 2a, Zagreb (ulaz s ulice kod buseva za Veliku Goricu 30m zapadno od mcdonaldsa)
             <br />
-            <strong>Radno vrijeme:</strong> radnim danom od 10-17 i sub. od 10-14 (nije potrebna najava)
+            <strong>Radno vrijeme:</strong> radnim danom od 10-17 i sub. od 10-14 
           </p>
           
-          <p style={{ marginTop: 4, fontSize: 14, color: "#555", fontStyle: "italic" }}>
-            ➤ <strong>Upute za pronalaženje:</strong> Radnja ima izravan ulaz s pločnika, gleda prema jugu i nalazi se tridesetak metara zapadno od glavnog ulaza u McDonald's Pothodnik.
-          </p>
+        
         </section>
       </main>
     </>
