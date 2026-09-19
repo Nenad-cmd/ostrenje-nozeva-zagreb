@@ -696,7 +696,7 @@ key={l.id}
           
 <p style={{ marginTop: 8 }}>
   <a
-    href="https://google.com"
+    href="https://bing.com"
     target="_blank"
     rel="noopener noreferrer"
     style={{
@@ -709,7 +709,7 @@ key={l.id}
     }}
   >
     <LocationIcon />
-    Prikaži lokaciju 1 na Google Maps
+    Prikaži lokaciju 1 na karti
   </a>
 </p>
 
@@ -722,7 +722,7 @@ key={l.id}
           
 <p style={{ marginTop: 8 }}>
   <a
-    href="https://google.com"
+    href="https://bing.com"
     target="_blank"
     rel="noopener noreferrer"
     style={{
@@ -735,7 +735,7 @@ key={l.id}
     }}
   >
     <LocationIcon />
-    Prikaži lokaciju 2 na Google Maps
+    Prikaži lokaciju 2 na karti
   </a>
 </p>
           
