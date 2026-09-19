@@ -629,11 +629,11 @@ key={l.id}
             <strong>Preferirani kontakt:</strong> e-mail
           </p>
           <p>
-            📧 <a href="mailto:bruslab3@gmail.com">bruslab3@gmail.com</a>
+            📧 <a href="mailto:brus.lab3@gmail.com">brus.lab3@gmail.com</a>
           </p>
 
           <form
-            action="mailto:bruslab3@gmail.com"
+            action="mailto:brus.lab3@gmail.com"
             method="POST"
             encType="text/plain"
             style={{ maxWidth: 520, marginTop: 10 }}
@@ -679,43 +679,75 @@ key={l.id}
           <p style={{ fontSize: 12, opacity: 0.75, marginTop: 10 }}>Odgovaram putem e-maila u najkraćem mogućem roku.</p>
         </section>
 
-        {/* Osobna predaja */}
-        <section style={{ marginTop: 32, paddingTop: 18, borderTop: "1px solid #eee", fontSize: 15 }}>
-          <h2>Kontakt i osobna predaja</h2>
+{/* Osobna predaja */}
+<section style={{ marginTop: 32, paddingTop: 18, borderTop: "1px solid #eee", fontSize: 15 }}>
+  <h2>Kontakt i osobna predaja</h2>
 
-          <p>
-            Noževe je moguće donijeti i osobno na fizičku lokaciju u Zagrebu, <strong>isključivo uz prethodnu najavu</strong>.
-          </p>
-          
-<p style={{ lineHeight: 1.7 }}>
-  <span style={{ display: "inline-block", width: 20 }} />
-  <strong>Adresa:</strong> Golska 13, Zagreb 10040
-  <br />
-<PhoneIcon />
-<strong>Najava:</strong> telefonom ili e-mailom prije dolaska
+  <p>
+    Noževe je moguće donijeti i osobno na fizičke lokacije u Zagrebu prema navedenim uvjetima.
+  </p>
+  
+  <div style={{ lineHeight: 1.7, marginTop: 12 }}>
+    {/* Prva lokacija */}
+    <div style={{ marginBottom: 20 }}>
+      <strong>Lokacija 1:</strong> Golska 13, Zagreb 10040
+      <br />
+      <span style={{ color: "#d9534f", fontWeight: 600 }}>
+        ⚠️ Isključivo uz prethodnu najavu!
+      </span>
+      <br />
+      <span style={{ fontSize: 14 }}>
+        <PhoneIcon /> <strong>Najava:</strong> telefonom ili e-mailom prije dolaska
+      </span>
+      <br />
+      <a
+        href="https://google.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          textDecoration: "underline",
+          color: "#111",
+          fontWeight: 600,
+          display: "inline-flex",
+          alignItems: "center",
+          gap: 6,
+          fontSize: 14,
+          marginTop: 4
+        }}
+      >
+        <LocationIcon />
+        Prikaži lokaciju 1 na Google Maps
+      </a>
+    </div>
 
-</p>
-          
-<p style={{ marginTop: 8 }}>
-  <a
-    href="https://www.google.com/maps/search/?api=1&query=Golska+13+Zagreb+10040"
-    target="_blank"
-    rel="noopener noreferrer"
-    style={{
-      textDecoration: "underline",
-      color: "#111",
-      fontWeight: 600,
-      display: "inline-flex",
-      alignItems: "center",
-      gap: 6,
-    }}
-  >
-    <LocationIcon />
-    Prikaži lokaciju na Google Maps
-  </a>
-</p>
-          
-        </section>
+    {/* Druga lokacija */}
+    <div style={{ marginBottom: 16 }}>
+      <strong>Lokacija 2:</strong> Paromlinska cesta 2a, Zagreb 10000 (izlaz pothodnik)
+      <br />
+      <span><strong>Radno vrijeme:</strong> radnim danom 10:00 - 17:00, subotom 10:00 - 14:00</span>
+      <br />
+      <a
+        href="https://google.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          textDecoration: "underline",
+          color: "#111",
+          fontWeight: 600,
+          display: "inline-flex",
+          alignItems: "center",
+          gap: 6,
+          fontSize: 14,
+          marginTop: 4
+        }}
+      >
+        <LocationIcon />
+        Prikaži lokaciju 2 na Google Maps
+      </a>
+    </div>
+  </div>
+</section>
+
       </main>
     </>
   );
