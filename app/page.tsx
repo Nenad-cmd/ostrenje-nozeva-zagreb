@@ -622,8 +622,7 @@ key={l.id}
           </p>
   
         </section> */}
-
-        {/* Kontakt forma */}
+          {/* Kontakt forma */}
         <section style={{ marginTop: 28, borderTop: "1px solid #eee", paddingTop: 18 }}>
           <h2>Kontakt upit (e-mail)</h2>
           <p>
@@ -678,19 +677,21 @@ key={l.id}
           </form>
 
           <p style={{ fontSize: 12, opacity: 0.75, marginTop: 10 }}>Odgovaram putem e-maila u najkraćem mogućem roku.</p>
-              {/* Osobna predaja */}
+        </section>
+
+        {/* Osobna predaja */}
         <section style={{ marginTop: 32, paddingTop: 18, borderTop: "1px solid #eee", fontSize: 15 }}>
           <h2>Kontakt i osobna predaja</h2>
 
           <p>
-            Noževe je moguće donijeti i osobno na fizičku lokaciju u Zagrebu , <strong>isključivo uz prethodnu najavu</strong>.
+            Noževe je moguće donijeti i osobno na fizičke lokacije u Zagrebu prema navedenim uvjetima.
           </p>
           
           <p style={{ lineHeight: 1.7 }}>
             <span style={{ display: "inline-block", width: 20 }} />
-            <strong>Adresa:</strong> Golska 13, Zagreb 10040
+            <strong>Lokacija 1:</strong> Golska 13, Zagreb 10040
             <br />
-            <strong>Najava:</strong> telefonom ili e-mailom prije dolaska
+            ☎ <strong>Najava:</strong> isključivo uz prethodnu najavu telefonom ili e-mailom prije dolaska
           </p>
           
           <p style={{ marginTop: 8 }}>
@@ -707,11 +708,41 @@ key={l.id}
                 gap: 6,
               }}
             >
-              Prikaži lokaciju na Google Maps
+              ➤ Prikaži lokaciju 1 na Google Maps
+            </a>
+          </p>
+
+          <p style={{ lineHeight: 1.7, marginTop: 24 }}>
+            <span style={{ display: "inline-block", width: 20 }} />
+            <strong>Lokacija 2:</strong> Paromlinska cesta 2a, Zagreb (30m zapadno od McDonald'sa, ulaz s ulice)
+            <br />
+            <strong>Radno vrijeme:</strong> radnim danom od 10-17 i sub. od 10-14 (nije potrebna najava)
+          </p>
+          
+          <p style={{ marginTop: 8 }}>
+            <a
+              href="https://google.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                textDecoration: "underline",
+                color: "#111",
+                fontWeight: 600,
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+              }}
+            >
+              ➤ Prikaži lokaciju 2 na Google Maps
             </a>
           </p>
         </section>
- 
+      </main>
+    </>
+  );
+}
+
+        
 
       </main>
     </>
