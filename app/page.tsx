@@ -677,8 +677,7 @@ key={l.id}
           </form>
 
           <p style={{ fontSize: 12, opacity: 0.75, marginTop: 10 }}>Odgovaram putem e-maila u najkraćem mogućem roku.</p>
-        </section>
-{/* Osobna predaja */}
+    {/* Osobna predaja */}
         <section style={{ marginTop: 32, paddingTop: 18, borderTop: "1px solid #eee", fontSize: 15 }}>
           <h2>Kontakt i osobna predaja</h2>
 
@@ -696,7 +695,7 @@ key={l.id}
           
 <p style={{ marginTop: 8 }}>
   <a
-    href="https://bing.com"
+    href="https://google.com"
     target="_blank"
     rel="noopener noreferrer"
     style={{
@@ -709,7 +708,7 @@ key={l.id}
     }}
   >
     <LocationIcon />
-    Prikaži lokaciju 1 na karti
+    Prikaži lokaciju na Google Maps
   </a>
 </p>
 
@@ -722,7 +721,7 @@ key={l.id}
           
 <p style={{ marginTop: 8 }}>
   <a
-    href="https://bing.com"
+    href="https://google.com"
     target="_blank"
     rel="noopener noreferrer"
     style={{
@@ -735,11 +734,12 @@ key={l.id}
     }}
   >
     <LocationIcon />
-    Prikaži lokaciju 2 na karti
+    Prikaži lokaciju na Google Maps
   </a>
 </p>
           
         </section>
+    </section>
 
       </main>
     </>
