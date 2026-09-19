@@ -701,8 +701,6 @@ key={l.id}
       <br />
       <a
         href="https://google.com"
-        target="_blank"
-        rel="noopener noreferrer"
         style={{
           textDecoration: "underline",
           color: "#111",
@@ -721,14 +719,12 @@ key={l.id}
 
     {/* Druga lokacija */}
     <div style={{ marginBottom: 16 }}>
-      <strong>Lokacija 2:</strong> Paromlinska cesta 2a, Zagreb 10000 (izlaz pothodnik)
+      <strong>Lokacija 2:</strong> Paromlinska cesta 2a, Zagreb (izlaz pothodnik)
       <br />
       <span><strong>Radno vrijeme:</strong> radnim danom 10:00 - 17:00, subotom 10:00 - 14:00</span>
       <br />
       <a
         href="https://google.com"
-        target="_blank"
-        rel="noopener noreferrer"
         style={{
           textDecoration: "underline",
           color: "#111",
