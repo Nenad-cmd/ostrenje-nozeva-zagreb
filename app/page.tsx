@@ -678,7 +678,6 @@ key={l.id}
 
           <p style={{ fontSize: 12, opacity: 0.75, marginTop: 10 }}>Odgovaram putem e-maila u najkraćem mogućem roku.</p>
         </section>
-
 {/* Osobna predaja */}
 <section style={{ marginTop: 32, paddingTop: 18, borderTop: "1px solid #eee", fontSize: 15 }}>
   <h2>Kontakt i osobna predaja</h2>
@@ -697,7 +696,7 @@ key={l.id}
       </span>
       <br />
       <span style={{ fontSize: 14 }}>
-        <PhoneIcon /> <strong>Najava:</strong> telefonom ili e-mailom prije dolaska
+        <PhoneIcon /> <strong>Najavu izvršiti:</strong> telefonom ili e-mailom prije dolaska
       </span>
       <br />
       <a
@@ -747,6 +746,7 @@ key={l.id}
     </div>
   </div>
 </section>
+
 
       </main>
     </>
