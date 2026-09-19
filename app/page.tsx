@@ -709,7 +709,7 @@ key={l.id}
     }}
   >
     <LocationIcon />
-    Prikaži lokaciju 1 na Google Maps (Ulični prikaz)
+    Prikaži lokaciju 1 na Google Maps
   </a>
 </p>
 
@@ -735,7 +735,7 @@ key={l.id}
     }}
   >
     <LocationIcon />
-    Prikaži lokaciju 2 na Google Maps (Pogled s ulice prema radnji)
+    Prikaži lokaciju 2 na Google Maps (Ulični prikaz)
   </a>
 </p>
           
