@@ -1,0 +1,15 @@
+csvRedni broj;Naziv usluge;Opis i napomena;Jedinica mjere;Maloprodajna cijena (€);Sidrena cijena (€);Posebni oblik prodaje
+1;Oštrenje noža (standard);Strojno brušenje standardnih kuhinjskih noževa s V-kutom;kom;3.00;3.00;NE
+2;Oštrenje noža 58+ HRC(Japanski noževi);Precizno strojno oštrenje visokotvrdih čelika s tvorničkim kutom;kom;5.00;5.00;NE
+3;Japanski nož - ručno oštrenje na wetstoneu;Vrhunska ručna obrada oštrice na japanskom vodenom kamenju;kom;10.00;10.00;NE
+4;Oštrenje konveksnog noža (Convex edge);Specijalno brušenje i održavanje konveksne geometrije oštrice;kom;12.00;12.00;NE
+5;Oštrenje nazubljenog noža;Pojedinačna obrada zuba oštrice (noževi za kruh i odreske);kom;6.00;6.00;NE
+6;Oštrenje kućanskih škara;Standardne škare za kućanstvo i ured;kom;4.00;5.00;NE
+7;Oštrenje krojačkih škara;Fino brušenje i ugađanje profesionalnih krojačkih škara;kom;6.00;6.00;NE
+8;Oštrenje frizerskih škara (klasični rub);Brušenje frizerskih škara s ravnim/kosim rubom (Bevel edge);kom;12.00;12.00;NE
+9;Oštrenje frizerskih škara (konveksni rub);Napredno honanje i poliranje škara s konveksnim japanskim rubom;kom;20.00;20.00;NE
+10;Oštrenje sjekire;Brušenje i profiliranje robusne radne oštrice;kom;8.00;8.00;NE
+11;Oštrenje satare;Oštrenje robusnih kuhinjskih satara za meso s otpornim rubom;kom;8.00;8.00;NE
+12;Popravak manjih oštećenja (do 2 mm) — dodatak;Dodatak na osnovnu cijenu oštrenja za sanaciju manjih krhotina;kom;1.00;1.00;NE
+13;Popravak većih oštećenja (preko 2 mm) — dodatak;Dodatak na osnovnu cijenu oštrenja za teža oštećenja i reprofiliranje;kom;3.00;3.00;NE
+14;Izvanredni popravak oštrice (po satu);Kompleksna sanacija i geometrija oštrice, naplata po satu rada;sat;20.00;20.00;NE
