@@ -678,7 +678,7 @@ key={l.id}
           <p style={{ fontSize: 12, opacity: 0.75, marginTop: 10 }}>Odgovaram putem e-maila u najkraćem mogućem roku.</p>
         </section>
 
-        {/* Osobna predaja */}
+{/* Osobna predaja */}
         <section style={{ marginTop: 32, paddingTop: 18, borderTop: "1px solid #eee", fontSize: 15 }}>
           <h2>Kontakt i osobna predaja</h2>
 
@@ -693,20 +693,37 @@ key={l.id}
             ☎ <strong>Najava:</strong> isključivo uz prethodnu najavu telefonom ili e-mailom prije dolaska
           </p>
           
-   
           <p style={{ lineHeight: 1.7, marginTop: 24 }}>
             <span style={{ display: "inline-block", width: 20 }} />
             <strong>Lokacija 2(brusiona):</strong> Paromlinska cesta 2a, Zagreb (ulaz s ulice kod buseva za Veliku Goricu 30m zapadno od McDonaldsa)
             <br />
             <strong>Radno vrijeme:</strong> radnim danom od 10-17 i sub. od 10-14 
           </p>
-          
-        
         </section>
       </main>
-    </>
+
+      {/* ZAKONSKI FOOTER / PODNOŽJE STRANICE */}
+      <footer style={{ marginTop: 48, paddingTop: 24, paddingBottom: 32, borderTop: "1px solid #ccc", backgroundColor: "#f9f9f9", fontSize: 14, textAlign: "center" }}>
+        <div style={{ maxWidth: 900, margin: "0 auto", padding: "0 20px", display: "flex", flexDirection: "column", gap: 12, alignItems: "center" }}>
+          
+          <p style={{ fontWeight: "bold", margin: 0, fontSize: 16 }}>BrusLab – Obrt za usluge oštrenja</p>
+          
+          <div style={{ margin: "8px 0" }}>
+            <a href="/cjenik.csv" download style={{ color: "#000", fontWeight: "bold", textDecoration: "underline" }}>
+              📄 Preuzmi strojno čitljiv cjenik (CSV)
+            </a>
+            <p style={{ fontSize: 10, color: "#666", marginTop: 4, maxWidth: 500, lineHeight: 1.3, mx: "auto" }}>
+              *Sidrena cijena u datoteci prikazuje iznos primjenjiv na referentni dan 10. rujna 2026. godine, sukladno službenoj Odluci Vlade RH.
+            </p>
+          </div>
+
+          <p style={{ fontSize: 11, color: "#888", margin: "12px 0 0 0", borderTop: "1px solid #eee", paddingTop: 12, width: "100%" }}>
+            © {new Date().getFullYear()} BrusLab Zagreb. Sva prava pridržana.
+          </p>
+        </div>
+      </footer>
+
+    </div>
   );
 }
-
-
  
