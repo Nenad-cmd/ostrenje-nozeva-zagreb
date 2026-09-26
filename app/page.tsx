@@ -722,7 +722,7 @@ key={l.id}
 
           <p style={{ marginTop: 8 }}>
             <a
-              href={"https://" + "www.google.com" + "/maps/search/?api=1&query="+"45.8037482" + "," + "15.97659"}
+              href={"".concat("https://", "://google.com", "/maps/search/?api=1", "&query=INTEGRAL+ZAGREB+d.o.o.+Paromlinska+2A+Zagreb+10000")}
               target="_blank"
               rel="noopener noreferrer"
               style={{
