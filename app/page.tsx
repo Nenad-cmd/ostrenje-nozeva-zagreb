@@ -678,45 +678,68 @@ key={l.id}
 
           <p style={{ fontSize: 12, opacity: 0.75, marginTop: 10 }}>Odgovaram putem e-maila u najkraćem mogućem roku.</p>
         </section>
-      {/* Osobna predaja */}
+  {/* Osobna predaja */}
         <section style={{ marginTop: 32, paddingTop: 18, borderTop: "1px solid #eee", fontSize: 15 }}>
           <h2>Kontakt i osobna predaja</h2>
 
           <p>
-            Noževe je moguće donijeti i osobno na fizičku lokaciju u Zagrebu, <strong>isključivo uz prethodnu najavu</strong>.
+            Noževe je moguće donijeti i osobno na fizičke lokacije u Zagrebu, <strong>isključivo uz prethodnu najavu</strong>.
           </p>
           
-<p style={{ lineHeight: 1.7 }}>
-  <span style={{ display: "inline-block", width: 20 }} />
-  <strong>Adresa:</strong> Golska 13, Zagreb 10040
-  <br />
-<PhoneIcon />
-<strong>Najava:</strong> telefonom ili e-mailom prije dolaska
-
-</p>
+          <p style={{ lineHeight: 1.7 }}>
+            <span style={{ display: "inline-block", width: 20 }} />
+            <strong>Lokacija 1 (sjedište):</strong> Golska 13, Zagreb 10040
+            <br />
+            <PhoneIcon /> <strong>Najava:</strong> telefonom ili e-mailom prije dolaska
+          </p>
           
-<p style={{ marginTop: 8 }}>
-  <a
-    href="https://www.google.com/maps/search/?api=1&query=Golska+13+Zagreb+10040"
-    target="_blank"
-    rel="noopener noreferrer"
-    style={{
-      textDecoration: "underline",
-      color: "#111",
-      fontWeight: 600,
-      display: "inline-flex",
-      alignItems: "center",
-      gap: 6,
-    }}
-  >
-    <LocationIcon />
-    Prikaži lokaciju na Google Maps
-  </a>
-</p>
+          <p style={{ marginTop: 8, marginBottom: 24 }}>
+            <a
+              href="https://www.google.com/maps/search/?api=1&query=Golska+13+Zagreb+10040"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                textDecoration: "underline",
+                color: "#111",
+                fontWeight: 600,
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+              }}
+            >
+              <LocationIcon />
+              Prikaži lokaciju 1 na Google Maps
+            </a>
+          </p>
+
+          <p style={{ lineHeight: 1.7, marginTop: 24 }}>
+            <span style={{ display: "inline-block", width: 20 }} />
+            <strong>Lokacija 2 (brusiona):</strong> Paromlinska cesta 2a, Zagreb (ulaz s ulice kod buseva za Veliku Goricu, 30m zapadno od McDonald'sa)
+            <br />
+            <strong>Radno vrijeme:</strong> radnim danom od 10-17 i subotoms od 10-14
+          </p>
+
+          <p style={{ marginTop: 8 }}>
+            <a
+              href="https://google.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                textDecoration: "underline",
+                color: "#111",
+                fontWeight: 600,
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+              }}
+            >
+              <LocationIcon />
+              Prikaži lokaciju 2 na Google Maps
+            </a>
+          </p>
           
         </section>
       </main>
     </>
   );
 }
-     
