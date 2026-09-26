@@ -722,7 +722,7 @@ key={l.id}
 
           <p style={{ marginTop: 8 }}>
             <a
-              href={"https://" + "www.google.com" + "/maps/search/?api=1&query=" + "45.48136" + "," + "15.58407"}
+              href={"https://" + "www.google.com" + "/maps/search/?api=1&query=" 45°48'13.6"N 15°58'40.7"E"}
               target="_blank"
               rel="noopener noreferrer"
               style={{
