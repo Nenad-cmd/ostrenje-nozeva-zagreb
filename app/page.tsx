@@ -678,7 +678,8 @@ key={l.id}
 
           <p style={{ fontSize: 12, opacity: 0.75, marginTop: 10 }}>Odgovaram putem e-maila u najkraćem mogućem roku.</p>
         </section>
-{{/* Osobna predaja */}
+
+        {/* Osobna predaja */}
         <section style={{ marginTop: 32, paddingTop: 18, borderTop: "1px solid #eee", fontSize: 15 }}>
           <h2>Kontakt i osobna predaja</h2>
 
@@ -739,7 +740,6 @@ key={l.id}
           </p>
           
         </section>
-
       </main>
 
       {/* ZAKONSKI FOOTER / PODNOŽJE STRANICE */}
@@ -765,4 +765,3 @@ key={l.id}
     </>
   );
 }
-
