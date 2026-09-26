@@ -722,7 +722,7 @@ key={l.id}
 
           <p style={{ marginTop: 8 }}>
             <a
-              href="https://www.google.com/maps/search/?api=1&query=Paromlinska+2A+Zagreb+10000"
+            href={"https://" + "www.google.com" + "/maps/search/?api=1&query=" + "45.803784" + "," + "15.977965"}
               target="_blank"
               rel="noopener noreferrer"
               style={{
