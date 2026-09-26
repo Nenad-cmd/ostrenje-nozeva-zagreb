@@ -712,7 +712,7 @@ key={l.id}
             </a>
           </p>
 
-          <p style={{ lineHeight: 1.7, marginTop: 24 }}>
+                 <p style={{ lineHeight: 1.7, marginTop: 24 }}>
             <span style={{ display: "inline-block", width: 20 }} />
             <strong>Lokacija 2 (brusiona):</strong> Paromlinska cesta 2a, Zagreb (ulaz s ulice kod autobusa za Veliku Goricu, 30m zapadno od McDonaldsa)
             <br />
@@ -737,7 +737,7 @@ key={l.id}
               Prikaži lokaciju 2 na Google Maps
             </a>
           </p>
-          
+
         </section>
       </main>
 
