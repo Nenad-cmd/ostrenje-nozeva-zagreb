@@ -722,7 +722,7 @@ key={l.id}
 
           <p style={{ marginTop: 8 }}>
             <a
-              href={"https://" + "www.google.com" + "/maps/search/?api=1&query="+"45.8038" + "," + "15.9791"}
+              href={"https://" + "www.google.com" + "/maps/search/?api=1&query="+"45.8037482" + "," + "15.97659"}
               target="_blank"
               rel="noopener noreferrer"
               style={{
