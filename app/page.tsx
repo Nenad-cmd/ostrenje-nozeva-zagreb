@@ -70,10 +70,13 @@ export default function Page() {
   baseUnitPrices.sort((a, b) => b - a);
   const discountedUnits = Math.max(0, baseCount - 4);
 
+  const discount = baseUnitPrices
+    .slice(0, discountedUnits)
+    .reduce((sum, price) => sum + price * 0.15, 0);
   const discount = 0
 
   const standardSurcharge = baseCount > 0 && baseCount < 4 ? 2 : 0;
-  
+
   // Besplatan povrat vrijedi za BOX NOW na 4+ komada, ali na GLS se uvijek naplaćuje pouzeće
   const returnShipping = (baseCount >= 4 && returnOpt.id !== "GLS") ? 0 : returnOpt.price;
 
@@ -115,7 +118,7 @@ export default function Page() {
     setQty(Object.fromEntries(lines.map((l) => [l.id, 0])));
   };
 
- 
+
   // mailto (Skraćeno kako bi sigurno radilo na svim uređajima)
   const mailSubject = encodeURIComponent(`Narudžba za oštrenje – ${code}`);
 
@@ -133,7 +136,7 @@ export default function Page() {
     (needR1 ? `\n\n[Trebam R1 račun - upisati OIB i podatke tvrtke ovdje]` : "")
   );
 
-  
+
   const sendEmailOrder = () => {
     // Pripremamo tekst koji sadrži NASLOV, ŠIFRU i sve detalje narudžbe na jednom mjestu
     const tekstNarudzbe = 
@@ -176,7 +179,7 @@ export default function Page() {
     doc.addImage(dataUrl, "PNG", 14, 40, 90, 38);
     doc.save(`uplata_${code}.pdf`);
   };
-  
+
 return(
     <>
       {/* HERO */}
@@ -262,7 +265,7 @@ return(
   <br />
   Rezultat je ujednačena i dugotrajnija oštrina u svakodnevnoj upotrebi.
 </p>
- 
+
 </section>
 
 
@@ -463,12 +466,12 @@ key={l.id}
                 <span>Nadoplata (&lt;4 kom ukupno)</span>
                 <strong>{eur(standardSurcharge)}</strong>
               </div>
-            
+
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <span>{returnOpt.id === "GLS" ? "Dostava i pouzeće (GLS)" : "Povrat (BOX NOW)"}</span>
                 <strong>{eur(returnShipping)}</strong>
               </div>
-            
+
               <div style={{ display: "flex", justifyContent: "space-between", marginTop: 6, fontSize: 18, borderTop: "1px solid #eee", paddingTop: 6 }}>
                 <span>Ukupno</span>
                 <strong>{eur(total)}</strong>
@@ -494,7 +497,7 @@ key={l.id}
   />
   Trebam R1 račun
 </label>
-              
+
  <div style={{ fontSize: 12, opacity: 0.7, marginTop: 4 }}>
   Poslovni korisnici mogu dodatne podatke upisati u e-mailu.
 </div>
@@ -620,7 +623,7 @@ key={l.id}
           </p>
   
         </section> */}
-         
+
                 {/* Kontakt forma */}
         <section style={{ marginTop: 28, borderTop: "1px solid #eee", paddingTop: 18 }}>
           <h2>Kontakt upit (e-mail)</h2>
@@ -678,52 +681,32 @@ key={l.id}
           <p style={{ fontSize: 12, opacity: 0.75, marginTop: 10 }}>Odgovaram putem e-maila u najkraćem mogućem roku.</p>
         </section>
 
-{/* Osobna predaja */}
+        {/* Osobna predaja */}
         <section style={{ marginTop: 32, paddingTop: 18, borderTop: "1px solid #eee", fontSize: 15 }}>
           <h2>Kontakt i osobna predaja</h2>
 
           <p>
             Noževe je moguće donijeti i osobno na fizičke lokacije u Zagrebu prema navedenim uvjetima.
           </p>
-          
+
           <p style={{ lineHeight: 1.7 }}>
             <span style={{ display: "inline-block", width: 20 }} />
             <strong>Lokacija 1(sjedište):</strong> Golska 13, Zagreb 10040
             <br />
             ☎ <strong>Najava:</strong> isključivo uz prethodnu najavu telefonom ili e-mailom prije dolaska
           </p>
-          
+
+
           <p style={{ lineHeight: 1.7, marginTop: 24 }}>
             <span style={{ display: "inline-block", width: 20 }} />
             <strong>Lokacija 2(brusiona):</strong> Paromlinska cesta 2a, Zagreb (ulaz s ulice kod buseva za Veliku Goricu 30m zapadno od McDonaldsa)
             <br />
             <strong>Radno vrijeme:</strong> radnim danom od 10-17 i sub. od 10-14 
           </p>
+
+
         </section>
       </main>
-
-      {/* ZAKONSKI FOOTER / PODNOŽJE STRANICE */}
-      <footer style={{ marginTop: 48, paddingTop: 24, paddingBottom: 32, borderTop: "1px solid #ccc", backgroundColor: "#f9f9f9", fontSize: 14, textAlign: "center" }}>
-        <div style={{ maxWidth: 900, margin: "0 auto", padding: "0 20px", display: "flex", flexDirection: "column", gap: 12, alignItems: "center" }}>
-          
-          <p style={{ fontWeight: "bold", margin: 0, fontSize: 16 }}>BrusLab – Obrt za usluge oštrenja</p>
-          
-          <div style={{ margin: "8px 0" }}>
-            <a href="/cjenik.csv" download style={{ color: "#000", fontWeight: "bold", textDecoration: "underline" }}>
-              📄 Preuzmi strojno čitljiv cjenik (CSV)
-            </a>
-            <p style={{ fontSize: 10, color: "#666", marginTop: 4, maxWidth: 500, lineHeight: 1.3, mx: "auto" }}>
-              *Sidrena cijena u datoteci prikazuje iznos primjenjiv na referentni dan 10. rujna 2026. godine, sukladno službenoj Odluci Vlade RH.
-            </p>
-          </div>
-
-          <p style={{ fontSize: 11, color: "#888", margin: "12px 0 0 0", borderTop: "1px solid #eee", paddingTop: 12, width: "100%" }}>
-            © {new Date().getFullYear()} BrusLab Zagreb. Sva prava pridržana.
-          </p>
-        </div>
-      </footer>
-
-    </div>
+    </>
   );
 }
- 
