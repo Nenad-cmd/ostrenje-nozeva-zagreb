@@ -5,15 +5,23 @@ import { useMemo, useState } from "react";
 type Line = { id: string; name: string; price: number; kind: "base" | "addon" };
 
 const baseLines: Line[] = [
-  { id: "knife_standard", name: "Oštrenje noža (standard)", price: 3, kind: "base" },
-  { id: "knife_58plus", name: "Oštrenje noža 58+ HRC(Japanski noževi)", price: 5, kind: "base" },
+  { id: "knife_standard", name: "Oštrenje noža (standard)", price: 4, kind: "base" },
+  { id: "knife_58plus", name: "Oštrenje noža 58+ HRC(Japanski noževi)", price: 6, kind: "base" },
+  { id: "knife_whetstone", name: "Japanski nož - ručno oštrenje na wetstoneu", price: 10, kind: "base" },
+  { id: "knife_convex", name: "Oštrenje konveksnog noža (Convex edge)", price: 12, kind: "base" },
   { id: "serrated", name: "Oštrenje nazubljenog noža", price: 6, kind: "base" },
-  { id: "scissors", name: "Oštrenje škara", price: 5, kind: "base" },
+  { id: "scissors_standard", name: "Oštrenje kućanskih škara", price: 5, kind: "base" },
+  { id: "scissors_tailor", name: "Oštrenje krojačkih škara", price: 7, kind: "base" },
+  { id: "scissors_barber_standard", name: "Oštrenje frizerskih škara (klasični rub)", price: 12, kind: "base" },
+  { id: "scissors_barber_convex", name: "Oštrenje frizerskih škara (konveksni rub)", price: 24, kind: "base" },
+  { id: "axe", name: "Oštrenje sjekire", price: 8, kind: "base" },
+  { id: "cleaver", name: "Oštrenje satare", price: 8, kind: "base" },
 ];
 
 const addonLines: Line[] = [
-  { id: "repair_small", name: "Popravak manjih oštećenja (do 2 mm) — dodatak", price: 1, kind: "addon" },
-  { id: "repair_big", name: "Popravak većih oštećenja (preko 2 mm) — dodatak", price: 3, kind: "addon" },
+  { id: "repair_small", name: "Popravak manjih oštećenja (do 2 mm) — dodatak", price: 2, kind: "addon" },
+  { id: "repair_big", name: "Popravak većih oštećenja (preko 2 mm) — dodatak", price: 4, kind: "addon" },
+  { id: "repair_hourly", name: "Izvanredni popravak oštrice (po satu)", price: 20, kind: "addon" },
 ];
 
 // Ovdje je ubačena GLS opcija pouzeća u tvoj niz
