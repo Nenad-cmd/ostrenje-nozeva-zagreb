@@ -232,23 +232,7 @@ return(
               📦 Kako poslati noževe (BOX NOW upute)
             </a>
           </div>
-          <div style={{ marginTop: 10 }}>
-  <a
-    href="/prodaja-nozeva"
-    style={{
-      display: "inline-block",
-      padding: "8px 12px",
-      borderRadius: 8,
-      border: "1px solid #111",
-      textDecoration: "none",
-      color: "#111",
-      fontWeight: 600,
-      fontSize: 14,
-    }}
-  >
-    🔪 Prodaja noževa (Xinzuo)
-  </a>
-</div>
+
         </header>
         {/* EDUKATIVNA SEKCIJA */}
 <section style={{ marginBottom: 24 }}>
