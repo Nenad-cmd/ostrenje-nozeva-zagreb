@@ -676,58 +676,9 @@ key={l.id}
             </button>
           </form>
 
-          <p style={{ fontSize: 12, opacity: 0.75, marginTop: 10 }}>Odgovaram putem e-maila u najkraćem mogućem roku.</p>
+           <p style={{ fontSize: 12, opacity: 0.75, marginTop: 10 }}>Odgovaram putem e-maila u najkraćem mogućem roku.</p>
         </section>
-        {/* Vizualni prikaz cjenika za posjetitelje */}
-        <section style={{ marginTop: 40, paddingTop: 18, borderTop: "1px solid #eee" }}>
-          <h2 style={{ marginBottom: 20, textAlign: "center" }}>Cjenik usluga oštrenja</h2>
-          
-          <div style={{ display: "flex", flexDirection: "column", gap: 24, fontSize: 15 }}>
-            
-            {/* KATEGORIJA 1: NOŽEVI */}
-            <div style={{ border: "1px solid #eaeaea", borderRadius: 12, padding: 16, backgroundColor: "#fff" }}>
-              <h3 style={{ margin: "0 0 12px 0", color: "#111", borderBottom: "2px solid #333", paddingBottom: 4 }}>1. Oštrenje noževa</h3>
-              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                <div style={{ display: "flex", justifyContent: "space-between" }}><span>Oštrenje noža (standard)</span><strong>3,00 €</strong></div>
-                <div style={{ display: "flex", justifyContent: "space-between" }}><span>Oštrenje noža 58+ HRC (Japanski noževi)</span><strong>5,00 €</strong></div>
-                <div style={{ display: "flex", justifyContent: "space-between" }}><span>Oštrenje nazubljenog noža (kruh/odresci)</span><strong>6,00 €</strong></div>
-                <div style={{ display: "flex", justifyContent: "space-between" }}><span>Oštrenje konveksnog noža (Convex edge)</span><strong>12,00 €</strong></div>
-                <div style={{ display: "flex", justifyContent: "space-between" }}><span>Japanski nož – ručno oštrenje na wetstoneu</span><strong>15,00 €</strong></div>
-              </div>
-            </div>
-
-            {/* KATEGORIJA 2: ŠKARE */}
-            <div style={{ border: "1px solid #eaeaea", borderRadius: 12, padding: 16, backgroundColor: "#fff" }}>
-              <h3 style={{ margin: "0 0 12px 0", color: "#111", borderBottom: "2px solid #333", paddingBottom: 4 }}>2. Oštrenje škara</h3>
-              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                <div style={{ display: "flex", justifyContent: "space-between" }}><span>Oštrenje kućanskih / uredskih škara</span><strong>4,00 €</strong></div>
-                <div style={{ display: "flex", justifyContent: "space-between" }}><span>Oštrenje krojačkih škara</span><strong>6,00 €</strong></div>
-                <div style={{ display: "flex", justifyContent: "space-between" }}><span>Oštrenje frizerskih škara (klasični rub)</span><strong>12,00 €</strong></div>
-                <div style={{ display: "flex", justifyContent: "space-between" }}><span>Oštrenje frizerskih škara (konveksni rub)</span><strong>20,00 €</strong></div>
-              </div>
-            </div>
-
-            {/* KATEGORIJA 3: ALATI */}
-            <div style={{ border: "1px solid #eaeaea", borderRadius: 12, padding: 16, backgroundColor: "#fff" }}>
-              <h3 style={{ margin: "0 0 12px 0", color: "#111", borderBottom: "2px solid #333", paddingBottom: 4 }}>3. Oštrenje alata</h3>
-              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                <div style={{ display: "flex", justifyContent: "space-between" }}><span>Oštrenje sjekire</span><strong>8,00 €</strong></div>
-                <div style={{ display: "flex", justifyContent: "space-between" }}><span>Oštrenje satare za meso</span><strong>8,00 €</strong></div>
-              </div>
-            </div>
-
-            {/* KATEGORIJA 4: POPRAVCI */}
-            <div style={{ border: "1px solid #eaeaea", borderRadius: 12, padding: 16, backgroundColor: "#fdfdfd" }}>
-              <h3 style={{ margin: "0 0 12px 0", color: "#555", borderBottom: "2px solid #666", paddingBottom: 4 }}>4. Popravci i dodaci</h3>
-              <div style={{ display: "flex", flexDirection: "column", gap: 8, color: "#444" }}>
-                <div style={{ display: "flex", justifyContent: "space-between" }}><span>Popravak manjih oštećenja (do 2 mm)</span><strong>+ 1,00 €</strong></div>
-                <div style={{ display: "flex", justifyContent: "space-between" }}><span>Popravak većih oštećenja (preko 2 mm)</span><strong>+ 3,00 €</strong></div>
-                <div style={{ display: "flex", justifyContent: "space-between" }}><span>Izvanredni kompleksni popravak (po satu)</span><strong>20,00 €</strong></div>
-              </div>
-            </div>
-
-          </div>
-        </section>
+    
         
         {/* Osobna predaja */}
         <section style={{ marginTop: 32, paddingTop: 18, borderTop: "1px solid #eee", fontSize: 15 }}>
