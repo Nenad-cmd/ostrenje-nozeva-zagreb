@@ -13,8 +13,8 @@ const baseLines: Line[] = [
   { id: "scissors_standard", name: "Oštrenje kućanskih škara", price: 5, kind: "base" },
   { id: "scissors_tailor", name: "Oštrenje krojačkih škara", price: 7, kind: "base" },
   { id: "scissors_barber_standard", name: "Oštrenje frizerskih škara (klasični rub)", price: 10, kind: "base" },
-  { id: "satara", name:"Oštrenje satare",price: 10,kind: "base" }, 
-  { id: "axe", name: "Oštrenje sjekire", price: 8, kind: "base" },
+  { id: "satara", name:"Oštrenje satare",price: 9,kind: "base" }, 
+  { id: "axe", name: "Oštrenje sjekire", price: 9, kind: "base" },
 ];
 
 const addonLines: Line[] = [
