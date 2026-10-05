@@ -5,10 +5,10 @@ import { useMemo, useState } from "react";
 type Line = { id: string; name: string; price: number; kind: "base" | "addon" };
 
 const baseLines: Line[] = [
-  { id: "knife_standard", name: "Oštrenje noža (standard)", price: 3,5, kind: "base" },
+  { id: "knife_standard", name: "Oštrenje noža (standard)", price: 3.5, kind: "base" },
   { id: "knife_58plus", name: "Oštrenje noža 58+ HRC(Japanski noževi)", price: 6, kind: "base" },
-  { id: "knife_whetstone", name: "Japanski nož - ručno oštrenje na wetstoneu", price: 09, kind: "base" },
-  { id: "knife_convex", name: "Oštrenje konveksnog noža (Convex edge)", price: 09, kind: "base" },
+  { id: "knife_whetstone", name: "Japanski nož - ručno oštrenje na wetstoneu", price: 9, kind: "base" },
+  { id: "knife_convex", name: "Oštrenje konveksnog noža (Convex edge)", price: 9, kind: "base" },
   { id: "serrated", name: "Oštrenje nazubljenog noža", price: 6, kind: "base" },
   { id: "scissors_standard", name: "Oštrenje kućanskih škara", price: 5, kind: "base" },
   { id: "scissors_tailor", name: "Oštrenje krojačkih škara", price: 7, kind: "base" },
