@@ -1,8 +1,8 @@
 csvRedni broj;Naziv usluge;Opis i napomena;Jedinica mjere;Maloprodajna cijena (€);Sidrena cijena (€);Posebni oblik prodaje
-1;Oštrenje noža (standard);Strojno brušenje standardnih kuhinjskih noževa s V-kutom;kom;4.00;3.00;NE
-2;Oštrenje noža 58+ HRC(Japanski noževi);Precizno strojno oštrenje visokotvrdih čelika s tvorničkim kutom;kom;6.00;5.00;NE
-3;Japanski nož - ručno oštrenje na wetstoneu;Vrhunska ručna obrada oštrice na japanskom vodenom kamenju;kom;10.00;10.00;NE
-4;Oštrenje konveksnog noža (Convex edge);Specijalno brušenje i održavanje konveksne geometrije oštrice;kom;10.00;10.00;NE
+1;Oštrenje noža (standard);Strojno brušenje standardnih kuhinjskih noževa s V-kutom;kom;3.50;3.00;NE
+2;Oštrenje noža 58+ HRC(Japanski noževi);Precizno strojno oštrenje visokotvrdih čelika s tvorničkim kutom;kom;5.50;5.00;NE
+3;Japanski nož - ručno oštrenje na wetstoneu;Vrhunska ručna obrada oštrice na japanskom vodenom kamenju;kom;09.00;09.00;NE
+4;Oštrenje konveksnog noža (Convex edge);Specijalno brušenje i održavanje konveksne geometrije oštrice;kom;09.00;09.00;NE
 5;Oštrenje nazubljenog noža;Pojedinačna obrada zuba oštrice (noževi za kruh i odreske);kom;6.00;6.00;NE
 6;Oštrenje kućanskih škara;Standardne škare za kućanstvo i ured;kom;5.00;5.00;NE
 7;Oštrenje krojačkih škara;Fino brušenje i ugađanje profesionalnih krojačkih škara;kom;7.00;7.00;NE
