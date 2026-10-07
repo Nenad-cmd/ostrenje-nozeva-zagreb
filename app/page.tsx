@@ -5,7 +5,7 @@ import { useMemo, useState } from "react";
 type Line = { id: string; name: string; price: number; kind: "base" | "addon" };
 
 const baseLines: Line[] = [
-  { id: "knife_standard", name: "Oštrenje noža (standard)", price: 3.5, kind: "base" },
+  { id: "knife_standard", name: "Oštrenje noža (standard)", price: 4, kind: "base" },
   { id: "knife_58plus", name: "Oštrenje noža 58+ HRC(Japanski noževi)", price: 6, kind: "base" },
   { id: "knife_whetstone", name: "Japanski nož - ručno oštrenje na wetstoneu", price: 9, kind: "base" },
   { id: "knife_convex", name: "Oštrenje konveksnog noža (Convex edge)", price: 9, kind: "base" },
