@@ -19,9 +19,9 @@ const baseLines: Line[] = [
 ];
 
 const addonLines: Line[] = [
-  { id: "repair_small", name: "Popravak manjih oštećenja (do 2 mm) — dodatak", price: 2, kind: "addon" },
-  { id: "repair_big", name: "Popravak većih oštećenja (preko 2 mm) — dodatak", price: 4, kind: "addon" },
-  { id: "repair_hourly", name: "Izvanredni popravak oštrice (po satu)", price: 20, kind: "addon" },
+  { id: "repair_small", name: "Popravak manjih oštećenja (do 2 mm) — dodatak", price: 1, kind: "addon" },
+  { id: "repair_big", name: "Popravak većih oštećenja (preko 2 mm) — dodatak", price: 3, kind: "addon" },
+  { id: "repair_hourly", name: "Izvanredni popravak oštrice (po satu)", price: 17, kind: "addon" },
 ];
 
 // Ovdje je ubačena GLS opcija pouzeća u tvoj niz
