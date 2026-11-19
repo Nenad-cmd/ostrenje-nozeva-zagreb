@@ -6,7 +6,7 @@ type Line = { id: string; name: string; price: number; kind: "base" | "addon" };
 
 const baseLines: Line[] = [
   { id: "knife_standard", name: "Oštrenje noža (standard do 22 cm)", price: 2.5, kind: "base" },
-  { id: "knife_dugi", name: "Oštrenje noža (duži od 22 cm)", price: 4, kind: "base" }
+  { id: "knife_dugi", name: "Oštrenje noža (duži od 22 cm)", price: 4, kind: "base" },
   { id: "knife_58plus", name: "Oštrenje noža 58+ HRC(Japanski noževi)", price: 5, kind: "base" },
   { id: "knife_whetstone", name: "Japanski nož - ručno oštrenje na wetstoneu", price: 7, kind: "base" },
   { id: "knife_convex", name: "Oštrenje konveksnog noža (Convex edge)", price: 8, kind: "base" },
